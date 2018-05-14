@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription , Observable } from 'rxjs';
 import { Router, NavigationStart, NavigationEnd } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/pairwise';
+// import 'rxjs/operator/pairwise';
 import { NotificationsService } from 'angular2-notifications';
 
 import { SocketService } from '../services/socket.service';
@@ -141,21 +140,20 @@ export class AppComponent {
     return result;
   }
   public setRoutingScroll() {
-
     // Routing scrolling up
-    this.subscriptions.push(
-      this.router.events.pairwise().subscribe(([prevRouteEvent, currRouteEvent]) => {
-        if (prevRouteEvent instanceof NavigationEnd && currRouteEvent instanceof NavigationStart) {
-          const urlPath = (prevRouteEvent.urlAfterRedirects || prevRouteEvent.url).split(';', 1)[0];
-          this.routeScrollPositions[urlPath] = window.pageYOffset;
-        }
-        if (currRouteEvent instanceof NavigationEnd) {
-          setTimeout(() => {
-            const urlPath = (currRouteEvent.urlAfterRedirects || currRouteEvent.url).split(';', 1)[0];
-            window.scrollTo(0, this.routeScrollPositions[urlPath] || 0);
-          }, 0);
-        }
-      })
-    );
+    // this.subscriptions.push(
+    //   this.router.events.pairwise().subscribe(([prevRouteEvent, currRouteEvent]) => {
+    //     if (prevRouteEvent instanceof NavigationEnd && currRouteEvent instanceof NavigationStart) {
+    //       const urlPath = (prevRouteEvent.urlAfterRedirects || prevRouteEvent.url).split(';', 1)[0];
+    //       this.routeScrollPositions[urlPath] = window.pageYOffset;
+    //     }
+    //     if (currRouteEvent instanceof NavigationEnd) {
+    //       setTimeout(() => {
+    //         const urlPath = (currRouteEvent.urlAfterRedirects || currRouteEvent.url).split(';', 1)[0];
+    //         window.scrollTo(0, this.routeScrollPositions[urlPath] || 0);
+    //       }, 0);
+    //     }
+    //   })
+    // );
   }
 }

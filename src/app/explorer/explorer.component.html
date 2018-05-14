@@ -4,7 +4,7 @@
 
 <ng-container *ngIf="item">
   <div class="inner-container">
-    <div class=" container card">
+    <div class="container card">
       <div class="page-title">
         {{hashName(item?.hashType)}}
       </div>
@@ -17,7 +17,7 @@
 
       <!-- Address -->
       <app-address-explorer [item]="item" [id]="id" *ngIf="item?.hashType === 'unlockhash'"></app-address-explorer>
-      
+        <!-- <app-address-explorer [item]="item" [id]="id"></app-address-explorer> -->
     </div>
   </div>
 </ng-container>

@@ -5,8 +5,45 @@
   <pagination-controls id="foo" (pageChange)="pageChanged($event)"></pagination-controls>
 </div>
  -->
+
+<!-- Main info -->
+<ng-container>
+  <div class="row">
+    <div class="row-title">
+      ID
+    </div>
+    <div class="row-data">
+      <!-- {{item._id}} -->
+    </div>
+  </div>
+  <div class="row">
+    <div class="row-title">
+      No. Transactions
+    </div>
+    <div class="row-data">
+      <!-- {{item.parentId}} -->
+    </div>
+  </div>
+  <div class="row">
+    <div class="row-title">
+      Total Received
+    </div>
+    <div class="row-data">
+      -
+    </div>
+  </div>
+  <div class="row">
+    <div class="row-title">
+      Final Balance
+    </div>
+    <div class="row-data">
+      -
+    </div>
+  </div>
+</ng-container>
+
 <!-- Coin Output Appearances -->
-<ng-container *ngIf="isAddressCoinOuputs(item.transactions)">
+<!-- <ng-container *ngIf="isAddressCoinOuputs(item.transactions)">
   <div class="flex-center align-end flex-wrap">
     <div class="page-subtitle">
       Coin Output Appearances
@@ -82,10 +119,10 @@
     </ng-container>
 
   </div>
-</ng-container>
+</ng-container> -->
 
 <!-- Miner Payout Appearances -->
-<ng-container *ngIf="isAddressMinerPayouts(item)">
+<!-- <ng-container *ngIf="isAddressMinerPayouts(item)">
   <div class="flex-center align-end flex-wrap">
     <div class="page-subtitle">
       Miner Payout Appearances
@@ -145,10 +182,10 @@
     </ng-container>
 
   </div>
-</ng-container>
+</ng-container> -->
 
 <!-- Blockstake Output Appearances -->
-<ng-container *ngIf="isAddressBlockstakeOutputs(item.transactions)">
+<!-- <ng-container *ngIf="isAddressBlockstakeOutputs(item.transactions)">
   <div class="flex-center align-end flex-wrap">
     <div class="page-subtitle">
       Blockstake Output Appearances
@@ -217,4 +254,4 @@
     </ng-container>
 
   </div>
-</ng-container>
+</ng-container> -->
