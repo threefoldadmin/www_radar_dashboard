@@ -1,5 +1,5 @@
 <!-- Main info -->
-<div>
+<ng-container>
   <div class="row">
     <div class="row-title">
       ID
@@ -64,222 +64,250 @@
       {{item.blockStakeOutputCount}}
     </div>
   </div>
-</div>
+</ng-container>
 
 <!-- Coin Inputs -->
 <ng-container *ngIf="item.coinInputCount > 0">
-  <div class="page-subtitle">
-    Coin Inputs
-  </div>
-  <div class="card" *ngFor="let input of item.coinInputs">
-    <div class="card-title">
-      General
-    </div>
-    <div class="row">
-      <div class="row-title">
-        Parent ID
-      </div>
-      <div class="row-data">
-        {{input.parentId}}
-      </div>
-    </div>
-    <div class="row">
-      <div class="row-title">
-        Address
-      </div>
-      <a class="row-data bold" (click)="newSearch(input.address)">
-        {{input.address}}
+  <div class="card">
+    <div class="page-subtitle">
+      Coin Inputs
+      <a class="chip peach" (click)="item.coinInputsHidden = !item.coinInputsHidden">
+        {{item.coinInputsHidden ? 'Show all' : 'Hide all'}}
       </a>
     </div>
-    <div class="row">
-      <div class="row-title">
-        Value
+    <ng-container *ngIf="!item.coinInputsHidden">
+      <div *ngFor="let input of item.coinInputs" class="rows-wrapper">
+        <div class="card-title">
+          General
+        </div>
+        <div class="row">
+          <div class="row-title">
+            Parent ID
+          </div>
+          <div class="row-data">
+            {{input.parentId}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="row-title">
+            Address
+          </div>
+          <a class="row-data bold" (click)="newSearch(input.address)">
+            {{input.address}}
+          </a>
+        </div>
+        <div class="row">
+          <div class="row-title">
+            Value
+          </div>
+          <div class="row-data">
+            {{tokens(input.value) | number : '1.0-8'}} TFT&nbsp;
+            <span class="flex">
+              ({{symbol('l')}}
+              <span *ngIf="currentCurrencyPair() !== 'btcUsd'">
+                {{tokenConverter(input.value) | number: '1.2-2'}}
+              </span>
+              <span *ngIf="currentCurrencyPair() === 'btcUsd'">
+                {{tokenConverter(input.value) | number: '1.2-8'}}
+              </span>
+              {{symbol('r')}})
+            </span>
+          </div>
+        </div>
+        <div class="card-title">
+          Unlocker
+        </div>
+        <div class="row">
+          <div class="row-title">
+            Unlock type
+          </div>
+          <div class="row-data">
+            {{input.unlockType}}
+          </div>
+        </div>
+        <div class="card-title">
+          Condition
+        </div>
+        <div class="row">
+          <div class="row-title">
+            Publickey
+          </div>
+          <div class="row-data">
+            {{input.publicKey}}
+          </div>
+        </div>
+        <div class="card-title">
+          Fulfillment
+        </div>
+        <div class="row">
+          <div class="row-title">
+            Signature
+          </div>
+          <div class="row-data">
+            {{input.signature}}
+          </div>
+        </div>
       </div>
-      <div class="row-data">
-        {{tokens(input.value) | number : '1.0-8'}} TFT&nbsp;
-        <span class="flex">
-          ({{symbol('l')}}
-          <span *ngIf="currentCurrencyPair() !== 'btcUsd'">
-            {{tokenConverter(input.value) | number: '1.2-2'}}
-          </span>
-          <span *ngIf="currentCurrencyPair() === 'btcUsd'">
-            {{tokenConverter(input.value) | number: '1.2-8'}}
-          </span>
-          {{symbol('r')}})
-        </span>
-      </div>
-    </div>
-    <div class="card-title">
-      Unlocker
-    </div>
-    <div class="row">
-      <div class="row-title">
-        Unlock type
-      </div>
-      <div class="row-data">
-        {{input.unlockType}}
-      </div>
-    </div>
-    <div class="card-title">
-      Condition
-    </div>
-    <div class="row">
-      <div class="row-title">
-        Publickey
-      </div>
-      <div class="row-data">
-        {{input.publicKey}}
-      </div>
-    </div>
-    <div class="card-title">
-      Fulfillment
-    </div>
-    <div class="row">
-      <div class="row-title">
-        Signature
-      </div>
-      <div class="row-data">
-        {{input.signature}}
-      </div>
-    </div>
+    </ng-container>
   </div>
 </ng-container>
 
 <!-- Coin Outputs -->
 <ng-container *ngIf="item.coinOutputCount > 0">
-  <div class="page-subtitle">
-    Coin Outputs
-  </div>
-  <div class="card" *ngFor="let output of item.coinOutputs">
-    <div class="row">
-      <div class="row-title">
-        ID
-      </div>
-      <div class="row-data">
-        {{output.id}}
-      </div>
-    </div>
-    <div class="row">
-      <div class="row-title">
-        Address
-      </div>
-      <a class="row-data bold" (click)="newSearch(output.address)">
-        {{output.address}}
+  <div class="card">
+    <div class="page-subtitle">
+      Coin Outputs
+      <a class="chip peach" (click)="item.coinOutputsHidden = !item.coinOutputsHidden">
+        {{item.coinOutputsHidden ? 'Show all' : 'Hide all'}}
       </a>
     </div>
-    <div class="row">
-      <div class="row-title">
-        Value
+    <ng-container *ngIf="!item.coinOutputsHidden">
+      <div *ngFor="let output of item.coinOutputs" class="rows-wrapper">
+        <div class="row">
+          <div class="row-title">
+            ID
+          </div>
+          <div class="row-data">
+            {{output.id}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="row-title">
+            Address
+          </div>
+          <a class="row-data bold" (click)="newSearch(output.address)">
+            {{output.address}}
+          </a>
+        </div>
+        <div class="row">
+          <div class="row-title">
+            Value
+          </div>
+          <div class="row-data">
+            {{tokens(output.value) | number : '1.0-8'}} TFT&nbsp;
+            <span class="flex">
+              ({{symbol('l')}}
+              <span *ngIf="currentCurrencyPair() !== 'btcUsd'">
+                {{tokenConverter(output.value) | number: '1.2-2'}}
+              </span>
+              <span *ngIf="currentCurrencyPair() === 'btcUsd'">
+                {{tokenConverter(output.value) | number: '1.2-8'}}
+              </span>
+              {{symbol('r')}})
+            </span>
+          </div>
+        </div>
       </div>
-      <div class="row-data">
-        {{tokens(output.value) | number : '1.0-8'}} TFT&nbsp;
-        <span class="flex">
-          ({{symbol('l')}}
-          <span *ngIf="currentCurrencyPair() !== 'btcUsd'">
-            {{tokenConverter(output.value) | number: '1.2-2'}}
-          </span>
-          <span *ngIf="currentCurrencyPair() === 'btcUsd'">
-            {{tokenConverter(output.value) | number: '1.2-8'}}
-          </span>
-          {{symbol('r')}})
-        </span>
-      </div>
-    </div>
+    </ng-container>
   </div>
 </ng-container>
 
 <!-- BlockStake Inputs -->
 <ng-container *ngIf="item.blockStakeInputCount > 0">
-  <div class="page-subtitle">
-    BlockStake Inputs
-  </div>
-  <div class="card" *ngFor="let input of item.blockStakeInputs">
-    <div class="card-title">
-      General
-    </div>
-    <div class="row">
-      <div class="row-title">
-        Parent ID
-      </div>
-      <div class="row-data">
-        {{input.parentId}}
-      </div>
-    </div>
-    <div class="row">
-      <div class="row-title">
-        Address
-      </div>
-      <a class="row-data bold" (click)="newSearch(input.address)">
-        {{input.address}}
+  <div class="card">
+    <div class="page-subtitle">
+      BlockStake Inputs
+      <a class="chip peach" (click)="item.blockStakeInputsHidden = !item.blockStakeInputsHidden">
+        {{item.blockStakeInputsHidden ? 'Show all' : 'Hide all'}}
       </a>
     </div>
-    <div class="row">
-      <div class="row-title">
-        Value
+    <ng-container *ngIf="!item.blockStakeInputsHidden">
+      <div *ngFor="let input of item.blockStakeInputs" class="rows-wrapper">
+        <div class="card-title">
+          General
+        </div>
+        <div class="row">
+          <div class="row-title">
+            Parent ID
+          </div>
+          <div class="row-data">
+            {{input.parentId}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="row-title">
+            Address
+          </div>
+          <a class="row-data bold" (click)="newSearch(input.address)">
+            {{input.address}}
+          </a>
+        </div>
+        <div class="row">
+          <div class="row-title">
+            Value
+          </div>
+          <div class="row-data">
+            {{input.value }}
+          </div>
+        </div>
+        <div class="card-title">
+          Fulfillment
+        </div>
+        <div class="row">
+          <div class="row-title">
+            Type
+          </div>
+          <div class="row-data">
+            {{input.unlockType}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="row-title">
+            Publickey
+          </div>
+          <div class="row-data">
+            {{input.publicKey}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="row-title">
+            Signature
+          </div>
+          <div class="row-data">
+            {{input.signature}}
+          </div>
+        </div>
       </div>
-      <div class="row-data">
-        {{input.value }}
-      </div>
-    </div>
-    <div class="card-title">
-      Fulfillment
-    </div>
-    <div class="row">
-      <div class="row-title">
-        Type
-      </div>
-      <div class="row-data">
-        {{input.unlockType}}
-      </div>
-    </div>
-    <div class="row">
-      <div class="row-title">
-        Publickey
-      </div>
-      <div class="row-data">
-        {{input.publicKey}}
-      </div>
-    </div>
-    <div class="row">
-      <div class="row-title">
-        Signature
-      </div>
-      <div class="row-data">
-        {{input.signature}}
-      </div>
-    </div>
+    </ng-container>
   </div>
 </ng-container>
 
 <!-- BlockStake Outputs -->
-<div *ngIf="item.blockStakeOutputCount > 0">
-  <div class="page-subtitle">
-    BlockStake Outputs
-  </div>
-  <div class="card" *ngFor="let output of item.blockStakeOutputs">
-    <div class="row">
-      <div class="row-title">
-        ID
-      </div>
-      <div class="row-data">
-        {{output.id}}
-      </div>
-    </div>
-    <div class="row">
-      <div class="row-title">
-        Address
-      </div>
-      <a class="row-data bold" (click)="newSearch(output.address)">
-        {{output.address}}
+<ng-container *ngIf="item.blockStakeOutputCount > 0">
+  <div class="card">
+    <div class="page-subtitle">
+      BlockStake Outputs
+      <a class="chip peach" (click)="item.blockStakeOutputsHidden = !item.blockStakeOutputsHidden">
+        {{item.blockStakeOutputsHidden ? 'Show all' : 'Hide all'}}
       </a>
     </div>
-    <div class="row">
-      <div class="row-title">
-        Value
+    <ng-container *ngIf="!item.blockStakeOutputsHidden">
+      <div *ngFor="let output of item.blockStakeOutputs" class="rows-wrapper">
+        <div class="row">
+          <div class="row-title">
+            ID
+          </div>
+          <div class="row-data">
+            {{output.id}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="row-title">
+            Address
+          </div>
+          <a class="row-data bold" (click)="newSearch(output.address)">
+            {{output.address}}
+          </a>
+        </div>
+        <div class="row">
+          <div class="row-title">
+            Value
+          </div>
+          <div class="row-data">
+            {{output.value}}
+          </div>
+        </div>
       </div>
-      <div class="row-data">
-        {{output.value}}
-      </div>
-    </div>
+    </ng-container>
   </div>
-</div>
+</ng-container>

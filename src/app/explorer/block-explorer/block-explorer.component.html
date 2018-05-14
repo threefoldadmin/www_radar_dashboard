@@ -1,5 +1,5 @@
 <!-- Main info -->
-<div>
+<ng-container>
   <div class="row">
     <div class="row-title">
       Height
@@ -20,7 +20,7 @@
     <div class="row-title">
       Parent Block
     </div>
-    <a class="row-data bold" (click)="newSearch(item.block.rawblock.parentid)">
+    <a class="row-data bold" (click)="newSearch(item.parentId)">
       {{item.parentId}}
     </a>
   </div>
@@ -48,108 +48,118 @@
       {{item.activeBlockStake}} BS
     </div>
   </div>
-</div>
+</ng-container>
 
 <!-- Miner Payouts -->
 <ng-container *ngIf="item.minerPayouts.length > 0">
-  <div class="page-subtitle">
-    Miner Payouts
-  </div>
-  <div *ngFor="let payout of item.minerPayouts; let i = index">
-    <div class="card">
-      <div class="row">
-        <div class="row-title">
-          ID
-        </div>
-        <div class="row-data">
-          {{payout.minerPayoutId}}
-        </div>
-      </div>
-      <div class="row">
-        <div class="row-title">
-          Payout Address
-        </div>
-        <a class="row-data bold" (click)="newSearch(payout.unlockHash)">
-          {{payout.unlockHash}}
-        </a>
-      </div>
-      <div class="row">
-        <div class="row-title">
-          Value
-        </div>
-        <div class="row-data">
-          {{tokens(payout.value) | number : '1.0-8'}} TFT&nbsp;
-          <span class="flex">
-            ({{symbol('l')}}
-            <span *ngIf="currentCurrencyPair() !== 'btcUsd'">
-              {{tokenConverter(payout.value) | number: '1.2-2'}}
-            </span>
-            <span *ngIf="currentCurrencyPair() === 'btcUsd'">
-              {{tokenConverter(payout.value) | number: '1.2-8'}}
-            </span>
-            {{symbol('r')}})
-          </span>
-        </div>
-      </div>
+  <div class="card">
+    <div class="page-subtitle">
+      Miner Payouts
+      <a class="chip peach" (click)="item.minerPayoutsHidden = !item.minerPayoutsHidden">
+        {{item.minerPayoutsHidden ? 'Show all' : 'Hide all'}}
+      </a>
     </div>
+    <ng-container *ngIf="!item.minerPayoutsHidden">
+      <div *ngFor="let payout of item.minerPayouts" class="rows-wrapper">
+        <div class="row">
+          <div class="row-title">
+            ID
+          </div>
+          <div class="row-data">
+            {{payout.minerPayoutId}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="row-title">
+            Payout Address
+          </div>
+          <a class="row-data bold" (click)="newSearch(payout.unlockHash)">
+            {{payout.unlockHash}}
+          </a>
+        </div>
+        <div class="row">
+          <div class="row-title">
+            Value
+          </div>
+          <div class="row-data">
+            {{tokens(payout.value) | number : '1.0-8'}} TFT&nbsp;
+            <span class="flex">
+              ({{symbol('l')}}
+              <span *ngIf="currentCurrencyPair() !== 'btcUsd'">
+                {{tokenConverter(payout.value) | number: '1.2-2'}}
+              </span>
+              <span *ngIf="currentCurrencyPair() === 'btcUsd'">
+                {{tokenConverter(payout.value) | number: '1.2-8'}}
+              </span>
+              {{symbol('r')}})
+            </span>
+          </div>
+        </div>
+      </div>
+    </ng-container>
   </div>
 </ng-container>
 
 <!-- Transactions -->
 <ng-container *ngIf="item?.transactions.length > 0">
-  <div class="page-subtitle">
-    Transactions
-  </div>
-  <div *ngFor="let transaction of item?.transactions">
-    <div class="card">
-      <div class="row">
-        <div class="row-title">
-          ID
-        </div>
-        <a class="row-data bold" (click)="newSearch(transaction._id)">
-          {{transaction._id}}
-        </a>
-      </div>
-      <div class="row">
-        <div class="row-title">
-          Time
-        </div>
-        <div class="row-data">
-          {{transaction.blockInfo.timeStamp * 1000 | date :'HH:mm' + ', ' + 'MMM dd' + ', ' + 'yyyy'}}
-        </div>
-      </div>
-      <div class="row" *ngIf="transaction.coinInputCount > 0">
-        <div class="row-title">
-          Coin Input Count
-        </div>
-        <div class="row-data">
-          {{transaction.coinInputCount}}
-        </div>
-      </div>
-      <div class="row" *ngIf="transaction.coinOutputCount > 0">
-        <div class="row-title">
-          Coin Output Count
-        </div>
-        <div class="row-data">
-          {{transaction.coinOutputCount}}
-        </div>
-      </div>
-      <div class="row" *ngIf="transaction.blockStakeInputCount > 0">
-        <div class="row-title">
-          BlockStake Input Count
-        </div>
-        <div class="row-data">
-          {{transaction.blockStakeInputCount}}
-        </div>
-      </div>
-      <div class="row" *ngIf="transaction.blockStakeOutputCount > 0">
-        <div class="row-title">
-          BlockStake Output Count
-        </div>
-        <div class="row-data">
-          {{transaction.blockStakeOutputCount}}
-        </div>
-      </div>
+  <div class="card">
+    <div class="page-subtitle">
+      Transactions
+      <a class="chip peach" (click)="item.transactionsHidden = !item.transactionsHidden">
+        {{item.transactionsHidden ? 'Show all' : 'Hide all'}}
+      </a>
     </div>
+    <ng-container *ngIf="!item.transactionsHidden">
+      <div *ngFor="let transaction of item?.transactions" class="rows-wrapper">
+        <div class="row">
+          <div class="row-title">
+            ID
+          </div>
+          <a class="row-data bold" (click)="newSearch(transaction._id)">
+            {{transaction._id}}
+          </a>
+        </div>
+        <div class="row">
+          <div class="row-title">
+            Time
+          </div>
+          <div class="row-data">
+            {{transaction.blockInfo.timeStamp * 1000 | date :'HH:mm' + ', ' + 'MMM dd' + ', ' + 'yyyy'}}
+          </div>
+        </div>
+        <div class="row" *ngIf="transaction.coinInputCount > 0">
+          <div class="row-title">
+            Coin Input Count
+          </div>
+          <div class="row-data">
+            {{transaction.coinInputCount}}
+          </div>
+        </div>
+        <div class="row" *ngIf="transaction.coinOutputCount > 0">
+          <div class="row-title">
+            Coin Output Count
+          </div>
+          <div class="row-data">
+            {{transaction.coinOutputCount}}
+          </div>
+        </div>
+        <div class="row" *ngIf="transaction.blockStakeInputCount > 0">
+          <div class="row-title">
+            BlockStake Input Count
+          </div>
+          <div class="row-data">
+            {{transaction.blockStakeInputCount}}
+          </div>
+        </div>
+        <div class="row" *ngIf="transaction.blockStakeOutputCount > 0">
+          <div class="row-title">
+            BlockStake Output Count
+          </div>
+          <div class="row-data">
+            {{transaction.blockStakeOutputCount}}
+          </div>
+        </div>
+      </div>
+    </ng-container>
   </div>
 </ng-container>
