@@ -10,6 +10,7 @@ import { AppComponent } from '../../app.component';
 export class TransactionExplorerComponent implements OnInit {
   @Input() public item;
   @Input() public id;
+
   public paginator = {
     limit: 10,
     current: {
@@ -54,7 +55,7 @@ export class TransactionExplorerComponent implements OnInit {
     this.appComponent.API('get', path, '', query).subscribe(
       data => {
         if (data) {
-          this.item[name] = data;
+          this.item[name] = data.list;
         }
       },
     );
