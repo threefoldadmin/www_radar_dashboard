@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { Subscription , Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Router, NavigationStart, NavigationEnd } from '@angular/router';
-// import 'rxjs/operator/pairwise';
 import { NotificationsService } from 'angular2-notifications';
 
 import { SocketService } from '../services/socket.service';
@@ -14,8 +13,6 @@ import { ApiService } from '../services/api.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  private routeScrollPositions = [];
-  private subscriptions: Subscription[] = [];
   public notyOptions = {
     timeOut: 5000,
     lastOnBottom: true,
@@ -39,7 +36,7 @@ export class AppComponent {
   public storageUnitPriceUSD = 10;
   public currentTokenPriceUSD = 0.1;
   public totalSupply = 1000000000;
-  public maxSupply = 2000000000;
+  public maxSupply = 100000000000;
 
   public exchangeRates;
   public currentCurrencyPair = 'usd';
@@ -61,7 +58,6 @@ export class AppComponent {
       });
     this.getData();
     this.setCurrency('usd');
-    this.setRoutingScroll();
   }
   public API(...args): Observable<any> {
     return new Observable<any>(observer => {
@@ -138,22 +134,5 @@ export class AppComponent {
       }
     }
     return result;
-  }
-  public setRoutingScroll() {
-    // Routing scrolling up
-    // this.subscriptions.push(
-    //   this.router.events.pairwise().subscribe(([prevRouteEvent, currRouteEvent]) => {
-    //     if (prevRouteEvent instanceof NavigationEnd && currRouteEvent instanceof NavigationStart) {
-    //       const urlPath = (prevRouteEvent.urlAfterRedirects || prevRouteEvent.url).split(';', 1)[0];
-    //       this.routeScrollPositions[urlPath] = window.pageYOffset;
-    //     }
-    //     if (currRouteEvent instanceof NavigationEnd) {
-    //       setTimeout(() => {
-    //         const urlPath = (currRouteEvent.urlAfterRedirects || currRouteEvent.url).split(';', 1)[0];
-    //         window.scrollTo(0, this.routeScrollPositions[urlPath] || 0);
-    //       }, 0);
-    //     }
-    //   })
-    // );
   }
 }
