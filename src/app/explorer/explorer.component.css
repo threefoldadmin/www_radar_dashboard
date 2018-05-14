@@ -14,7 +14,7 @@
   text-align: center;
   font-weight: bold;
   margin-top: 10px;
-  margin-bottom: 25px;
+  margin-bottom: 30px;
 }
 .page-subtitle{
   font-size: 19px;
@@ -37,7 +37,7 @@
   border-radius: 5px;
 }
 .row{
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   font-size: 15.5px;
 }
 .row .row-title{

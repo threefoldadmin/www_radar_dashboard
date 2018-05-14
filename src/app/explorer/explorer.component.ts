@@ -23,7 +23,7 @@ export class ExplorerComponent implements OnInit, OnDestroy {
     this.activatedRoute.params.subscribe(params => {
       this.id = params['id'];
       this.item = null;
-      this.search();
+      this.getItem();
     });
     const lastBlockSub = this.appComponent.dataService.lastBlock$.subscribe(
       block => {
@@ -40,7 +40,7 @@ export class ExplorerComponent implements OnInit, OnDestroy {
     this.subscriptions
       .forEach(s => s.unsubscribe());
   }
-  public search() {
+  public getItem() {
     let path = 'block';
     if (this.id.match(/[a-z]/i)) {
       path = 'hashes';

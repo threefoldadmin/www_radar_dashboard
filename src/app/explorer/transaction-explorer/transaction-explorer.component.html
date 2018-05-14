@@ -1,3 +1,4 @@
+<!-- Main info -->
 <div>
   <div class="row">
     <div class="row-title">
@@ -31,22 +32,22 @@
       {{item?.lastBlockHeight - item.blockInfo.height}}
     </div>
   </div>
-  <!-- <div class="row" *ngIf="item.transaction.rawtransaction.data.coininputs && item.transaction.rawtransaction.data.coininputs.length > 0">
+  <div class="row" *ngIf="item.coinInputCount > 0">
     <div class="row-title">
       Coin Input Count
     </div>
     <div class="row-data">
-      {{item.transaction.rawtransaction.data.coininputs.length}}
+      {{item.coinInputCount}}
     </div>
-  </div> -->
-  <!-- <div class="row" *ngIf="item.transaction.rawtransaction.data.coinoutputs">
+  </div>
+  <div class="row" *ngIf="item.coinOutputCount > 0">
     <div class="row-title">
       Coin Output Count
     </div>
     <div class="row-data">
-      {{item.transaction.rawtransaction.data.coinoutputs.length}}
+      {{item.coinOutputCount}}
     </div>
-  </div> -->
+  </div>
   <div class="row" *ngIf="item.blockStakeInputCount > 0">
     <div class="row-title">
       BlockStake Input Count
@@ -66,11 +67,11 @@
 </div>
 
 <!-- Coin Inputs -->
-<!-- <div *ngIf="item.transaction.rawtransaction.data.coininputs && item.transaction.rawtransaction.data.coininputs.length > 0">
+<ng-container *ngIf="item.coinInputCount > 0">
   <div class="page-subtitle">
     Coin Inputs
   </div>
-  <div class="card" *ngFor="let input of item.transaction.rawtransaction.data.coininputs; let i = index">
+  <div class="card" *ngFor="let input of item.coinInputs">
     <div class="card-title">
       General
     </div>
@@ -79,15 +80,15 @@
         Parent ID
       </div>
       <div class="row-data">
-        {{input.parentid}}
+        {{input.parentId}}
       </div>
     </div>
     <div class="row">
       <div class="row-title">
         Address
       </div>
-      <a class="row-data bold" (click)="newSearch(item.transaction.coininputoutputs[i].condition.data.unlockhash)">
-        {{item.transaction.coininputoutputs[i].condition.data.unlockhash}}
+      <a class="row-data bold" (click)="newSearch(input.address)">
+        {{input.address}}
       </a>
     </div>
     <div class="row">
@@ -95,14 +96,14 @@
         Value
       </div>
       <div class="row-data">
-        {{tokens(item.transaction.coininputoutputs[i].value) | number : '1.0-8'}} TFT&nbsp;
+        {{tokens(input.value) | number : '1.0-8'}} TFT&nbsp;
         <span class="flex">
           ({{symbol('l')}}
           <span *ngIf="currentCurrencyPair() !== 'btcUsd'">
-            {{tokenConverter(item.transaction.coininputoutputs[i].value) | number: '1.2-3'}}
+            {{tokenConverter(input.value) | number: '1.2-2'}}
           </span>
           <span *ngIf="currentCurrencyPair() === 'btcUsd'">
-            {{tokenConverter(item.transaction.coininputoutputs[i].value) | number: '1.2-8'}}
+            {{tokenConverter(input.value) | number: '1.2-8'}}
           </span>
           {{symbol('r')}})
         </span>
@@ -116,7 +117,7 @@
         Unlock type
       </div>
       <div class="row-data">
-        {{input.unlocker.type}}
+        {{input.unlockType}}
       </div>
     </div>
     <div class="card-title">
@@ -127,7 +128,7 @@
         Publickey
       </div>
       <div class="row-data">
-        {{input.unlocker.condition.publickey}}
+        {{input.publicKey}}
       </div>
     </div>
     <div class="card-title">
@@ -138,31 +139,32 @@
         Signature
       </div>
       <div class="row-data">
-        {{input.unlocker.fulfillment.signature}}
+        {{input.signature}}
       </div>
     </div>
   </div>
-</div> -->
+</ng-container>
+
 <!-- Coin Outputs -->
-<!-- <div *ngIf="item.transaction.rawtransaction.data.coinoutputs && item.transaction.rawtransaction.data.coinoutputs.length > 0">
+<ng-container *ngIf="item.coinOutputCount > 0">
   <div class="page-subtitle">
     Coin Outputs
   </div>
-  <div class="card" *ngFor="let output of item.transaction.rawtransaction.data.coinoutputs; let i = index">
+  <div class="card" *ngFor="let output of item.coinOutputs">
     <div class="row">
       <div class="row-title">
         ID
       </div>
       <div class="row-data">
-        {{item.transaction.coinoutputids[i]}}
+        {{output.id}}
       </div>
     </div>
     <div class="row">
       <div class="row-title">
         Address
       </div>
-      <a class="row-data bold" (click)="newSearch(output.unlockhash)">
-        {{output.unlockhash}}
+      <a class="row-data bold" (click)="newSearch(output.address)">
+        {{output.address}}
       </a>
     </div>
     <div class="row">
@@ -174,7 +176,7 @@
         <span class="flex">
           ({{symbol('l')}}
           <span *ngIf="currentCurrencyPair() !== 'btcUsd'">
-            {{tokenConverter(output.value) | number: '1.2-3'}}
+            {{tokenConverter(output.value) | number: '1.2-2'}}
           </span>
           <span *ngIf="currentCurrencyPair() === 'btcUsd'">
             {{tokenConverter(output.value) | number: '1.2-8'}}
@@ -184,14 +186,14 @@
       </div>
     </div>
   </div>
-</div> -->
+</ng-container>
 
 <!-- BlockStake Inputs -->
 <ng-container *ngIf="item.blockStakeInputCount > 0">
   <div class="page-subtitle">
     BlockStake Inputs
   </div>
-  <div class="card" *ngFor="let input of item.blockStakeInputs; let i = index">
+  <div class="card" *ngFor="let input of item.blockStakeInputs">
     <div class="card-title">
       General
     </div>
@@ -219,94 +221,56 @@
         {{input.value }}
       </div>
     </div>
-    <ng-container *ngIf="input.unlocker">
-      <div class="card-title">
-        Unlocker
+    <div class="card-title">
+      Fulfillment
+    </div>
+    <div class="row">
+      <div class="row-title">
+        Type
       </div>
-      <div class="row">
-        <div class="row-title">
-          Unlock type
-        </div>
-        <div class="row-data">
-          <!-- {{input.unlocker.type}} -->
-        </div>
+      <div class="row-data">
+        {{input.unlockType}}
       </div>
-      <div class="card-title">
-        Condition
+    </div>
+    <div class="row">
+      <div class="row-title">
+        Publickey
       </div>
-      <div class="row">
-        <div class="row-title">
-          Publickey
-        </div>
-        <div class="row-data">
-          <!-- {{input.unlocker.condition.publickey}} -->
-        </div>
+      <div class="row-data">
+        {{input.publicKey}}
       </div>
-      <div class="card-title">
-        Fulfillment
+    </div>
+    <div class="row">
+      <div class="row-title">
+        Signature
       </div>
-      <div class="row">
-        <div class="row-title">
-          Signature
-        </div>
-        <div class="row-data">
-          <!-- {{input.unlocker.fulfillment.signature}} -->
-        </div>
+      <div class="row-data">
+        {{input.signature}}
       </div>
-    </ng-container>
-    <ng-container *ngIf="input.fulfillment">
-      <div class="card-title">
-        Fulfillment
-      </div>
-      <div class="row">
-        <div class="row-title">
-          Type
-        </div>
-        <div class="row-data">
-          <!-- {{input.fulfillment.type}} -->
-        </div>
-      </div>
-      <div class="row">
-        <div class="row-title">
-          Publickey
-        </div>
-        <div class="row-data">
-          <!-- {{input.fulfillment.data.publickey}} -->
-        </div>
-      </div>
-      <div class="row">
-        <div class="row-title">
-          Signature
-        </div>
-        <div class="row-data">
-          <!-- {{input.fulfillment.data.signature}} -->
-        </div>
-      </div>
-    </ng-container>
-  
+    </div>
   </div>
 </ng-container>
 
 <!-- BlockStake Outputs -->
-<!-- <div *ngIf="item.transaction.rawtransaction.data.blockstakeoutputs && item.transaction.rawtransaction.data.blockstakeoutputs.length > 0">
+<div *ngIf="item.blockStakeOutputCount > 0">
   <div class="page-subtitle">
     BlockStake Outputs
   </div>
-  <div class="card" *ngFor="let output of item.transaction.rawtransaction.data.blockstakeoutputs; let i = index">
+  <div class="card" *ngFor="let output of item.blockStakeOutputs">
     <div class="row">
       <div class="row-title">
         ID
       </div>
       <div class="row-data">
-        {{item.transaction.blockstakeoutputids[i]}}
+        {{output.id}}
       </div>
     </div>
     <div class="row">
       <div class="row-title">
         Address
       </div>
-      <a class="row-data bold" (click)="newSearch(output.unlockhash)">
-        {{output.unlockhash}}
+      <a class="row-data bold" (click)="newSearch(output.address)">
+        {{output.address}}
       </a>
     </div>
     <div class="row">
@@ -318,4 +282,4 @@
       </div>
     </div>
   </div>
-</div> -->
+</div>
