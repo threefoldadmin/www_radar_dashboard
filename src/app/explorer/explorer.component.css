@@ -20,7 +20,7 @@
   font-size: 19px;
   text-align: center;
   font-weight: bold;
-  margin-top: 15px;
+  margin-top: 25px;
 }
 .container>>> .card{
   margin-top: 15px;
@@ -41,7 +41,6 @@
   font-size: 15.5px;
 }
 .row .row-title{
-  /* font-weight: 600; */
   width: 35%;
   min-width: 35%;
   margin-right: 30px;

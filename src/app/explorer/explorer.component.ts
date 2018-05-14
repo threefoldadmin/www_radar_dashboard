@@ -28,7 +28,7 @@ export class ExplorerComponent implements OnInit, OnDestroy {
     const lastBlockSub = this.appComponent.dataService.lastBlock$.subscribe(
       block => {
         if (block) {
-          if (this.item && this.item.hashType === 'blockid') {
+          if (this.item) {
             this.item.lastBlockHeight = block.height;
           }
         }
