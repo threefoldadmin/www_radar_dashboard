@@ -13,7 +13,8 @@ export class TransactionExplorerComponent implements OnInit {
   public paginator = {
     limit: 10,
     current: {
-      coinOutputs: 1
+      coinOutputs: 1,
+      blockStakeOutputs: 1
     }
   };
 

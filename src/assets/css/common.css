@@ -176,6 +176,23 @@ simple-notification .simple-notification.error{
 simple-notification .simple-notification.success{
   background-color: #0EBD89;
 }
+/* Paginator */
+pagination-controls .ngx-pagination{
+  font-weight: 600;
+}
+pagination-controls .ngx-pagination .current{
+  background: #008ac7;
+}
+pagination-controls .ngx-pagination a, 
+pagination-controls .ngx-pagination a:hover, 
+pagination-controls .ngx-pagination button{
+  color: #fafafa;
+}
+pagination-controls .ngx-pagination a:hover,
+pagination-controls .ngx-pagination button:hover{
+  background: rgba(0, 139, 199, 0.55);
+}
+
 /* Tracs */
 ::-webkit-scrollbar {
   background: transparent;

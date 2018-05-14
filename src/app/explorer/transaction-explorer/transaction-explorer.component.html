@@ -199,7 +199,7 @@
         </div>
       </div>
       <div class="flex-center">
-        <pagination-controls id="coinOutputsPaginator" (pageChange)="pageChanged($event, 'coinOutputs')"></pagination-controls>
+        <pagination-controls id="coinOutputsPaginator" autoHide="true" (pageChange)="pageChanged($event, 'coinOutputs')"></pagination-controls>
       </div>
     </ng-container>
   </div>
@@ -285,7 +285,8 @@
       </a>
     </div>
     <ng-container *ngIf="!item.blockStakeOutputsHidden">
-      <div *ngFor="let output of item.blockStakeOutputs" class="rows-wrapper">
+      <div *ngFor="let output of item.blockStakeOutputs | paginate: { id: 'blockStakeOutputsPaginator', itemsPerPage: paginator.limit , currentPage: paginator.current.blockStakeOutputs, totalItems:
+      item.blockStakeOutputCount }" class="rows-wrapper">
         <div class="row">
           <div class="row-title">
             ID
@@ -310,6 +311,9 @@
             {{output.value}}
           </div>
         </div>
+      </div>
+      <div class="flex-center">
+        <pagination-controls id="blockStakeOutputsPaginator" autoHide="true" (pageChange)="pageChanged($event, 'blockStakeOutputs')"></pagination-controls>
       </div>
     </ng-container>
   </div>
