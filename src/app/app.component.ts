@@ -78,32 +78,27 @@ export class AppComponent {
       );
     });
   }
-  public converter(amountInUsd: number, currencyPair?: string ) {
-    const pair = currencyPair ? currencyPair : this.currentCurrencyPair;
+  public setCurrency(currency: string) {
+    this.currentCurrencyPair = currency;
+    this.dataService.currency$.next(currency);
+  }
+  public tokens(value: number) {
+    return value / 1000000000;
+  }
+  public converter(amountInUsd: number, customExchangeRates?: any ) {
+    const pair = this.currentCurrencyPair;
+    const exchangeRates = customExchangeRates ? customExchangeRates : this.exchangeRates;
     if ( pair === 'usd' ) {
       return amountInUsd;
     }
-    if (this.exchangeRates) {
-      return amountInUsd / this.exchangeRates[pair];
+    if (exchangeRates) {
+      return amountInUsd / exchangeRates[pair];
     } else {
       this.setCurrency('usd');
       return amountInUsd;
     }
   }
-  // public tokenConverter(value: number, currencyPair: string) {
-  //   let result;
-  //   const tokens = this.tokens(value);
-  //   const tokensInUsd = this.currentTokenPriceUSD * tokens;
-  //   if (currencyPair === 'tft') {
-  //     result = tokens;
-  //   } else if (currencyPair === 'usd') {
-  //     result = tokensInUsd;
-  //   } else {
-  //     result = this.converter(tokensInUsd, currencyPair);
-  //   }
-  //   return result;
-  // }
-  public tokenConverter(value: number) {
+  public tokenConverter(value: number, exchangeRates?: any ) {
     let result;
     const tokens = this.tokens(value);
     const pair = this.currentCurrencyPair;
@@ -111,7 +106,7 @@ export class AppComponent {
     if (pair === 'usd') {
       result = tokensInUsd;
     } else {
-      result = this.converter(tokensInUsd);
+      result = this.converter(tokensInUsd, exchangeRates);
     }
     return result;
   }
@@ -130,13 +125,6 @@ export class AppComponent {
       }
     }
     return result;
-  }
-  public setCurrency(currency: string) {
-    this.currentCurrencyPair = currency;
-    this.dataService.currency$.next(currency);
-  }
-  public tokens(value: number) {
-    return value / 1000000000;
   }
   public setRoutingScroll() {
     // Routing scrolling up

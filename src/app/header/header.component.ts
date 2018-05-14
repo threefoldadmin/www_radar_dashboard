@@ -28,9 +28,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     const currencySub = this.appComponent.dataService.currency$.subscribe(
-      curr => {
-        if (curr) {
-          this.currencies.current = curr;
+      current => {
+        if (current) {
+          this.currencies.current = current;
         }
       }
     );

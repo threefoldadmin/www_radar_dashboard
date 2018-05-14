@@ -80,23 +80,8 @@ export class ExplorerComponent implements OnInit, OnDestroy {
         name = 'Address';
         break;
       default:
-        name = 'N/A';
+        name = 'Invalid result';
     }
     return name;
-  }
-  public newSearch(id) {
-    this.router.navigate([`/search/${id}`]);
-  }
-  public tokens(value) {
-    return this.appComponent.tokens(value);
-  }
-  public tokenConverter(value: number) {
-    return this.appComponent.tokenConverter(value);
-  }
-  public symbol(position: string) {
-    return this.appComponent.symbol(position);
-  }
-  public currentCurrencyPair() {
-    return this.appComponent.currentCurrencyPair;
   }
 }

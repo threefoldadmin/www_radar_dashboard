@@ -11,7 +11,7 @@ export class AddressExplorerComponent implements OnInit {
   @Input() public item;
   @Input() public id;
   constructor(
-    public router: Router,
+    private router: Router,
     private appComponent: AppComponent,
   ) { }
 

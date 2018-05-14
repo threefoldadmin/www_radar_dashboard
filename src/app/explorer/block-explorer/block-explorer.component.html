@@ -1,3 +1,4 @@
+<div>
   <div class="row">
     <div class="row-title">
       Height
@@ -46,8 +47,9 @@
       {{item.activeBlockStake}} BS
     </div>
   </div>
+</div>
 
-  <!-- Miner Payouts -->
+<!-- Miner Payouts -->
 <ng-container *ngIf="item.minerPayouts.length > 0">
   <div class="layer"></div>
   <div class="page-subtitle">
@@ -80,7 +82,7 @@
           <span class="flex">
             ({{symbol('l')}}
             <span *ngIf="currentCurrencyPair() !== 'btcUsd'">
-              {{tokenConverter(payout.value) | number: '1.2-3'}}
+              {{tokenConverter(payout.value) | number: '1.2-2'}}
             </span>
             <span *ngIf="currentCurrencyPair() === 'btcUsd'">
               {{tokenConverter(payout.value) | number: '1.2-8'}}

@@ -109,8 +109,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   public tokens(value) {
     return this.appComponent.tokens(value);
   }
-  public tokenConverter(value: number) {
-    return this.appComponent.tokenConverter(value);
+  public tokenConverter(block: any) {
+    return this.appComponent.tokenConverter(block.minerReward, block.rates);
   }
   public getStaticData(name: string) {
     return this.appComponent.converter(this.appComponent[name]);

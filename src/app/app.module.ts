@@ -17,11 +17,12 @@ import { ApiService } from '../services/api.service';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoaderComponent } from './loader/loader.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 import { SearchComponent } from './search/search.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { TokenPriceChartComponent } from './dashboard/token-price-chart/token-price-chart.component';
 import { UnitPriceChartComponent } from './dashboard/unit-price-chart/unit-price-chart.component';
 import { NodesMapsComponent } from './dashboard/nodes-maps/nodes-maps.component';
@@ -29,6 +30,7 @@ import { NodesMapsComponent } from './dashboard/nodes-maps/nodes-maps.component'
 import { ExplorerComponent } from './explorer/explorer.component';
 import { AddressExplorerComponent } from './explorer/address-explorer/address-explorer.component';
 import { BlockExplorerComponent } from './explorer/block-explorer/block-explorer.component';
+import { TransactionExplorerComponent } from './explorer/transaction-explorer/transaction-explorer.component';
 
 
 @NgModule({
@@ -45,7 +47,8 @@ import { BlockExplorerComponent } from './explorer/block-explorer/block-explorer
     ExplorerComponent,
     AddressExplorerComponent,
     LoaderComponent,
-    BlockExplorerComponent
+    BlockExplorerComponent,
+    TransactionExplorerComponent
   ],
   imports: [
     BrowserModule,

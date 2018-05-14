@@ -193,8 +193,8 @@
                   <div class="chip green">{{block.ago}}</div>
                 </div>
                 <div class="row-info">
-                  <a class="big-data-container" (click)="search(block?._id)">
-                    ID: {{block?._id}}
+                  <a class="big-data-container" (click)="search(block?.id)">
+                    ID: {{block?.id}}
                   </a>
                 </div>
                 <div class="row-info">
@@ -207,10 +207,10 @@
                   {{tokens(block?.minerReward) | number : '1.0-3'}} TFT 
                   ({{symbol('l')}}
                   <span *ngIf="currentCurrencyPair() !== 'btcUsd'">
-                  {{tokenConverter(block?.minerReward) | number: '1.2-3'}}
+                  {{tokenConverter(block) | number: '1.2-2'}}
                   </span>
                   <span *ngIf="currentCurrencyPair() === 'btcUsd'">
-                  {{tokenConverter(block?.minerReward) | number: '1.2-8'}}
+                  {{tokenConverter(block) | number: '1.2-8'}}
                   </span>
                   {{symbol('r')}})
                   /&nbsp; {{block?.transactionsCount}} txns

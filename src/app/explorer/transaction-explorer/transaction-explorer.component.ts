@@ -3,11 +3,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AppComponent } from '../../app.component';
 
 @Component({
-  selector: 'app-block-explorer',
-  templateUrl: './block-explorer.component.html',
-  styleUrls: ['../explorer.component.css', './block-explorer.component.css']
+  selector: 'app-transaction-explorer',
+  templateUrl: './transaction-explorer.component.html',
+  styleUrls: ['../explorer.component.css', './transaction-explorer.component.css']
 })
-export class BlockExplorerComponent implements OnInit {
+export class TransactionExplorerComponent implements OnInit {
   @Input() public item;
   @Input() public id;
   constructor(
