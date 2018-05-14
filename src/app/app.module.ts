@@ -37,7 +37,6 @@ import { TransactionExplorerComponent } from './explorer/transaction-explorer/tr
     HeaderComponent,
     FooterComponent,
     DashboardComponent,
-    SearchComponent,
     PageNotFoundComponent,
     TokenPriceChartComponent,
     UnitPriceChartComponent,
