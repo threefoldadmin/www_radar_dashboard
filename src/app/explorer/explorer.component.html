@@ -1,164 +1,19 @@
 <app-header></app-header>
+
 <app-loader *ngIf="!item"></app-loader>
+
 <ng-container *ngIf="item">
-  <div class="inner-container  ">
+  <div class="inner-container">
     <div class=" container card">
-      <div class="page-title" *ngIf="!item?.hashtype">
-        Block #{{id}}
+      <div class="page-title">
+        {{hashName(item?.hashType)}}
       </div>
-      <div *ngIf="item?.hashtype">
-        <div class="page-title">
-          {{hashName(item?.hashtype)}}
-        </div>
-        <div class="page-subtitle break">
-          Hash: {{id}}
-        </div>
-      </div>
-      <div class="layer"></div>
+
       <!-- Block -->
-      <div *ngIf="!item?.hashtype || item?.hashtype === 'blockid'">
-        <div class="card">
-          <div class="card-title">
-            Block Statistics
-          </div>
-          <div class="row">
-            <div class="row-title">
-              Height
-            </div>
-            <div class="row-data">
-              {{item.block.height}}
-            </div>
-          </div>
-          <div class="row">
-            <div class="row-title">
-              ID
-            </div>
-            <div class="row-data">
-              {{item.block.blockid}}
-            </div>
-          </div>
-          <div class="row">
-            <div class="row-title">
-              Parent Block
-            </div>
-            <a class="row-data bold" (click)="newSearch(item.block.rawblock.parentid)">
-              {{item.block.rawblock.parentid}}
-            </a>
-          </div>
-          <div class="row">
-            <div class="row-title">
-              Time
-            </div>
-            <div class="row-data">
-              {{item.block.rawblock.timestamp * 1000 | date :'HH:mm' + ', ' + 'MMM dd' + ', ' + 'yyyy'}}
-            </div>
-          </div>
-          <div class="row">
-            <div class="row-title">
-              Active BlockStake
-            </div>
-            <div class="row-data">
-              {{item.block.estimatedactivebs}} BS
-            </div>
-          </div>
-        </div>
-        <div class="layer"></div>
-        <div class="page-subtitle">
-          Miner Payouts
-        </div>
-        <div *ngFor="let minerId of item.block.minerpayoutids; let i = index">
-          <div class="card">
-            <div class="row">
-              <div class="row-title">
-                ID
-              </div>
-              <div class="row-data">
-                {{minerId}}
-              </div>
-            </div>
-            <div class="row">
-              <div class="row-title">
-                Payout Address
-              </div>
-              <a class="row-data bold" (click)="newSearch(item.block.rawblock.minerpayouts[i].unlockhash)">
-                {{item.block.rawblock.minerpayouts[i].unlockhash}}
-              </a>
-            </div>
-            <div class="row">
-              <div class="row-title">
-                Value
-              </div>
-              <div class="row-data">
-                {{tokens(item.block.rawblock.minerpayouts[i].value) | number : '1.0-8'}} TFT&nbsp;
-                <span class="flex">
-                  ({{symbol('l')}}
-                  <span *ngIf="currentCurrencyPair() !== 'btcUsd'">
-                    {{tokenConverter(item.block.rawblock.minerpayouts[i].value) | number: '1.2-3'}}
-                  </span>
-                  <span *ngIf="currentCurrencyPair() === 'btcUsd'">
-                    {{tokenConverter(item.block.rawblock.minerpayouts[i].value) | number: '1.2-8'}}
-                  </span>
-                  {{symbol('r')}})
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-  
-        <div class="layer"></div>
-        <div class="page-subtitle">
-          Transactions
-        </div>
-        <div *ngFor="let transaction of item.block.transactions">
-          <div class="card">
-            <div class="row">
-              <div class="row-title">
-                ID
-              </div>
-              <a class="row-data bold" (click)="newSearch(transaction.id)">
-                {{transaction.id}}
-              </a>
-            </div>
-            <div class="row" *ngIf="transaction.rawtransaction.data.coininputs && transaction.rawtransaction.data.coininputs.length > 0">
-              <div class="row-title">
-                Coin Input Count
-              </div>
-              <div class="row-data">
-                {{transaction.rawtransaction.data.coininputs.length}}
-              </div>
-            </div>
-            <div class="row" *ngIf="transaction.rawtransaction.data.coinoutputs && transaction.rawtransaction.data.coinoutputs.length > 0">
-              <div class="row-title">
-                Coin Output Count
-              </div>
-              <div class="row-data">
-                {{transaction.rawtransaction.data.coinoutputs.length}}
-              </div>
-            </div>
-            <div class="row" *ngIf="transaction.rawtransaction.data.blockstakeinputs && transaction.rawtransaction.data.blockstakeinputs.length > 0">
-              <div class="row-title">
-                BlockStake Input Count
-              </div>
-              <div class="row-data">
-                {{transaction.rawtransaction.data.blockstakeinputs.length}}
-              </div>
-            </div>
-            <div class="row" *ngIf="transaction.rawtransaction.data.blockstakeoutputs && transaction.rawtransaction.data.blockstakeoutputs.length > 0">
-              <div class="row-title">
-                BlockStake Output Count
-              </div>
-              <div class="row-data">
-                {{transaction.rawtransaction.data.blockstakeoutputs.length}}
-              </div>
-            </div>
-  
-          </div>
-        </div>
-      </div>
-      <!-- Block End -->
-  
+      <app-block-explorer [item]="item" [id]="id" *ngIf="item?.hashType === 'blockid'"></app-block-explorer>
+
       <!-- Transaction -->
-      <div *ngIf="item?.hashtype === 'transactionid'">
+      <div *ngIf="item?.hashType === 'transactionid'">
         <div class="card">
           <div class="card-title">
             Transaction Statistics
@@ -472,11 +327,9 @@
       <!-- Transaction End -->
   
       <!-- Address -->
-      <div *ngIf="item?.hashtype === 'unlockhash'">
-        <app-address-explorer [item]="item" [id]="id"></app-address-explorer>
-      </div>
-      <!-- Address End -->
+      <app-address-explorer [item]="item" [id]="id" *ngIf="item?.hashType === 'unlockhash'"></app-address-explorer>
     </div>
   </div>
-  <app-footer></app-footer>
 </ng-container>
+
+<app-footer></app-footer>

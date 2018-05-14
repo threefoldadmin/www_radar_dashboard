@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { AppComponent } from '../app.component';
 import * as moment from 'moment/moment';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -86,9 +87,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       block.ago = this.calculateTimeDiff(block.timeStamp);
     });
   }
-  // public tokenConverter(value: number, currency: string) {
-  //   return this.appComponent.tokenConverter(value, currency);
-  // }
   public calculateTimeDiff(timestamp: number) {
     const blockTime = moment.unix(timestamp);
     const blockTimeFormatted = moment.unix(timestamp).format('DD.MM.YYYY');

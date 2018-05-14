@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 import { AppComponent } from '../app.component';
 
 @Component({
@@ -7,11 +8,11 @@ import { AppComponent } from '../app.component';
   templateUrl: './explorer.component.html',
   styleUrls: ['./explorer.component.css']
 })
-export class ExplorerComponent implements OnInit {
+export class ExplorerComponent implements OnInit, OnDestroy {
+  private subscriptions: Subscription[] = [];
   public id;
   public item;
-  public sfoids = [];
-  public sfoidMatches = [];
+
   constructor(
     private appComponent: AppComponent,
     public activatedRoute: ActivatedRoute,
@@ -24,6 +25,20 @@ export class ExplorerComponent implements OnInit {
       this.item = null;
       this.search();
     });
+    const lastBlockSub = this.appComponent.dataService.lastBlock$.subscribe(
+      block => {
+        if (block) {
+          if (this.item && this.item.hashType === 'blockid') {
+            this.item.lastBlockHeight = block.height;
+          }
+        }
+      }
+    );
+    this.subscriptions.push(lastBlockSub);
+  }
+  ngOnDestroy() {
+    this.subscriptions
+      .forEach(s => s.unsubscribe());
   }
   public search() {
     let path = 'block';
@@ -34,6 +49,20 @@ export class ExplorerComponent implements OnInit {
       data => {
         if (data) {
           this.item = data;
+          if (this.item.hashType === 'blockid') {
+            this.item.transactions = [];
+            this.getTransactions();
+          }
+        }
+      },
+    );
+  }
+  public getTransactions() {
+    const path = `block/${this.item.height}/transactions`;
+    this.appComponent.API('get', path).subscribe(
+      data => {
+        if (data) {
+          this.item.transactions = data;
         }
       },
     );
@@ -42,10 +71,10 @@ export class ExplorerComponent implements OnInit {
     let name;
     switch (type) {
       case 'blockid':
-        name = 'Block ID';
+        name = 'Block';
         break;
       case 'transactionid':
-        name = 'Transaction ID';
+        name = 'Transaction';
         break;
       case 'unlockhash':
         name = 'Address';
