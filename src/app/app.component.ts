@@ -44,6 +44,7 @@ export class AppComponent {
 
   public exchangeRates;
   public currentCurrencyPair = 'usd';
+
   constructor(
     public socketService: SocketService,
     public dataService: DataService,
@@ -59,6 +60,7 @@ export class AppComponent {
         dataService.exchangeRates$.next(data.currency);
         dataService.lastBlock$.next(data.lastBlock);
       });
+    this.getData();
     this.setCurrency('usd');
     this.setRoutingScroll();
   }
@@ -77,6 +79,18 @@ export class AppComponent {
         },
       );
     });
+  }
+  public getData() {
+    this.API('get', 'block').subscribe(
+      data => {
+        if (data) {
+          this.exchangeRates = data.currency;
+          this.dataService.exchangeRates$.next(data.currency);
+          this.dataService.lastBlock$.next(data.lastBlock);
+          this.dataService.lastBlocks$.next(data.lastBlocks);
+        }
+      },
+    );
   }
   public setCurrency(currency: string) {
     this.currentCurrencyPair = currency;
@@ -127,6 +141,7 @@ export class AppComponent {
     return result;
   }
   public setRoutingScroll() {
+
     // Routing scrolling up
     this.subscriptions.push(
       this.router.events.pairwise().subscribe(([prevRouteEvent, currRouteEvent]) => {

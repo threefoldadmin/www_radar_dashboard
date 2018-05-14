@@ -31,11 +31,11 @@
       {{item.timeStamp * 1000 | date :'HH:mm' + ', ' + 'MMM dd' + ', ' + 'yyyy'}}
     </div>
   </div>
-  <div class="row" *ngIf="item?.lastBlockHeight">
+  <div class="row">
     <div class="row-title">
       Block Confirmation
     </div>
-    <div class="row-data">
+    <div class="row-data" *ngIf="item?.lastBlockHeight">
       {{item?.lastBlockHeight - item.height}}
     </div>
   </div>
