@@ -34,7 +34,7 @@
 .container>>> .card{
   margin-top: 25px;
   margin-bottom: 15px;
-  background: rgba(255,255,255,0.055)
+  background: rgba(255,255,255,0.075)
 }
 .card .card-title{
   font-size: 17px;

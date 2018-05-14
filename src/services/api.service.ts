@@ -14,8 +14,7 @@ export class ApiService {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-
-    return this.http.get(`${environment.API_URL}${environment.API_VERSION}/${path}/${id}${query}`, { headers, params: query });
+    return this.http.get(`${environment.API_URL}${environment.API_VERSION}/${path}/${id}`, { headers, params: query });
   }
 
 }

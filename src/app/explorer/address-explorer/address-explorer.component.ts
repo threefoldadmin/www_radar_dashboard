@@ -99,5 +99,4 @@ export class AddressExplorerComponent implements OnInit {
   public pageChanged(event) {
     this.currentPage = event;
   }
-
 }

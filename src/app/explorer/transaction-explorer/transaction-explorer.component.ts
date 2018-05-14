@@ -10,6 +10,13 @@ import { AppComponent } from '../../app.component';
 export class TransactionExplorerComponent implements OnInit {
   @Input() public item;
   @Input() public id;
+  public paginator = {
+    limit: 10,
+    current: {
+      coinOutputs: 1
+    }
+  };
+
   constructor(
     private router: Router,
     private appComponent: AppComponent,
@@ -32,5 +39,23 @@ export class TransactionExplorerComponent implements OnInit {
   public currentCurrencyPair() {
     return this.appComponent.currentCurrencyPair;
   }
-
+  public pageChanged(page: number, name: string) {
+    this.paginator.current[name] = page;
+    this.getMore(name);
+  }
+  public getMore(name: string) {
+    const path = `transaction/${this.item._id}/more`;
+    const query = {
+      skip: this.paginator.limit * ( this.paginator.current[name] - 1),
+      limit: this.paginator.limit,
+      field: name
+    };
+    this.appComponent.API('get', path, '', query).subscribe(
+      data => {
+        if (data) {
+          this.item[name] = data;
+        }
+      },
+    );
+  }
 }

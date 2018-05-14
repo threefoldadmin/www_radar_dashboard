@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Router, NavigationStart, NavigationEnd } from '@angular/router';
 import { NotificationsService } from 'angular2-notifications';
 
 import { SocketService } from '../services/socket.service';
@@ -46,8 +45,6 @@ export class AppComponent {
     public dataService: DataService,
     public notify: NotificationsService,
     public apiService: ApiService,
-    private router: Router,
-
   ) {
     this.socketService.initSocket();
     this.socketService.onTick().subscribe(
