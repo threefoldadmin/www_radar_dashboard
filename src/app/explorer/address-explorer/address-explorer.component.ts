@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { AppComponent } from '../../app.component';
 
 @Component({
@@ -10,15 +10,11 @@ import { AppComponent } from '../../app.component';
 export class AddressExplorerComponent implements OnInit {
   @Input() public item;
   @Input() public id;
+
   constructor(
     private router: Router,
     private appComponent: AppComponent,
   ) { }
-
-  public currentPage = 1;
-  public collection = [1, 2, 3, 4, 5, 6, 7, 16];
-  public pageSize = 4;
-  public totalItems = this.collection.length;
 
   ngOnInit() {
   }
@@ -94,9 +90,5 @@ export class AddressExplorerComponent implements OnInit {
       }
     });
     return result;
-  }
-
-  public pageChanged(event) {
-    this.currentPage = event;
   }
 }

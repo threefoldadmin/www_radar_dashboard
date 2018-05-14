@@ -35,7 +35,8 @@ export class AppComponent {
   public storageUnitPriceUSD = 10;
   public currentTokenPriceUSD = 0.1;
   public totalSupply = 1000000000;
-  public maxSupply = 100000000000;
+  // public maxSupply = 100000000000;
+  public maxSupply = 0;
 
   public exchangeRates;
   public currentCurrencyPair = 'usd';
@@ -49,9 +50,7 @@ export class AppComponent {
     this.socketService.initSocket();
     this.socketService.onTick().subscribe(
       (data) => {
-        this.exchangeRates = data.currency;
-        dataService.exchangeRates$.next(data.currency);
-        dataService.lastBlock$.next(data.lastBlock);
+        this.setData(data);
       });
     this.getData();
     this.setCurrency('usd');
@@ -76,13 +75,19 @@ export class AppComponent {
     this.API('get', 'block').subscribe(
       data => {
         if (data) {
-          this.exchangeRates = data.currency;
-          this.dataService.exchangeRates$.next(data.currency);
-          this.dataService.lastBlock$.next(data.lastBlock);
-          this.dataService.lastBlocks$.next(data.lastBlocks);
+         this.setData(data);
         }
       },
     );
+  }
+  public setData(data: any) {
+    this.exchangeRates = data.currency;
+    this.maxSupply = this.tokens(data.maxSuply);
+    this.dataService.exchangeRates$.next(data.currency);
+    this.dataService.lastBlock$.next(data.lastBlock);
+    if (data.lastBlocks) {
+      this.dataService.lastBlocks$.next(data.lastBlocks);
+    }
   }
   public setCurrency(currency: string) {
     this.currentCurrencyPair = currency;

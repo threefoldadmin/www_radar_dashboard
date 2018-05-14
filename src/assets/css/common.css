@@ -74,6 +74,9 @@ body {
 .green-text{
   color: #80ffb5;
 }
+.red-text{
+  color: #fd5266;
+}
 .bordered{
   border-bottom: 1px solid rgba(250, 250, 250, 0.3);
 }
@@ -86,6 +89,12 @@ body {
   flex-shrink: 0;
   text-align: center;
   min-width: 30px;
+}
+.chip.big{
+  font-size: 15px;
+  min-width: 115px;
+  border-radius: 1px;
+  padding: 10px 15px;
 }
 .chip.red{
   color: #fd5266;

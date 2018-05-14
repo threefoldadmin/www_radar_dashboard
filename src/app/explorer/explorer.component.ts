@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AppComponent } from '../app.component';
 
@@ -16,7 +16,6 @@ export class ExplorerComponent implements OnInit, OnDestroy {
   constructor(
     private appComponent: AppComponent,
     public activatedRoute: ActivatedRoute,
-    public router: Router
   ) { }
 
   ngOnInit() {
