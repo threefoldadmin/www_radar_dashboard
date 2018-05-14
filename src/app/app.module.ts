@@ -20,8 +20,6 @@ import { FooterComponent } from './footer/footer.component';
 import { LoaderComponent } from './loader/loader.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
-import { SearchComponent } from './search/search.component';
-
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TokenPriceChartComponent } from './dashboard/token-price-chart/token-price-chart.component';
 import { UnitPriceChartComponent } from './dashboard/unit-price-chart/unit-price-chart.component';
