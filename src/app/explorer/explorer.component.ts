@@ -62,7 +62,7 @@ export class ExplorerComponent implements OnInit, OnDestroy {
     this.appComponent.API('get', path).subscribe(
       data => {
         if (data) {
-          this.item.transactions = data;
+          this.item.transactions = data.list;
         }
       },
     );
