@@ -35,8 +35,8 @@ export class AppComponent {
   public storageUnitPriceUSD = 10;
   public currentTokenPriceUSD = 0.1;
   public totalSupply = 1000000000;
-  // public maxSupply = 100000000000;
-  public maxSupply = 0;
+  public maxSupply = 100000000000;
+  // public maxSupply = 0;
 
   public exchangeRates;
   public currentCurrencyPair = 'usd';
@@ -82,7 +82,7 @@ export class AppComponent {
   }
   public setData(data: any) {
     this.exchangeRates = data.currency;
-    this.maxSupply = this.tokens(data.maxSuply);
+    // this.maxSupply = this.tokens(data.maxSuply);
     this.dataService.exchangeRates$.next(data.currency);
     this.dataService.lastBlock$.next(data.lastBlock);
     if (data.lastBlocks) {

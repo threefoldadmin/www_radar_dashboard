@@ -91,10 +91,7 @@ body {
   min-width: 30px;
 }
 .chip.big{
-  font-size: 15px;
-  min-width: 115px;
-  border-radius: 1px;
-  padding: 10px 15px;
+  padding: 5px 10px;
 }
 .chip.red{
   color: #fd5266;

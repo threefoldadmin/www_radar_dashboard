@@ -18,7 +18,7 @@
   </div>
   <div class="row">
     <div class="row-title">
-      Parent Block
+      Parent Block ID
     </div>
     <a class="row-data bold" (click)="newSearch(item.parentId)">
       {{item.parentId}}
@@ -55,7 +55,7 @@
   <div class="card">
     <div class="page-subtitle">
       Miner Payouts
-      <a class="chip peach" (click)="item.minerPayoutsHidden = !item.minerPayoutsHidden">
+      <a class="chip peach big" (click)="item.minerPayoutsHidden = !item.minerPayoutsHidden">
         {{item.minerPayoutsHidden ? 'Show all' : 'Hide all'}}
       </a>
     </div>
@@ -105,7 +105,7 @@
   <div class="card">
     <div class="page-subtitle">
       Transactions
-      <a class="chip peach" (click)="item.transactionsHidden = !item.transactionsHidden">
+      <a class="chip peach big" (click)="item.transactionsHidden = !item.transactionsHidden">
         {{item.transactionsHidden ? 'Show all' : 'Hide all'}}
       </a>
     </div>
