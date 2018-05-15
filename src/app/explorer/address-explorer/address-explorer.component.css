@@ -1,0 +1,18 @@
+
+.card-transactions  .chip.sum{
+  font-size: 15px;
+  min-width: 115px;
+  border-radius: 1px;
+  padding: 10px 15px;
+}
+.card-transactions .row{
+  font-size: 15px;
+  margin-bottom: 5px;
+}
+
+.card-transactions .row-title{
+  width: unset;
+  min-width: 40px;
+  margin-right: 5px;
+  text-align: left;
+}

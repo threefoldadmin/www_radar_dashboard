@@ -70,7 +70,8 @@ export class ExplorerComponent implements OnInit, OnDestroy {
     let name;
     switch (type) {
       case 'blockid':
-        name = 'Block';
+        // name = 'Block';
+        name = 'Address';
         break;
       case 'transactionid':
         name = 'Transaction';

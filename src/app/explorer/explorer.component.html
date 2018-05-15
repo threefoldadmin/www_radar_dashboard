@@ -10,14 +10,14 @@
       </div>
 
       <!-- Block -->
-      <app-block-explorer [item]="item" [id]="id" *ngIf="item?.hashType === 'blockid'"></app-block-explorer>
+      <!-- <app-block-explorer [item]="item" [id]="id" *ngIf="item?.hashType === 'blockid'"></app-block-explorer> -->
 
       <!-- Transaction -->
-      <app-transaction-explorer [item]="item" [id]="id" *ngIf="item?.hashType === 'transactionid'"></app-transaction-explorer>
+      <!-- <app-transaction-explorer [item]="item" [id]="id" *ngIf="item?.hashType === 'transactionid'"></app-transaction-explorer> -->
 
       <!-- Address -->
-      <app-address-explorer [item]="item" [id]="id" *ngIf="item?.hashType === 'unlockhash'"></app-address-explorer>
-        <!-- <app-address-explorer [item]="item" [id]="id"></app-address-explorer> -->
+      <!-- <app-address-explorer [item]="item" [id]="id" *ngIf="item?.hashType === 'unlockhash'"></app-address-explorer> -->
+        <app-address-explorer [item]="item" [id]="id"></app-address-explorer>
     </div>
   </div>
 </ng-container>

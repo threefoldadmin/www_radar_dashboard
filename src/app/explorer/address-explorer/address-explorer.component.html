@@ -34,9 +34,12 @@
   </div>
 </ng-container>
 
-<div class="card">
+<div class="card card-transactions">
   <div class="page-subtitle">
     Transactions
+    <a class="chip peach big" (click)="item.transactionsHidden = !item.transactionsHidden">
+      {{item.transactionsHidden ? 'Show all' : 'Hide all'}}
+    </a>
   </div>
   <div class="rows-wrapper">
     <div class="flex-between align-center">
@@ -44,21 +47,46 @@
         21.20.2018 12:28
       </div>
       <div>
-        From:
-        <a class="bold">
-          01746677df456546d93729066dd88514e2009930f3eebac3c93d43c88a108f8f9aa9e7c6f58893
-        </a>
-        <div class="small-layer"></div>
-        <!-- <div>
-          <img src="assets/images/arrow-down.png" alt="">
-        </div> -->
-        To:
-        <a class="bold">
-          01746677df456546d93729066dd88514e2009930f3eebac3c93d43c88a108f8f9aa9e7c6f58893
-        </a>
+        <div class="row">
+          <div class="row-title">
+            Parent Transaction:
+          </div>
+          <a class="row-data bold">
+            a2ee0aa706c9de46ec57dbba1af8d352fbcc3cc5e9626fc56337fd5e9ca44c8d
+          </a>
+        </div>
+        <div class="row">
+          <div class="row-title">
+            Block Height:
+          </div>
+          <div class="row-data">
+            <a class="bold">
+              12 
+            </a>
+             &nbsp;(130 confirmations)
+          </div>
+        </div>
+        <div class="layer"></div>
+
+        <div class="row">
+          <div class="row-title">
+            From:
+          </div>
+          <a class="row-data bold">
+            01746677df456546d93729066dd88514e2009930f3eebac3c93d43c88a108f8f9aa9e7c6f58893
+          </a>
+        </div>
+        <div class="row">
+          <div class="row-title">
+            To:
+          </div>
+          <a class="row-data bold">
+            01746677df456546d93729066dd88514e2009930f3eebac3c93d43c88a108f8f9aa9e7c6f58893
+          </a>
+        </div>
       </div>
       <div>
-        <div class="chip red big">
+        <div class="chip red sum">
           -100.00 TFT
         </div>
       </div>
@@ -70,19 +98,47 @@
         21.20.2018 12:28
       </div>
       <div>
-        From: 
-        <a class="bold">
-          01746677df456546d93729066dd88514e2009930f3eebac3c93d43c88a108f8f9aa9e7c6f58893
-        </a>
-        <div class="small-layer"></div>
-        To:
-        <a class="bold">
-          01746677df456546d93729066dd88514e2009930f3eebac3c93d43c88a108f8f9aa9e7c6f58893
-        </a>
+        <div class="row">
+          <div class="row-title">
+            Parent Transaction:
+          </div>
+          <a class="row-data bold">
+            a2ee0aa706c9de46ec57dbba1af8d352fbcc3cc5e9626fc56337fd5e9ca44c8d
+          </a>
+        </div>
+        <div class="row">
+          <div class="row-title">
+            Block Height:
+          </div>
+          <div class="row-data">
+            <a class="bold">
+              12
+            </a>
+            &nbsp;(130 confirmations)
+          </div>
+        </div>
+        <div class="layer"></div>
+  
+        <div class="row">
+          <div class="row-title">
+            From:
+          </div>
+          <a class="row-data bold">
+            01746677df456546d93729066dd88514e2009930f3eebac3c93d43c88a108f8f9aa9e7c6f58893
+          </a>
+        </div>
+        <div class="row">
+          <div class="row-title">
+            To:
+          </div>
+          <a class="row-data bold">
+            01746677df456546d93729066dd88514e2009930f3eebac3c93d43c88a108f8f9aa9e7c6f58893
+          </a>
+        </div>
       </div>
       <div>
-        <div class="chip green big">
-          100.00 TFT
+        <div class="chip red sum">
+          -100.00 TFT
         </div>
       </div>
     </div>
@@ -93,23 +149,52 @@
         21.20.2018 12:28
       </div>
       <div>
-        From:
-        <a class="bold">
-          01746677df456546d93729066dd88514e2009930f3eebac3c93d43c88a108f8f9aa9e7c6f58893
-        </a>
-        <div class="small-layer"></div>
-        To:
-        <a class="bold">
-          01746677df456546d93729066dd88514e2009930f3eebac3c93d43c88a108f8f9aa9e7c6f58893
-        </a>
+        <div class="row">
+          <div class="row-title">
+            Parent Transaction:
+          </div>
+          <a class="row-data bold">
+            a2ee0aa706c9de46ec57dbba1af8d352fbcc3cc5e9626fc56337fd5e9ca44c8d
+          </a>
+        </div>
+        <div class="row">
+          <div class="row-title">
+            Block Height:
+          </div>
+          <div class="row-data">
+            <a class="bold">
+              12
+            </a>
+            &nbsp;(130 confirmations)
+          </div>
+        </div>
+        <div class="layer"></div>
+  
+        <div class="row">
+          <div class="row-title">
+            From:
+          </div>
+          <a class="row-data bold">
+            01746677df456546d93729066dd88514e2009930f3eebac3c93d43c88a108f8f9aa9e7c6f58893
+          </a>
+        </div>
+        <div class="row">
+          <div class="row-title">
+            To:
+          </div>
+          <a class="row-data bold">
+            01746677df456546d93729066dd88514e2009930f3eebac3c93d43c88a108f8f9aa9e7c6f58893
+          </a>
+        </div>
       </div>
       <div>
-        <div class="chip green big">
+        <div class="chip green sum">
           100.00 TFT
         </div>
       </div>
     </div>
   </div>
+ 
 </div>
 
 <!-- Coin Output Appearances -->
@@ -192,6 +277,66 @@
 </ng-container> -->
 
 <!-- Miner Payout Appearances -->
+<ng-container>
+  
+ <div class="card">
+    <div class="page-subtitle">
+      Miner Payout Appearances
+      <a class="chip peach big" (click)="item.minerpayoutputsHidden = !item.minerpayoutputsHidden">
+        {{item.minerpayoutputsHidden ? 'Show all' : 'Hide all'}}
+      </a>
+    </div>
+    <ng-container>
+      <div class="rows-wrapper">
+        <div class="row">
+          <div class="row-title">
+            Block Height
+          </div>
+          <a class="row-data bold" (click)="newSearch('')">
+            <!-- {{block.blockid}} -->
+          </a>
+        </div>
+        <div class="row">
+          <div class="row-title">
+            Miner Payout ID
+          </div>
+          <a class="row-data">
+            <!-- {{minerpayoutid}} -->
+          </a>
+        </div>
+        <div class="row">
+          <div class="row-title">
+            Payout Address
+          </div>
+          <div class="row-data">
+            <!-- {{id}} -->
+          </div>
+        </div>
+        <div class="row">
+          <div class="row-title">
+            Value
+          </div>
+          <div class="row-data">
+            TFT
+            <!-- {{tokens(block.rawblock.minerpayouts[j].value) | number : '1.0-8'}} TFT&nbsp;
+            <span class="flex">
+              ({{symbol('l')}}
+              <span *ngIf="currentCurrencyPair() !== 'btcUsd'">
+                {{tokenConverter(block.rawblock.minerpayouts[j].value) | number: '1.2-3'}}
+              </span>
+              <span *ngIf="currentCurrencyPair() === 'btcUsd'">
+                {{tokenConverter(block.rawblock.minerpayouts[j].value) | number: '1.2-8'}}
+              </span>
+              {{symbol('r')}})
+            </span> -->
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+    
+
+</ng-container>
 <!-- <ng-container *ngIf="isAddressMinerPayouts(item)">
   <div class="flex-center align-end flex-wrap">
     <div class="page-subtitle">
@@ -255,33 +400,36 @@
 </ng-container> -->
 
 <!-- Blockstake Output Appearances -->
-<!-- <ng-container *ngIf="isAddressBlockstakeOutputs(item.transactions)">
-  <div class="flex-center align-end flex-wrap">
+<ng-container>
+  <!-- *ngIf="isAddressBlockstakeOutputs(item.transactions)" -->
+  
+  <div class="card">
     <div class="page-subtitle">
       Blockstake Output Appearances
+      <a class="chip peach big" (click)="item.blockstakeoutputsHidden = !item.blockstakeoutputsHidden">
+        {{item.blockstakeoutputsHidden ? 'Show all' : 'Hide all'}}
+      </a>
     </div>
-    <div class="layer"></div>
-    <a class="chip peach" (click)="item.blockstakeoutputsHidden = !item.blockstakeoutputsHidden">
-      {{item.blockstakeoutputsHidden ? 'Show all' : 'Hide all'}}
-    </a>
-  </div>
-  <div *ngFor="let transaction of item.transactions; let i = index">
-    <ng-container *ngFor="let blockstakeoutputid of transaction.blockstakeoutputids; let j = index">
-      <div class="card" *ngIf="!item.blockstakeoutputsHidden && transaction.rawtransaction.data.blockstakeoutputs[j].unlockhash === id">
+      <!-- *ngFor="let transaction of item.transactions; let i = index" -->
+    <ng-container>
+      <!-- <ng-container *ngFor="let blockstakeoutputid of transaction.blockstakeoutputids; let j = index"> -->
+  
+      <div class="rows-wrapper">
+        <!-- <div class="card" *ngIf="!item.blockstakeoutputsHidden && transaction.rawtransaction.data.blockstakeoutputs[j].unlockhash === id"> -->
         <div class="row">
           <div class="row-title">
-            Height
+            Block Height
           </div>
-          <a class="row-data bold" (click)="newSearch(transaction.height)">
-            {{transaction.height}}
+          <a class="row-data bold" (click)="newSearch('')">
+            <!-- {{transaction.height}} -->
           </a>
         </div>
         <div class="row">
           <div class="row-title">
             Parent Transaction
           </div>
-          <a class="row-data bold" (click)="newSearch(transaction.id)">
-            {{transaction.id}}
+          <a class="row-data bold" (click)="newSearch('')">
+            <!-- {{transaction.id}} -->
           </a>
         </div>
         <div class="row">
@@ -289,7 +437,7 @@
             ID
           </div>
           <div class="row-data">
-            {{blockstakeoutputid}}
+            <!-- {{blockstakeoutputid}} -->
           </div>
         </div>
         <div class="row">
@@ -297,7 +445,7 @@
             Address
           </div>
           <div class="row-data">
-            {{id}}
+            <!-- {{id}} -->
           </div>
         </div>
         <div class="row">
@@ -306,7 +454,7 @@
           </div>
           <div class="row-data">
             <div class="row-data">
-              {{transaction.rawtransaction.data.blockstakeoutputs[j].value}} blockstakes
+              <!-- {{transaction.rawtransaction.data.blockstakeoutputs[j].value}} blockstakes -->
             </div>
           </div>
         </div>
@@ -316,12 +464,11 @@
           </div>
           <div class="row-data">
             <div class="row-data">
-              {{hasBeenSpent(item.transactions, transaction.rawtransaction.data.blockstakeoutputs[j].value, 'blockstake')}}
+              <!-- {{hasBeenSpent(item.transactions, transaction.rawtransaction.data.blockstakeoutputs[j].value, 'blockstake')}} -->
             </div>
           </div>
         </div>
       </div>
     </ng-container>
-
   </div>
-</ng-container> -->
+</ng-container>
