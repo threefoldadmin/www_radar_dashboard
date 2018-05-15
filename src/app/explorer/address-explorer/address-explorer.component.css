@@ -6,7 +6,7 @@
   padding: 10px 15px;
 }
 .card-transactions .row{
-  font-size: 15px;
+  font-size: 14.5px;
   margin-bottom: 5px;
 }
 
@@ -19,5 +19,12 @@
 .balance{
   padding-top: 5px;
   font-weight: bold;
+}
+.middle-col{
+  min-width: 70%;
+  max-width: 70%;
+}
+.date{
+  font-weight: 600;
   color: #cfdef8;
 }
