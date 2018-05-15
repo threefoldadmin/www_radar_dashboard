@@ -56,7 +56,7 @@
       <ng-container *ngIf="!item.transactionsHidden">
         <div  *ngFor="let transaction of item.transactions" class="rows-wrapper">
           <div class="card-title">
-            <div class="flex-center align-center">
+            <div class="flex-center align-center flex-wrap">
               Transaction:&nbsp;
               <a class="row-data bold" (click)="newSearch(transaction._id)">
                 {{transaction._id}}
@@ -68,7 +68,7 @@
               </a>
             </div>
           </div>
-          <div class="flex-between align-start">
+          <div class="cols-wrapper">
             <div class="left-col">
               <div class="date">
                 {{ transaction.timeStamp * 1000 | date :'MMM dd' + ', ' + 'yyyy' + ' ' + 'HH:mm'}}
@@ -94,7 +94,7 @@
                         {{recipient.to}}
                       </a>
                       <div class="layer"></div>
-                      <div class="bold flex-noshrink" [class.red-text]="!transaction.isLoading" [class.green-text]="transaction.isLoading">
+                      <div class="bold flex-no-shrink" [class.red-text]="!transaction.isLoading" [class.green-text]="transaction.isLoading">
                         {{tokens(recipient.value) | number : '1.0-6'}} TFT
                       </div>
                     </div>
@@ -102,6 +102,7 @@
                 </div>
               </div>
             </div>
+            <div class="big-layer"></div>
             <div class="right-col">
               <div class="chip sum" [class.red]="!transaction.isLoading" [class.green]="transaction.isLoading">
                 <div>

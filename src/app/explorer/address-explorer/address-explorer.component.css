@@ -4,7 +4,7 @@
   width: 100%;
   border-radius: 1px;
   box-sizing: border-box;
-  padding: 10px 3px;
+  padding: 7px 3px;
 }
 .card-transactions .row{
   font-size: 14px;
@@ -21,6 +21,11 @@
   padding-top: 5px;
   text-align: center;
   font-weight: bold;
+}
+.card-transactions .cols-wrapper{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 .card-transactions .left-col{
   display: flex;
@@ -39,6 +44,17 @@
 .card-transactions .card-title{
   font-size: 15px;
 }
+.card-transactions .card-title a{
+  word-break: break-all;
+}
 .card-transactions .small{
   font-size: 11px;
 }
+@media only screen and (max-width : 767px) {
+  .card-transactions .cols-wrapper,
+  .card-transactions .left-col{
+    flex-direction: column;
+    align-items: center;
+  }
+}
+/*7s67*/
