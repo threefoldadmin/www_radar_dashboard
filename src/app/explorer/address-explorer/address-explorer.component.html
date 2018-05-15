@@ -256,10 +256,10 @@
             <span class="flex">
               ({{symbol('l')}}
               <span *ngIf="currentCurrencyPair() !== 'btcUsd'">
-                {{tokenConverter(payout.value) | number: '1.2-3'}}
+                {{tokenConverter(payout.value, payout.rates) | number: '1.2-3'}}
               </span>
               <span *ngIf="currentCurrencyPair() === 'btcUsd'">
-                {{tokenConverter(payout.value) | number: '1.2-8'}}
+                {{tokenConverter(payout.value, payout.rates) | number: '1.2-8'}}
               </span>
               {{symbol('r')}})
             </span>
@@ -280,21 +280,21 @@
       </a>
     </div>
     <ng-container *ngIf="!item.blockstakeoutputsHidden">
-      <div class="rows-wrapper">
+      <div *ngFor="let blockstake of item.blockStakeMotion" class="rows-wrapper">
         <div class="row">
           <div class="row-title">
             Block Height
           </div>
-          <a class="row-data bold" (click)="newSearch('')">
-            <!-- {{transaction.height}} -->
+          <a class="row-data bold" (click)="newSearch(blockstake.blockHeigth)">
+            {{blockstake.blockHeigth}}
           </a>
         </div>
         <div class="row">
           <div class="row-title">
             Parent Transaction
           </div>
-          <a class="row-data bold" (click)="newSearch('')">
-            <!-- {{transaction.id}} -->
+          <a class="row-data bold" (click)="newSearch('blockstake.parentTransaction')">
+            {{blockstake.parentTransaction}}
           </a>
         </div>
         <div class="row">
@@ -302,7 +302,7 @@
             ID
           </div>
           <div class="row-data">
-            <!-- {{blockstakeoutputid}} -->
+            {{blockstake.id}}
           </div>
         </div>
         <div class="row">
@@ -310,7 +310,7 @@
             Address
           </div>
           <div class="row-data">
-            <!-- {{id}} -->
+            {{blockstake.address}}
           </div>
         </div>
         <div class="row">
@@ -318,7 +318,8 @@
             Value
           </div>
           <div class="row-data">
-            <div class="row-data">
+            <div class="chip big sum" [class.red]="!blockstake.isInput" [class.green]="blockstake.isInput">
+              {{!blockstake.isInput ? '-': ''}}{{blockstake.value}} blockstakes
             </div>
           </div>
         </div>
