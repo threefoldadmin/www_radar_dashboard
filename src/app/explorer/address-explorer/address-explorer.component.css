@@ -1,30 +1,42 @@
 
 .card-transactions  .chip.sum{
   font-size: 15px;
-  min-width: 115px;
+  width: 100%;
   border-radius: 1px;
-  padding: 10px 15px;
+  box-sizing: border-box;
+  padding: 10px 1px;
 }
 .card-transactions .row{
-  font-size: 14.5px;
+  font-size: 14px;
   margin-bottom: 5px;
 }
-
 .card-transactions .row-title{
   width: unset;
   min-width: 40px;
   margin-right: 5px;
   text-align: left;
 }
-.balance{
+.card-transactions .balance{
   padding-top: 5px;
+  text-align: center;
   font-weight: bold;
 }
-.middle-col{
-  min-width: 70%;
-  max-width: 70%;
+.card-transactions .left-col{
+  display: flex;
 }
-.date{
+.card-transactions .right-col{
+  min-width: 160px;
+  max-width: 180px;
+}
+.card-transactions .date{
+  text-align: center;
   font-weight: 600;
   color: #cfdef8;
+  max-width: 100px;
+}
+.card-transactions .card-title{
+  font-size: 15px;
+}
+.card-transactions .small{
+  font-size: 11px;
 }

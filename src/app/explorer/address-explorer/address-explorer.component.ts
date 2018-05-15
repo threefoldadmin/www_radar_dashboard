@@ -24,8 +24,8 @@ export class AddressExplorerComponent implements OnInit {
   public tokens(value) {
     return this.appComponent.tokens(value);
   }
-  public tokenConverter(value: number) {
-    return this.appComponent.tokenConverter(value);
+  public tokenConverter(value: number, exchangeRates?: any) {
+    return this.appComponent.tokenConverter(value, exchangeRates);
   }
   public symbol(position: string) {
     return this.appComponent.symbol(position);
