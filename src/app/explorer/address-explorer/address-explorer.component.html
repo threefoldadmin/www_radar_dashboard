@@ -68,7 +68,7 @@
               </a>
             </div>
           </div>
-          <div class="flex-between align-center">
+          <div class="flex-between align-start">
             <div class="left-col">
               <div class="date">
                 {{ transaction.timeStamp * 1000 | date :'MMM dd' + ', ' + 'yyyy' + ' ' + 'HH:mm'}}
@@ -132,7 +132,7 @@
                 </span>
               </div>
               <div class="small-layer"></div>
-              <div class="pink-text bold small flex-center" *ngIf="item?.lastBlockHeight">
+              <div class="blue-text bold small flex-center" *ngIf="item?.lastBlockHeight">
                 {{item?.lastBlockHeight - transaction.blockId}} Confirmations
               </div>
             </div>
@@ -235,9 +235,9 @@
           <div class="row-title">
             Miner Payout ID
           </div>
-          <a class="row-data">
+          <div class="row-data">
             {{payout.minerPayoutId}}
-          </a>
+          </div>
         </div>
         <div class="row">
           <div class="row-title">

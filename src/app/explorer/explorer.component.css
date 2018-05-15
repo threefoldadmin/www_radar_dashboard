@@ -51,7 +51,7 @@
   margin-bottom: 13px;
   border-bottom: 1px solid rgba(250, 250, 250, 0.3);
 }
-.rows-wrapper:last-child{
+.card .rows-wrapper:last-child{
   border: none;
 }
 .row{

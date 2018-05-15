@@ -9,6 +9,7 @@
 .card-transactions .row{
   font-size: 14px;
   margin-bottom: 5px;
+  align-items: flex-start;
 }
 .card-transactions .row-title{
   width: unset;
@@ -33,6 +34,7 @@
   font-weight: 600;
   color: #cfdef8;
   max-width: 100px;
+  min-width: 100px;
 }
 .card-transactions .card-title{
   font-size: 15px;
