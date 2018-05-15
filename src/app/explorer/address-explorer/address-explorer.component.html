@@ -297,7 +297,7 @@
             {{blockstake.parentTransaction}}
           </a>
         </div>
-        <div class="row">
+        <div class="row" *ngIf="!blockstake.isInput">
           <div class="row-title">
             ID
           </div>
