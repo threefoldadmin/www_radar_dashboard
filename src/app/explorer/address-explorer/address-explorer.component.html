@@ -170,6 +170,7 @@
             &nbsp;(130 confirmations)
           </div>
         </div>
+<<<<<<< HEAD
         <div class="row">
           <div class="row-title">
             Unlocked at:
@@ -179,6 +180,8 @@
           </div>
         </div>
         
+=======
+>>>>>>> 234a0f4a0b48f3f87eed91d54b4f5689192d3d1d
         <div class="layer"></div>
   
         <div class="row">
@@ -412,6 +415,7 @@
 
 <!-- Blockstake Output Appearances -->
 <ng-container>
+<<<<<<< HEAD
   <div class="card">
     <div class="page-subtitle">
       Blockstake Output Appearances
@@ -479,31 +483,37 @@
 </ng-container>
 <!-- <ng-container *ngIf="isAddressBlockstakeOutputs(item.transactions)">
   <div class="flex-center align-end flex-wrap">
+=======
+  <!-- *ngIf="isAddressBlockstakeOutputs(item.transactions)" -->
+  
+  <div class="card">
+>>>>>>> 234a0f4a0b48f3f87eed91d54b4f5689192d3d1d
     <div class="page-subtitle">
       Blockstake Output Appearances
+      <a class="chip peach big" (click)="item.blockstakeoutputsHidden = !item.blockstakeoutputsHidden">
+        {{item.blockstakeoutputsHidden ? 'Show all' : 'Hide all'}}
+      </a>
     </div>
-    <div class="layer"></div>
-    <a class="chip peach" (click)="item.blockstakeoutputsHidden = !item.blockstakeoutputsHidden">
-      {{item.blockstakeoutputsHidden ? 'Show all' : 'Hide all'}}
-    </a>
-  </div>
-  <div *ngFor="let transaction of item.transactions; let i = index">
-    <ng-container *ngFor="let blockstakeoutputid of transaction.blockstakeoutputids; let j = index">
-      <div class="card" *ngIf="!item.blockstakeoutputsHidden && transaction.rawtransaction.data.blockstakeoutputs[j].unlockhash === id">
+      <!-- *ngFor="let transaction of item.transactions; let i = index" -->
+    <ng-container>
+      <!-- <ng-container *ngFor="let blockstakeoutputid of transaction.blockstakeoutputids; let j = index"> -->
+  
+      <div class="rows-wrapper">
+        <!-- <div class="card" *ngIf="!item.blockstakeoutputsHidden && transaction.rawtransaction.data.blockstakeoutputs[j].unlockhash === id"> -->
         <div class="row">
           <div class="row-title">
-            Height
+            Block Height
           </div>
-          <a class="row-data bold" (click)="newSearch(transaction.height)">
-            {{transaction.height}}
+          <a class="row-data bold" (click)="newSearch('')">
+            <!-- {{transaction.height}} -->
           </a>
         </div>
         <div class="row">
           <div class="row-title">
             Parent Transaction
           </div>
-          <a class="row-data bold" (click)="newSearch(transaction.id)">
-            {{transaction.id}}
+          <a class="row-data bold" (click)="newSearch('')">
+            <!-- {{transaction.id}} -->
           </a>
         </div>
         <div class="row">
@@ -511,7 +521,7 @@
             ID
           </div>
           <div class="row-data">
-            {{blockstakeoutputid}}
+            <!-- {{blockstakeoutputid}} -->
           </div>
         </div>
         <div class="row">
@@ -519,7 +529,7 @@
             Address
           </div>
           <div class="row-data">
-            {{id}}
+            <!-- {{id}} -->
           </div>
         </div>
         <div class="row">
@@ -528,7 +538,7 @@
           </div>
           <div class="row-data">
             <div class="row-data">
-              {{transaction.rawtransaction.data.blockstakeoutputs[j].value}} blockstakes
+              <!-- {{transaction.rawtransaction.data.blockstakeoutputs[j].value}} blockstakes -->
             </div>
           </div>
         </div>
@@ -538,12 +548,11 @@
           </div>
           <div class="row-data">
             <div class="row-data">
-              {{hasBeenSpent(item.transactions, transaction.rawtransaction.data.blockstakeoutputs[j].value, 'blockstake')}}
+              <!-- {{hasBeenSpent(item.transactions, transaction.rawtransaction.data.blockstakeoutputs[j].value, 'blockstake')}} -->
             </div>
           </div>
         </div>
       </div>
     </ng-container>
-
   </div>
-</ng-container> -->
+</ng-container>
