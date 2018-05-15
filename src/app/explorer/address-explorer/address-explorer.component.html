@@ -29,7 +29,7 @@
       Final Balance
     </div>
     <div class="row-data">
-    {{tokens(item.balance) | number : '1.0-8'}} TFT&nbsp;
+    {{tokens(item.balance) | number : '1.0-6'}} TFT&nbsp;
       <span class="flex">
         ({{symbol('l')}}
         <span *ngIf="currentCurrencyPair() !== 'btcUsd'">
@@ -95,7 +95,7 @@
                       </a>
                       <div class="layer"></div>
                       <div class="bold flex-noshrink" [class.red-text]="!transaction.isLoading" [class.green-text]="transaction.isLoading">
-                        {{tokens(recipient.value) | number : '1.0-8'}} TFT
+                        {{tokens(recipient.value) | number : '1.0-6'}} TFT
                       </div>
                     </div>
                   </div>
@@ -105,7 +105,7 @@
             <div class="right-col">
               <div class="chip sum" [class.red]="!transaction.isLoading" [class.green]="transaction.isLoading">
                 <div>
-                  {{ !transaction.isLoading ? '-' : ''}}{{tokens(transaction.coinsSumm) | number : '1.0-8' }} TFT
+                  {{ !transaction.isLoading ? '-' : ''}}{{tokens(transaction.coinsSumm) | number : '1.0-6' }} TFT
                 </div>
                 <span class="flex-center small">
                   ({{symbol('l')}}
@@ -119,7 +119,7 @@
                 </span>
               </div>
               <div class="balance small" *ngIf="!transaction.isLoading">
-                Balance: {{tokens(transaction.balanceAfter) | number : '1.0-8'}} TFT&nbsp;
+                Balance: {{tokens(transaction.balanceAfter) | number : '1.0-6'}} TFT&nbsp;
                 <span class="flex-center">
                   ({{symbol('l')}}
                   <span *ngIf="currentCurrencyPair() !== 'btcUsd'">
@@ -134,76 +134,6 @@
               <div class="small-layer"></div>
               <div class="blue-text bold small flex-center" *ngIf="item?.lastBlockHeight">
                 {{item?.lastBlockHeight - transaction.blockId}} Confirmations
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="rows-wrapper hidden">
-          <div class="card-title flex-column align-center">
-            <div class="row">
-              <div class="row-title">
-                Transaction:
-              </div>
-              <a class="row-data bold">
-                a2ee0aa706c9de46ec57dbba1af8d352fbcc3cc5e9626fc56337fd5e9ca44c89
-              </a>
-            </div>
-            <!-- <div class="row">
-              <div class="row-title">
-                Block Height:
-              </div>
-              <div class="row-data">
-                <a class="bold">
-                  1
-                </a>
-                &nbsp;(130 confirmations)
-              </div>
-            </div>
-            <div class="row">
-              <div class="row-title">
-                Unlocked at:
-              </div>
-              <div class="row-data">
-                3:00, Aug 21, 2018
-              </div>
-            </div> -->
-          </div>
-          <div class="layer"></div>
-          <div class="flex-between align-center">
-            <div class="date">
-              10.05.2018 12:28
-            </div>
-            <div class="layer"></div>
-            <div class="middle-col">
-              <div class="row">
-                <div class="row-title">
-                  From:
-                </div>
-                <a class="row-data bold">
-                  01746677df456546d93729066dd88514e2009930f3eebac3c93d43c88a108f8f9aa9e7c6f58123
-                </a>
-              </div>
-              <div class="small-layer"></div>
-              <div class="row">
-                <div class="row-title">
-                  To:
-                </div>
-                <div class="row-data">
-                  <div class="flex align-center">
-                    <a class="bold">
-                      01746677df456546d93729066dd88514e2009930f3eebac3c93d43c88a108f8f9aa9e7c6f58893
-                    </a>
-                    <div class="layer"></div>
-                    <div class="green-text bold">450 TFT</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="layer"></div>
-            <div>
-              <div class="chip green sum">
-                450.00 TFT
               </div>
             </div>
           </div>
@@ -252,7 +182,7 @@
             Value
           </div>
           <div class="row-data">
-            {{tokens(payout.value) | number : '1.0-8'}} TFT&nbsp;
+            {{tokens(payout.value) | number : '1.0-6'}} TFT&nbsp;
             <span class="flex">
               ({{symbol('l')}}
               <span *ngIf="currentCurrencyPair() !== 'btcUsd'">
