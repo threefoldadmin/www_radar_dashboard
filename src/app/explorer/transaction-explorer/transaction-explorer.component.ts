@@ -43,21 +43,12 @@ export class TransactionExplorerComponent implements OnInit {
   }
   public pageChanged(page: number, name: string) {
     this.paginator.current[name] = page;
-    this.getMore(name);
-  }
-  public getMore(name: string) {
-    const path = `transaction/${this.item._id}/more`;
-    const query = {
-      skip: this.paginator.limit * ( this.paginator.current[name] - 1),
-      limit: this.paginator.limit,
-      field: name
-    };
-    this.appComponent.API('get', path, '', query).subscribe(
+    this.appComponent.getPageData('transaction', this.item._id, this.paginator.limit, this.paginator.current[name], name).subscribe(
       data => {
         if (data) {
-          this.item[name] = data.list;
+          this.item[name] = data;
         }
-      },
+      }
     );
   }
 }

@@ -10,12 +10,19 @@ import { AppComponent } from '../../app.component';
 export class BlockExplorerComponent implements OnInit {
   @Input() public item;
   @Input() public id;
+  public paginator = {
+    limit: 10,
+    current: {
+      transactions: 1
+    }
+  };
   constructor(
     private router: Router,
     private appComponent: AppComponent,
   ) { }
 
   ngOnInit() {
+    this.pageChanged(1, 'transactions');
   }
   public newSearch(id) {
     this.router.navigate([`/search/${id}`]);
@@ -32,5 +39,14 @@ export class BlockExplorerComponent implements OnInit {
   public currentCurrencyPair() {
     return this.appComponent.currentCurrencyPair;
   }
-
+  public pageChanged(page: number, name: string) {
+    this.paginator.current[name] = page;
+    this.appComponent.getPageData('block', this.item.height, this.paginator.limit, this.paginator.current[name], name).subscribe(
+      data => {
+        if (data) {
+          this.item.transactions = data;
+        }
+      }
+    );
+  }
 }

@@ -48,20 +48,6 @@ export class ExplorerComponent implements OnInit, OnDestroy {
       data => {
         if (data) {
           this.item = data;
-          if (this.item.hashType === 'blockid') {
-            this.item.transactions = [];
-            this.getTransactions();
-          }
-        }
-      },
-    );
-  }
-  public getTransactions() {
-    const path = `block/${this.item.height}/transactions`;
-    this.appComponent.API('get', path).subscribe(
-      data => {
-        if (data) {
-          this.item.transactions = data.list;
         }
       },
     );
@@ -70,8 +56,7 @@ export class ExplorerComponent implements OnInit, OnDestroy {
     let name;
     switch (type) {
       case 'blockid':
-        // name = 'Block';
-        name = 'Address';
+        name = 'Block';
         break;
       case 'transactionid':
         name = 'Transaction';

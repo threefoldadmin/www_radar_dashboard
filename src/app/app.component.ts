@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { NotificationsService } from 'angular2-notifications';
 
 import { SocketService } from '../services/socket.service';
@@ -136,5 +136,21 @@ export class AppComponent {
       }
     }
     return result;
+  }
+  public getPageData(name: string, id: any, limit: number, page: number, type: string ) {
+    const items = new BehaviorSubject<any>([]);
+    const path = `${name}/${id}/${type}`;
+    const query = {
+      skip: limit * (page - 1),
+      limit: limit
+    };
+    this.API('get', path, '', query).subscribe(
+      data => {
+        if (data) {
+          items.next(data.list);
+        }
+      },
+    );
+    return items;
   }
 }
