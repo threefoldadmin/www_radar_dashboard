@@ -1,0 +1,320 @@
+<!-- Main info -->
+<ng-container>
+  <div class="row">
+    <div class="row-title">
+      ID
+    </div>
+    <div class="row-data">
+      {{item._id}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="row-title">
+      Time
+    </div>
+    <div class="row-data">
+      {{item.blockInfo.timeStamp * 1000 | date :'HH:mm' + ', ' + 'MMM dd' + ', ' + 'yyyy'}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="row-title">
+      Block Height
+    </div>
+    <a class="row-data bold" (click)="newSearch(item.blockInfo.height)">
+      {{item.blockInfo.height}}
+    </a>
+  </div>
+  <div class="row">
+    <div class="row-title">
+      Block Confirmation
+    </div>
+    <div class="row-data" *ngIf="item?.lastBlockHeight">
+      {{item?.lastBlockHeight - item.blockInfo.height}}
+    </div>
+  </div>
+  <div class="row" *ngIf="item.coinInputCount > 0">
+    <div class="row-title">
+      Coin Input Count
+    </div>
+    <div class="row-data">
+      {{item.coinInputCount}}
+    </div>
+  </div>
+  <div class="row" *ngIf="item.coinOutputCount > 0">
+    <div class="row-title">
+      Coin Output Count
+    </div>
+    <div class="row-data">
+      {{item.coinOutputCount}}
+    </div>
+  </div>
+  <div class="row" *ngIf="item.blockStakeInputCount > 0">
+    <div class="row-title">
+      BlockStake Input Count
+    </div>
+    <div class="row-data">
+      {{item.blockStakeInputCount}}
+    </div>
+  </div>
+  <div class="row" *ngIf="item.blockStakeOutputCount > 0">
+    <div class="row-title">
+      BlockStake Output Count
+    </div>
+    <div class="row-data">
+      {{item.blockStakeOutputCount}}
+    </div>
+  </div>
+</ng-container>
+
+<!-- Coin Inputs -->
+<ng-container *ngIf="item.coinInputCount > 0">
+  <div class="card">
+    <div class="page-subtitle">
+      Coin Inputs
+      <a class="chip peach big" (click)="item.coinInputsHidden = !item.coinInputsHidden">
+        {{item.coinInputsHidden ? 'Show all' : 'Hide all'}}
+      </a>
+    </div>
+    <ng-container *ngIf="!item.coinInputsHidden">
+      <div *ngFor="let input of item.coinInputs" class="rows-wrapper">
+        <div class="card-title">
+          General
+        </div>
+        <div class="row">
+          <div class="row-title">
+            Parent ID
+          </div>
+          <div class="row-data">
+            {{input.parentId}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="row-title">
+            Address
+          </div>
+          <a class="row-data bold" (click)="newSearch(input.address)">
+            {{input.address}}
+          </a>
+        </div>
+        <div class="row">
+          <div class="row-title">
+            Value
+          </div>
+          <div class="row-data">
+            {{tokens(input.value) | number : '1.0-6'}} TFT&nbsp;
+            <span class="flex">
+              ({{symbol('l')}}
+              <span *ngIf="currentCurrencyPair() !== 'btcUsd'">
+                {{tokenConverter(input.value) | number: '1.2-2'}}
+              </span>
+              <span *ngIf="currentCurrencyPair() === 'btcUsd'">
+                {{tokenConverter(input.value) | number: '1.2-8'}}
+              </span>
+              {{symbol('r')}})
+            </span>
+          </div>
+        </div>
+        <div class="card-title">
+          Unlocker
+        </div>
+        <div class="row">
+          <div class="row-title">
+            Unlock type
+          </div>
+          <div class="row-data">
+            {{input.unlockType}}
+          </div>
+        </div>
+        <div class="card-title">
+          Condition
+        </div>
+        <div class="row">
+          <div class="row-title">
+            Publickey
+          </div>
+          <div class="row-data">
+            {{input.publicKey}}
+          </div>
+        </div>
+        <div class="card-title">
+          Fulfillment
+        </div>
+        <div class="row">
+          <div class="row-title">
+            Signature
+          </div>
+          <div class="row-data">
+            {{input.signature}}
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</ng-container>
+
+<!-- Coin Outputs -->
+<ng-container *ngIf="item.coinOutputCount > 0">
+  <div class="card">
+    <div class="page-subtitle">
+      Coin Outputs
+      <a class="chip peach big" (click)="item.coinOutputsHidden = !item.coinOutputsHidden">
+        {{item.coinOutputsHidden ? 'Show all' : 'Hide all'}}
+      </a>
+    </div>
+    <ng-container *ngIf="!item.coinOutputsHidden">
+      <div *ngFor="let output of item.coinOutputs | paginate: { id: 'coinOutputsPaginator', itemsPerPage: paginator.limit , currentPage: paginator.current.coinOutputs, totalItems: item.coinOutputCount }" class="rows-wrapper">
+        <div class="row">
+          <div class="row-title">
+            ID
+          </div>
+          <div class="row-data">
+            {{output.id}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="row-title">
+            Address
+          </div>
+          <a class="row-data bold" (click)="newSearch(output.address)">
+            {{output.address}}
+          </a>
+        </div>
+        <div class="row">
+          <div class="row-title">
+            Value
+          </div>
+          <div class="row-data">
+            {{tokens(output.value) | number : '1.0-6'}} TFT&nbsp;
+            <span class="flex">
+              ({{symbol('l')}}
+              <span *ngIf="currentCurrencyPair() !== 'btcUsd'">
+                {{tokenConverter(output.value) | number: '1.2-2'}}
+              </span>
+              <span *ngIf="currentCurrencyPair() === 'btcUsd'">
+                {{tokenConverter(output.value) | number: '1.2-8'}}
+              </span>
+              {{symbol('r')}})
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="flex-center">
+        <pagination-controls id="coinOutputsPaginator" autoHide="true" (pageChange)="pageChanged($event, 'coinOutputs')"></pagination-controls>
+      </div>
+    </ng-container>
+  </div>
+</ng-container>
+
+<!-- BlockStake Inputs -->
+<ng-container *ngIf="item.blockStakeInputCount > 0">
+  <div class="card">
+    <div class="page-subtitle">
+      BlockStake Inputs
+      <a class="chip peach big" (click)="item.blockStakeInputsHidden = !item.blockStakeInputsHidden">
+        {{item.blockStakeInputsHidden ? 'Show all' : 'Hide all'}}
+      </a>
+    </div>
+    <ng-container *ngIf="!item.blockStakeInputsHidden">
+      <div *ngFor="let input of item.blockStakeInputs" class="rows-wrapper">
+        <div class="card-title">
+          General
+        </div>
+        <div class="row">
+          <div class="row-title">
+            Parent ID
+          </div>
+          <div class="row-data">
+            {{input.parentId}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="row-title">
+            Address
+          </div>
+          <a class="row-data bold" (click)="newSearch(input.address)">
+            {{input.address}}
+          </a>
+        </div>
+        <div class="row">
+          <div class="row-title">
+            Value
+          </div>
+          <div class="row-data">
+            {{input.value }} blockstakes
+          </div>
+        </div>
+        <div class="card-title">
+          Fulfillment
+        </div>
+        <div class="row">
+          <div class="row-title">
+            Type
+          </div>
+          <div class="row-data">
+            {{input.unlockType}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="row-title">
+            Publickey
+          </div>
+          <div class="row-data">
+            {{input.publicKey}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="row-title">
+            Signature
+          </div>
+          <div class="row-data">
+            {{input.signature}}
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</ng-container>
+
+<!-- BlockStake Outputs -->
+<ng-container *ngIf="item.blockStakeOutputCount > 0">
+  <div class="card">
+    <div class="page-subtitle">
+      BlockStake Outputs
+      <a class="chip peach big" (click)="item.blockStakeOutputsHidden = !item.blockStakeOutputsHidden">
+        {{item.blockStakeOutputsHidden ? 'Show all' : 'Hide all'}}
+      </a>
+    </div>
+    <ng-container *ngIf="!item.blockStakeOutputsHidden">
+      <div *ngFor="let output of item.blockStakeOutputs | paginate: { id: 'blockStakeOutputsPaginator', itemsPerPage: paginator.limit , currentPage: paginator.current.blockStakeOutputs, totalItems:
+      item.blockStakeOutputCount }" class="rows-wrapper">
+        <div class="row">
+          <div class="row-title">
+            ID
+          </div>
+          <div class="row-data">
+            {{output.id}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="row-title">
+            Address
+          </div>
+          <a class="row-data bold" (click)="newSearch(output.address)">
+            {{output.address}}
+          </a>
+        </div>
+        <div class="row">
+          <div class="row-title">
+            Value
+          </div>
+          <div class="row-data">
+            {{output.value}} blockstakes
+          </div>
+        </div>
+      </div>
+      <div class="flex-center">
+        <pagination-controls id="blockStakeOutputsPaginator" autoHide="true" (pageChange)="pageChanged($event, 'blockStakeOutputs')"></pagination-controls>
+      </div>
+    </ng-container>
+  </div>
+</ng-container>

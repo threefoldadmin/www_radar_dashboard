@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AppComponent } from '../app.component';
 
 @Component({
@@ -7,25 +8,38 @@ import { AppComponent } from '../app.component';
   templateUrl: './explorer.component.html',
   styleUrls: ['./explorer.component.css']
 })
-export class ExplorerComponent implements OnInit {
+export class ExplorerComponent implements OnInit, OnDestroy {
+  private subscriptions: Subscription[] = [];
   public id;
   public item;
-  public sfoids = [];
-  public sfoidMatches = [];
+
   constructor(
     private appComponent: AppComponent,
     public activatedRoute: ActivatedRoute,
-    public router: Router
   ) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
       this.id = params['id'];
       this.item = null;
-      this.search();
+      this.getItem();
     });
+    const lastBlockSub = this.appComponent.dataService.lastBlock$.subscribe(
+      block => {
+        if (block) {
+          if (this.item) {
+            this.item.lastBlockHeight = block.height;
+          }
+        }
+      }
+    );
+    this.subscriptions.push(lastBlockSub);
   }
-  public search() {
+  ngOnDestroy() {
+    this.subscriptions
+      .forEach(s => s.unsubscribe());
+  }
+  public getItem() {
     let path = 'block';
     if (this.id.match(/[a-z]/i)) {
       path = 'hashes';
@@ -42,32 +56,17 @@ export class ExplorerComponent implements OnInit {
     let name;
     switch (type) {
       case 'blockid':
-        name = 'Block ID';
+        name = 'Block';
         break;
       case 'transactionid':
-        name = 'Transaction ID';
+        name = 'Transaction';
         break;
       case 'unlockhash':
         name = 'Address';
         break;
       default:
-        name = 'N/A';
+        name = 'Invalid result';
     }
     return name;
-  }
-  public newSearch(id) {
-    this.router.navigate([`/search/${id}`]);
-  }
-  public tokens(value) {
-    return this.appComponent.tokens(value);
-  }
-  public tokenConverter(value: number) {
-    return this.appComponent.tokenConverter(value);
-  }
-  public symbol(position: string) {
-    return this.appComponent.symbol(position);
-  }
-  public currentCurrencyPair() {
-    return this.appComponent.currentCurrencyPair;
   }
 }

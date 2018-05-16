@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { AppComponent } from '../app.component';
 import * as moment from 'moment/moment';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -20,8 +21,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.getPeers();
-    this.getLastBlocks();
+    this.getData();
 
     const lastBlockSub = this.appComponent.dataService.lastBlock$.subscribe(
       block => {
@@ -38,23 +38,23 @@ export class DashboardComponent implements OnInit, OnDestroy {
         }
       }
     );
-    this.subscriptions.push(lastBlockSub);
+    const lastBlocksSub = this.appComponent.dataService.lastBlocks$.subscribe(
+      blocks => {
+        if (blocks) {
+          this.lastBlocks = blocks;
+          this.setBlocksTimeDiff();
+        }
+      }
+    );
+    this.subscriptions.push(lastBlockSub, lastBlocksSub);
   }
-
   ngOnDestroy() {
     this.subscriptions
       .forEach(s => s.unsubscribe());
   }
-  public getLastBlocks() {
-    this.appComponent.API('get', 'block').subscribe(
-      data => {
-        if (data) {
-          this.lastBlock = data.lastBlock;
-          this.lastBlocks = data.lastBlocks;
-          this.setBlocksTimeDiff();
-        }
-      },
-    );
+  public getData() {
+    this.appComponent.getData();
+    this.getPeers();
   }
   public getPeers() {
     this.appComponent.API('get', 'peers').subscribe(
@@ -86,9 +86,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       block.ago = this.calculateTimeDiff(block.timeStamp);
     });
   }
-  // public tokenConverter(value: number, currency: string) {
-  //   return this.appComponent.tokenConverter(value, currency);
-  // }
   public calculateTimeDiff(timestamp: number) {
     const blockTime = moment.unix(timestamp);
     const blockTimeFormatted = moment.unix(timestamp).format('DD.MM.YYYY');
@@ -111,17 +108,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
   public tokens(value) {
     return this.appComponent.tokens(value);
   }
-  public tokenConverter(value: number) {
-    return this.appComponent.tokenConverter(value);
-  }
-  public getStaticData(name: string) {
-    return this.appComponent.converter(this.appComponent[name]);
+  public tokenConverter(block: any) {
+    return this.appComponent.tokenConverter(block.minerReward, block.rates);
   }
   public symbol(position: string) {
     return this.appComponent.symbol(position);
   }
   public currentCurrencyPair() {
     return this.appComponent.currentCurrencyPair;
+  }
+  public getStaticData(name: string) {
+    return this.appComponent.converter(this.appComponent[name]);
   }
   public getStaticTechData(name: string, divideType?: string) {
     let divisor = 1;

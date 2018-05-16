@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
-import { Router, NavigationStart, NavigationEnd } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/pairwise';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { NotificationsService } from 'angular2-notifications';
 
 import { SocketService } from '../services/socket.service';
@@ -15,8 +12,6 @@ import { ApiService } from '../services/api.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  private routeScrollPositions = [];
-  private subscriptions: Subscription[] = [];
   public notyOptions = {
     timeOut: 5000,
     lastOnBottom: true,
@@ -40,27 +35,25 @@ export class AppComponent {
   public storageUnitPriceUSD = 10;
   public currentTokenPriceUSD = 0.1;
   public totalSupply = 1000000000;
-  public maxSupply = 2000000000;
+  public maxSupply = 100000000000;
+  // public maxSupply = 0;
 
   public exchangeRates;
   public currentCurrencyPair = 'usd';
+
   constructor(
     public socketService: SocketService,
     public dataService: DataService,
     public notify: NotificationsService,
     public apiService: ApiService,
-    private router: Router,
-
   ) {
     this.socketService.initSocket();
     this.socketService.onTick().subscribe(
       (data) => {
-        this.exchangeRates = data.currency;
-        dataService.exchangeRates$.next(data.currency);
-        dataService.lastBlock$.next(data.lastBlock);
+        this.setData(data);
       });
+    this.getData();
     this.setCurrency('usd');
-    this.setRoutingScroll();
   }
   public API(...args): Observable<any> {
     return new Observable<any>(observer => {
@@ -78,32 +71,45 @@ export class AppComponent {
       );
     });
   }
-  public converter(amountInUsd: number, currencyPair?: string ) {
-    const pair = currencyPair ? currencyPair : this.currentCurrencyPair;
+  public getData() {
+    this.API('get', 'block').subscribe(
+      data => {
+        if (data) {
+         this.setData(data);
+        }
+      },
+    );
+  }
+  public setData(data: any) {
+    this.exchangeRates = data.currency;
+    // this.maxSupply = this.tokens(data.maxSuply);
+    this.dataService.exchangeRates$.next(data.currency);
+    this.dataService.lastBlock$.next(data.lastBlock);
+    if (data.lastBlocks) {
+      this.dataService.lastBlocks$.next(data.lastBlocks);
+    }
+  }
+  public setCurrency(currency: string) {
+    this.currentCurrencyPair = currency;
+    this.dataService.currency$.next(currency);
+  }
+  public tokens(value: number) {
+    return value / 1000000000;
+  }
+  public converter(amountInUsd: number, customExchangeRates?: any ) {
+    const pair = this.currentCurrencyPair;
+    const exchangeRates = customExchangeRates ? customExchangeRates : this.exchangeRates;
     if ( pair === 'usd' ) {
       return amountInUsd;
     }
-    if (this.exchangeRates) {
-      return amountInUsd / this.exchangeRates[pair];
+    if (exchangeRates) {
+      return amountInUsd / exchangeRates[pair];
     } else {
       this.setCurrency('usd');
       return amountInUsd;
     }
   }
-  // public tokenConverter(value: number, currencyPair: string) {
-  //   let result;
-  //   const tokens = this.tokens(value);
-  //   const tokensInUsd = this.currentTokenPriceUSD * tokens;
-  //   if (currencyPair === 'tft') {
-  //     result = tokens;
-  //   } else if (currencyPair === 'usd') {
-  //     result = tokensInUsd;
-  //   } else {
-  //     result = this.converter(tokensInUsd, currencyPair);
-  //   }
-  //   return result;
-  // }
-  public tokenConverter(value: number) {
+  public tokenConverter(value: number, exchangeRates?: any ) {
     let result;
     const tokens = this.tokens(value);
     const pair = this.currentCurrencyPair;
@@ -111,7 +117,7 @@ export class AppComponent {
     if (pair === 'usd') {
       result = tokensInUsd;
     } else {
-      result = this.converter(tokensInUsd);
+      result = this.converter(tokensInUsd, exchangeRates);
     }
     return result;
   }
@@ -131,28 +137,20 @@ export class AppComponent {
     }
     return result;
   }
-  public setCurrency(currency: string) {
-    this.currentCurrencyPair = currency;
-    this.dataService.currency$.next(currency);
-  }
-  public tokens(value: number) {
-    return value / 1000000000;
-  }
-  public setRoutingScroll() {
-    // Routing scrolling up
-    this.subscriptions.push(
-      this.router.events.pairwise().subscribe(([prevRouteEvent, currRouteEvent]) => {
-        if (prevRouteEvent instanceof NavigationEnd && currRouteEvent instanceof NavigationStart) {
-          const urlPath = (prevRouteEvent.urlAfterRedirects || prevRouteEvent.url).split(';', 1)[0];
-          this.routeScrollPositions[urlPath] = window.pageYOffset;
+  public getPageData(name: string, id: any, limit: number, page: number, type: string ) {
+    const items = new BehaviorSubject<any>([]);
+    const path = `${name}/${id}/${type}`;
+    const query = {
+      skip: limit * (page - 1),
+      limit: limit
+    };
+    this.API('get', path, '', query).subscribe(
+      data => {
+        if (data) {
+          items.next(data.list);
         }
-        if (currRouteEvent instanceof NavigationEnd) {
-          setTimeout(() => {
-            const urlPath = (currRouteEvent.urlAfterRedirects || currRouteEvent.url).split(';', 1)[0];
-            window.scrollTo(0, this.routeScrollPositions[urlPath] || 0);
-          }, 0);
-        }
-      })
+      },
     );
+    return items;
   }
 }

@@ -3,20 +3,19 @@ import { Router } from '@angular/router';
 import { AppComponent } from '../../app.component';
 
 @Component({
-  selector: 'app-address-explorer',
-  templateUrl: './address-explorer.component.html',
-  styleUrls: ['../explorer.component.css', './address-explorer.component.css']
+  selector: 'app-transaction-explorer',
+  templateUrl: './transaction-explorer.component.html',
+  styleUrls: ['../explorer.component.css', './transaction-explorer.component.css']
 })
-export class AddressExplorerComponent implements OnInit {
+export class TransactionExplorerComponent implements OnInit {
   @Input() public item;
   @Input() public id;
 
   public paginator = {
     limit: 10,
     current: {
-      transactions: 1,
-      minerPayouts: 1,
-      blockStakeMotion: 1
+      coinOutputs: 1,
+      blockStakeOutputs: 1
     }
   };
 
@@ -33,8 +32,8 @@ export class AddressExplorerComponent implements OnInit {
   public tokens(value) {
     return this.appComponent.tokens(value);
   }
-  public tokenConverter(value: number, exchangeRates?: any) {
-    return this.appComponent.tokenConverter(value, exchangeRates);
+  public tokenConverter(value: number) {
+    return this.appComponent.tokenConverter(value, this.item.rates);
   }
   public symbol(position: string) {
     return this.appComponent.symbol(position);
@@ -44,7 +43,7 @@ export class AddressExplorerComponent implements OnInit {
   }
   public pageChanged(page: number, name: string) {
     this.paginator.current[name] = page;
-    this.appComponent.getPageData('wallet', this.item._id, this.paginator.limit, this.paginator.current[name], name).subscribe(
+    this.appComponent.getPageData('transaction', this.item._id, this.paginator.limit, this.paginator.current[name], name).subscribe(
       data => {
         if (data) {
           this.item[name] = data;

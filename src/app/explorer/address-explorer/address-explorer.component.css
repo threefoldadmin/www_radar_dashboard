@@ -1,0 +1,81 @@
+
+.chip.sum{
+  font-size: 15px;
+  width: 100%;
+  border-radius: 1px;
+  box-sizing: border-box;
+  padding: 7px 3px;
+}
+.card-transactions .row{
+  font-size: 14px;
+  margin-bottom: 5px;
+  align-items: flex-start;
+}
+.card-transactions .row-title{
+  width: unset;
+  min-width: 40px;
+  margin-right: 5px;
+  text-align: left;
+}
+.card-transactions .balance{
+  padding-top: 5px;
+  text-align: center;
+  font-weight: bold;
+}
+.card-transactions .cols-wrapper{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.card-transactions .left-col{
+  display: flex;
+}
+.card-transactions .right-col{
+  min-width: 160px;
+  max-width: 180px;
+}
+.card-transactions .date{
+  text-align: center;
+  font-weight: 600;
+  color: #cfdef8;
+  max-width: 100px;
+  min-width: 100px;
+}
+.card-transactions .card-title{
+  font-size: 15px;
+}
+.card-transactions .card-title a{
+  word-break: break-all;
+}
+.card-transactions .small{
+  font-size: 11px;
+}
+.card-transactions .address-link{
+  min-width: 630px;
+}
+.card-transactions .sum-wrapper{
+  flex-shrink: 0;
+  max-width: 110px;
+  min-width: 80px;
+}
+.card-transactions .unlock-text{
+  font-size: 10.5px;
+  margin-bottom: 3px;
+  cursor: help;
+}
+
+@media only screen and (max-width : 1130px) {
+  .card-transactions .address-link{
+    min-width: 1px;
+  }
+}
+/*1199*/
+
+@media only screen and (max-width : 767px) {
+  .card-transactions .cols-wrapper,
+  .card-transactions .left-col{
+    flex-direction: column;
+    align-items: center;
+  }
+}
+/*767*/
