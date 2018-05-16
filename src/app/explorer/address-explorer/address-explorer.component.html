@@ -99,7 +99,7 @@
                         <div class="bold sum-wrapper" [class.red-text]="!transaction.isLoading" [class.green-text]="transaction.isLoading">
                           {{tokens(recipient.value) | number : '1.0-6'}} TFT
                         </div>
-                        <div class="flex-center pink-text unlock-text" *ngIf="recipient.lockTime">
+                        <div class="flex-center pink-text unlock-text" *ngIf="recipient.lockTime" title="Unlocked at">
                         {{recipient.lockTime * 1000 | date :'MMM dd' + ', ' + 'yyyy' + ' ' + 'HH:mm'}}
                         </div>
                       </div>
