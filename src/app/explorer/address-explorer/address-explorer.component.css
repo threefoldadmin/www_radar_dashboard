@@ -50,6 +50,27 @@
 .card-transactions .small{
   font-size: 11px;
 }
+.card-transactions .address-link{
+  min-width: 630px;
+}
+.card-transactions .sum-wrapper{
+  flex-shrink: 0;
+  max-width: 110px;
+  min-width: 80px;
+}
+.card-transactions .unlock-text{
+  font-size: 10.5px;
+  font-weight: light;
+  margin-bottom: 3px;
+}
+
+@media only screen and (max-width : 1130px) {
+  .card-transactions .address-link{
+    min-width: 1px;
+  }
+}
+/*1199*/
+
 @media only screen and (max-width : 767px) {
   .card-transactions .cols-wrapper,
   .card-transactions .left-col{
@@ -57,4 +78,4 @@
     align-items: center;
   }
 }
-/*7s67*/
+/*767*/

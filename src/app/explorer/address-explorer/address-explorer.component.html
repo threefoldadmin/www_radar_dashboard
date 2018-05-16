@@ -21,7 +21,7 @@
       Total Received
     </div>
     <div class="row-data">
-      -
+      {{tokens(item.totalReceived) | number : '1.0-6'}} TFT
     </div>
   </div>
   <div class="row">
@@ -54,7 +54,8 @@
         </a>
       </div>
       <ng-container *ngIf="!item.transactionsHidden">
-        <div  *ngFor="let transaction of item.transactions" class="rows-wrapper">
+        <div  *ngFor="let transaction of item.transactions | paginate: { id: 'transactionsPaginator', itemsPerPage: paginator.limit , currentPage: paginator.current.transactions, totalItems:
+        item.transactionsCount }" class="rows-wrapper">
           <div class="card-title">
             <div class="flex-center align-center flex-wrap">
               Transaction:&nbsp;
@@ -79,9 +80,9 @@
                   <div class="row-title">
                     From:
                   </div>
-                  <div class="row-data bold">
+                  <a class="row-data bold address-link" (click)="newSearch(transaction.from)">
                     {{transaction.from}}
-                  </div>
+                  </a>
                 </div>
                 <div class="small-layer"></div>
                 <div class="row">
@@ -89,13 +90,18 @@
                     To:
                   </div>
                   <div class="row-data">
-                    <div *ngFor="let recipient of transaction.motion" class="flex align-center">
-                      <a class="bold">
+                    <div *ngFor="let recipient of transaction.motion" class="flex align-start">
+                      <a class="bold address-link" (click)="newSearch(recipient.to)">
                         {{recipient.to}}
                       </a>
                       <div class="layer"></div>
-                      <div class="bold flex-no-shrink" [class.red-text]="!transaction.isLoading" [class.green-text]="transaction.isLoading">
-                        {{tokens(recipient.value) | number : '1.0-6'}} TFT
+                      <div>
+                        <div class="bold sum-wrapper" [class.red-text]="!transaction.isLoading" [class.green-text]="transaction.isLoading">
+                          {{tokens(recipient.value) | number : '1.0-6'}} TFT
+                        </div>
+                        <div class="flex-center pink-text unlock-text" *ngIf="recipient.lockTime">
+                        {{recipient.lockTime * 1000 | date :'MMM dd' + ', ' + 'yyyy' + ' ' + 'HH:mm'}}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -139,6 +145,9 @@
             </div>
           </div>
         </div>
+        <div class="flex-center">
+          <pagination-controls id="transactionsPaginator" autoHide="true" (pageChange)="pageChanged($event, 'transactions')"></pagination-controls>
+        </div>
       </ng-container>
     </div>
 </ng-container>
@@ -153,7 +162,8 @@
       </a>
     </div>
     <ng-container *ngIf="!item.minerpayoutputsHidden">
-      <div *ngFor="let payout of item.minerPayouts" class="rows-wrapper">
+      <div *ngFor="let payout of item.minerPayouts | paginate: { id: 'minerPayoutsPaginator', itemsPerPage: paginator.limit , currentPage: paginator.current.minerPayouts, totalItems:
+      item.minerPayoutsCount }" class="rows-wrapper">
         <div class="row">
           <div class="row-title">
             Block Height
@@ -197,6 +207,9 @@
           </div>
         </div>
       </div>
+      <div class="flex-center">
+        <pagination-controls id="minerPayoutsPaginator" autoHide="true" (pageChange)="pageChanged($event, 'minerPayouts')"></pagination-controls>
+      </div>
     </ng-container>
   </div>
 </ng-container>
@@ -211,7 +224,8 @@
       </a>
     </div>
     <ng-container *ngIf="!item.blockstakeoutputsHidden">
-      <div *ngFor="let blockstake of item.blockStakeMotion" class="rows-wrapper">
+      <div *ngFor="let blockstake of item.blockStakeMotion | paginate: { id: 'blockStakeMotionPaginator', itemsPerPage: paginator.limit , currentPage: paginator.current.blockStakeMotion, totalItems:
+      item.blockStakeMotionCount }" class="rows-wrapper">
         <div class="row">
           <div class="row-title">
             Block Height
@@ -254,6 +268,9 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="flex-center">
+        <pagination-controls id="blockStakeMotionPaginator" autoHide="true" (pageChange)="pageChanged($event, 'blockStakeMotion')"></pagination-controls>
       </div>
     </ng-container>
   </div>

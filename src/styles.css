@@ -158,7 +158,7 @@ ngx-charts-chart .ngx-charts-outer{
   align-items: center;
 }
 /* Leaflet */
-.leaflet-control-container a{
+.leaflet-control-container .leaflet-bottom a{
   display: none;
 }
 /* Notifications */
