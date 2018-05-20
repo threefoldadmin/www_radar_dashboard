@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+
 import { AppComponent } from '../app.component';
 
 @Component({
@@ -14,8 +15,9 @@ export class ExplorerComponent implements OnInit, OnDestroy {
   public item;
 
   constructor(
-    private appComponent: AppComponent,
+    public router: Router,
     public activatedRoute: ActivatedRoute,
+    public appComponent: AppComponent,
   ) { }
 
   ngOnInit() {
@@ -69,5 +71,17 @@ export class ExplorerComponent implements OnInit, OnDestroy {
         name = 'Invalid result';
     }
     return name;
+  }
+  public symbol(position: string) {
+    return this.appComponent.symbol(position);
+  }
+  public newSearch(id) {
+    this.router.navigate([`/search/${id}`]);
+  }
+  public tokens(value) {
+    return this.appComponent.tokens(value);
+  }
+  public currentCurrencyPair() {
+    return this.appComponent.currentCurrencyPair;
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
 import * as d3 from 'd3-shape';
 import * as moment from 'moment/moment';
@@ -10,6 +10,7 @@ import { AppComponent } from '../../app.component';
   styleUrls: ['./token-price-chart.component.css', '../dashboard.component.css']
 })
 export class TokenPriceChartComponent implements OnInit, OnDestroy {
+  @Input() public tokenPriceHistory = [];
   private subscriptions: Subscription[] = [];
   public priceChartData;
   public monthsToShow = 6;
@@ -61,7 +62,8 @@ export class TokenPriceChartComponent implements OnInit, OnDestroy {
         'series': []
       }
     ];
-    this.setData(this.monthsToShow);
+    this.priceChartData.series = this.tokenPriceHistory;
+    // this.setData(this.monthsToShow);
   }
   private setData(months: number) {
     while (months > 0) {

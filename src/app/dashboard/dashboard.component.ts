@@ -11,10 +11,11 @@ import * as moment from 'moment/moment';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
-  public currentTimeTimeStamp = + new Date();
   public lastBlock;
   public lastBlocks = [];
   public peers = [];
+  public tokenPriceHistory = [];
+
   constructor(
     private appComponent: AppComponent,
     private router: Router
@@ -28,7 +29,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
         if (block) {
           this.lastBlock = block;
 
-          // Check&&Replace last block
+          // Check&&Replace the last block
+
           if (this.lastBlocks.length > 0 && this.lastBlock.height > this.lastBlocks[0].height) {
             this.appComponent.notify.success('New block', `#${block.height}`);
             this.lastBlocks.unshift(this.lastBlock);
@@ -55,12 +57,22 @@ export class DashboardComponent implements OnInit, OnDestroy {
   public getData() {
     this.appComponent.getData();
     this.getPeers();
+    this.getTokenPriceHistory();
   }
   public getPeers() {
     this.appComponent.API('get', 'peers').subscribe(
       data => {
         if (data) {
           this.peers = data;
+        }
+      },
+    );
+  }
+  public getTokenPriceHistory() {
+    this.appComponent.API('get', 'exchanges/month').subscribe(
+      data => {
+        if (data) {
+          this.tokenPriceHistory = data;
         }
       },
     );
