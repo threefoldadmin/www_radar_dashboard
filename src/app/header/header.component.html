@@ -15,7 +15,7 @@
     {{symbol('r')}}
   </div>
     
-  <div class="chart-currencies">
+  <div class="tips">
     <div class="tip" *ngFor="let currency of currencies.pairs" [class.active]="currencies.current === currency" (click)="setCurrency(currency)">
       {{currencies.names[currency]}}
     </div>

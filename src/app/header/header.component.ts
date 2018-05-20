@@ -50,7 +50,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.appComponent.setCurrency(currency);
   }
   public tokenPrice() {
-    return this.appComponent.tokenConverter(1000000000);
+    const oneToken = 1000000000;
+    return this.appComponent.tokenConverter(oneToken);
   }
   public symbol(position: string) {
     return this.appComponent.symbol(position);

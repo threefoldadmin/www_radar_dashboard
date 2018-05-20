@@ -12,7 +12,7 @@ import { ApiService } from '../services/api.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  public notyOptions = {
+  public notifyOptions = {
     timeOut: 5000,
     lastOnBottom: true,
     clickToClose: true,
@@ -33,11 +33,12 @@ export class AppComponent {
   public storageUnitsCores = 28000;
   public computeUnitPriceUSD = 12;
   public storageUnitPriceUSD = 10;
-  public currentTokenPriceUSD = 0.1;
-  public totalSupply = 1000000000;
   public maxSupply = 100000000000;
-  // public maxSupply = 0;
 
+  // Dynamic Stats
+  public totalSupply;
+
+  public currentTokenPriceUSD;
   public exchangeRates;
   public currentCurrencyPair = 'usd';
 
@@ -81,8 +82,10 @@ export class AppComponent {
     );
   }
   public setData(data: any) {
+    this.totalSupply = this.tokens(data.totalSupply);
+    this.currentTokenPriceUSD = data.currency.tftPrice.pairs.TFT_USD.price;
     this.exchangeRates = data.currency;
-    // this.maxSupply = this.tokens(data.maxSuply);
+
     this.dataService.exchangeRates$.next(data.currency);
     this.dataService.lastBlock$.next(data.lastBlock);
     if (data.lastBlocks) {

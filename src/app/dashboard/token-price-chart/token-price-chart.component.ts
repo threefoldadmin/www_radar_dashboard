@@ -35,13 +35,6 @@ export class TokenPriceChartComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    const exchangeRatesSub = this.appComponent.dataService.exchangeRates$.subscribe(
-      rates => {
-        if (rates) {
-          this.initChart();
-        }
-      }
-    );
     const currencySub = this.appComponent.dataService.currency$.subscribe(
       curr => {
         if (curr) {
@@ -49,7 +42,7 @@ export class TokenPriceChartComponent implements OnInit, OnDestroy {
         }
       }
     );
-    this.subscriptions.push(exchangeRatesSub, currencySub);
+    this.subscriptions.push(currencySub);
   }
   ngOnDestroy() {
     this.subscriptions

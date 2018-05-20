@@ -37,7 +37,7 @@ header .price-line{
   justify-content: center;
   min-width: 250px;
 }
-header .chart-currencies{
+header .tips{
   display: flex;
   justify-content: center;
 }
