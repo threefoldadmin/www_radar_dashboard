@@ -40,11 +40,12 @@ export class ExplorerComponent implements OnInit, OnDestroy {
       .forEach(s => s.unsubscribe());
   }
   public getItem() {
-    let path = 'block';
+    let type = 'block';
     if (this.id.match(/[a-z]/i)) {
-      path = 'hashes';
+      type = 'hashes';
     }
-    this.appComponent.API('get', path, this.id).subscribe(
+    const path = `${type}/${this.id}`;
+    this.appComponent.API('get', path).subscribe(
       data => {
         if (data) {
           this.item = data;

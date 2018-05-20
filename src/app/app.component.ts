@@ -72,7 +72,7 @@ export class AppComponent {
     });
   }
   public getData() {
-    this.API('get', 'block').subscribe(
+    this.API('get', '').subscribe(
       data => {
         if (data) {
          this.setData(data);
@@ -144,7 +144,7 @@ export class AppComponent {
       skip: limit * (page - 1),
       limit: limit
     };
-    this.API('get', path, '', query).subscribe(
+    this.API('get', path, query).subscribe(
       data => {
         if (data) {
           items.next(data.list);
