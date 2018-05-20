@@ -11,8 +11,9 @@ import { AppComponent } from '../../app.component';
 })
 export class TokenPriceChartComponent implements OnInit, OnDestroy {
   @Input() public tokenPriceHistory = [];
+
   private subscriptions: Subscription[] = [];
-  public priceChartData;
+  public chartData;
 
   public chartOptions = {
     colorScheme: {
@@ -62,7 +63,7 @@ export class TokenPriceChartComponent implements OnInit, OnDestroy {
       };
       return price;
     });
-    this.priceChartData = [
+    this.chartData = [
       {
         'name': 'Token price',
         'series': series
