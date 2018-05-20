@@ -57,7 +57,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   public getData() {
     this.appComponent.getData();
     this.getPeers();
-    this.getTokenPriceHistory();
+    // this.getTokenPriceHistory();
   }
   public getPeers() {
     this.appComponent.API('get', 'peers').subscribe(

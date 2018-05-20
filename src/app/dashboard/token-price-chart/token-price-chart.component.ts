@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
 import * as d3 from 'd3-shape';
-import * as moment from 'moment/moment';
+
 import { AppComponent } from '../../app.component';
 
 @Component({
@@ -13,7 +13,6 @@ export class TokenPriceChartComponent implements OnInit, OnDestroy {
   @Input() public tokenPriceHistory = [];
   private subscriptions: Subscription[] = [];
   public priceChartData;
-  public monthsToShow = 6;
 
   public chartOptions = {
     colorScheme: {
@@ -56,43 +55,18 @@ export class TokenPriceChartComponent implements OnInit, OnDestroy {
       .forEach(s => s.unsubscribe());
   }
   private initChart() {
+    const series = this.tokenPriceHistory.map(el => {
+      const price = {
+        name: el.name,
+        value: this.appComponent.converter(el.value)
+      };
+      return price;
+    });
     this.priceChartData = [
       {
         'name': 'Token price',
-        'series': []
+        'series': series
       }
     ];
-    this.priceChartData.series = this.tokenPriceHistory;
-    // this.setData(this.monthsToShow);
-  }
-  private setData(months: number) {
-    while (months > 0) {
-      const monthNumber = this.monthNumber(months);
-      const monthNumberString = monthNumber > 9 ? monthNumber : `0${monthNumber}`;
-      const price = this.appComponent.converter(this.checkTokenPrice(months));
-      const object = {
-        name: '01/' + monthNumberString,
-        value: price
-      };
-      this.priceChartData[0].series.push(object);
-      months--;
-    }
-  }
-  private monthNumber(monthsCount: number) {
-    const monthNumber = moment().subtract(monthsCount - 1, 'month').format('M');
-    return Number(monthNumber);
-  }
-  private checkTokenPrice(months: number) {
-    let currentPriceUSD = 0.05;
-    const priceChange1 = moment('2018-02-01');
-    const priceChange2 = moment('2018-04-01');
-    const activeMonth = moment().subtract(months - 1, 'month');
-    if (activeMonth.isAfter(priceChange1)) {
-      currentPriceUSD = 0.08;
-    }
-    if (activeMonth.isAfter(priceChange2)) {
-      currentPriceUSD = this.appComponent.currentTokenPriceUSD;
-    }
-    return currentPriceUSD;
   }
 }
