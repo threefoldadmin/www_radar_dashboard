@@ -39,7 +39,10 @@ header .price-line{
 }
 header .volume-line{
   font-weight: bold;
-  font-size: 17.5px;
+  font-size: 21px;
+}
+header .volume-line-title{
+  font-size: 15px;
 }
 header .tips{
   display: flex;

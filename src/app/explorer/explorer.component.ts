@@ -72,9 +72,6 @@ export class ExplorerComponent implements OnInit, OnDestroy {
     }
     return name;
   }
-  public symbol(position: string) {
-    return this.appComponent.symbol(position);
-  }
   public newSearch(id) {
     this.router.navigate([`/search/${id}`]);
   }

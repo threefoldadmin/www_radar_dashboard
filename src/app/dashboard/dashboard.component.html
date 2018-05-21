@@ -205,15 +205,10 @@
                 <div class="row-info bold">
                   Block Reward:
                   {{tokens(block?.minerReward) | number : '1.0-3'}} TFT 
-                  ({{symbol('l')}}
-                  <span *ngIf="currentCurrencyPair() !== 'btcUsd'">
-                  {{tokenConverter(block) | number: '1.2-2'}}
-                  </span>
-                  <span *ngIf="currentCurrencyPair() === 'btcUsd'">
-                  {{tokenConverter(block) | number: '1.2-8'}}
-                  </span>
-                  {{symbol('r')}})
-                  /&nbsp; {{block?.transactionsCount}} txns
+
+                  (<app-amount [amount]="tokenConverter(block)"></app-amount>)
+
+                  &nbsp;/&nbsp; {{block?.transactionsCount}} txns
                 </div>
                 <div class="row-info">
                   Active BlockStake: {{block?.activeBlockStake}} BS

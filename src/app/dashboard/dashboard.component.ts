@@ -90,7 +90,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
   public totalTokenCapitalization() {
     const totalSupply = this.getStaticTechData('totalSupply');
-    const tokenPrice = this.getStaticData('currentTokenPriceUSD');
+    const tokenPrice = this.getStaticData('weightedTokenPriceUSD');
     return totalSupply * tokenPrice;
   }
   public setBlocksTimeDiff() {
@@ -122,9 +122,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
   public tokenConverter(block: any) {
     return this.appComponent.tokenConverter(block.minerReward, block.rates);
-  }
-  public symbol(position: string) {
-    return this.appComponent.symbol(position);
   }
   public currentCurrencyPair() {
     return this.appComponent.currentCurrencyPair;

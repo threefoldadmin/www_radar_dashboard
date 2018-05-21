@@ -30,8 +30,22 @@ export class AmountComponent implements OnInit {
     }
     return `1.${decimalMin}-${decimalMax}`;
   }
+
   public symbol(position: string) {
-    return this.appComponent.symbol(position);
+    let result = '';
+    if (position === 'l') {
+      if (this.currentCurrencyPair() === 'usd') {
+        result = '$';
+      } else if (this.currentCurrencyPair() === 'usdEur') {
+        result = '€';
+      }
+    }
+    if (position === 'r') {
+      if (this.currentCurrencyPair() === 'btcUsd') {
+        result = 'Ƀ';
+      }
+    }
+    return result;
   }
   public currentCurrencyPair() {
     return this.appComponent.currentCurrencyPair;

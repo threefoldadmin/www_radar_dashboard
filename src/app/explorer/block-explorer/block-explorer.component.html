@@ -83,16 +83,7 @@
           </div>
           <div class="row-data">
             {{tokens(payout.value) | number : '1.0-6'}} TFT&nbsp;
-            <span class="flex">
-              ({{symbol('l')}}
-              <span *ngIf="currentCurrencyPair() !== 'btcUsd'">
-                {{tokenConverter(payout.value) | number: '1.2-2'}}
-              </span>
-              <span *ngIf="currentCurrencyPair() === 'btcUsd'">
-                {{tokenConverter(payout.value) | number: '1.2-8'}}
-              </span>
-              {{symbol('r')}})
-            </span>
+            (<app-amount [amount]="tokenConverter(payout.value)"></app-amount>)
           </div>
         </div>
       </div>

@@ -38,7 +38,7 @@ export class AppComponent {
   // Dynamic Stats
   public totalSupply;
 
-  public currentTokenPriceUSD;
+  public weightedTokenPriceUSD = 0;
   public tradePairs;
 
   public exchangeRates;
@@ -85,15 +85,25 @@ export class AppComponent {
   }
   public setData(data: any) {
     this.totalSupply = this.tokens(data.totalSupply);
-    this.currentTokenPriceUSD = data.currency.tftPrice.pairs.TFT_USD.price;
     this.tradePairs = data.currency.tftPrice.pairs;
     this.exchangeRates = data.currency;
+    this.weightedTokenPriceUSD = this.calculateTokenPrice(this.tradePairs, this.exchangeRates);
 
     this.dataService.exchangeRates$.next(data.currency);
     this.dataService.lastBlock$.next(data.lastBlock);
     if (data.lastBlocks) {
       this.dataService.lastBlocks$.next(data.lastBlocks);
     }
+  }
+  public calculateTokenPrice(tradePairs: any, exchangeRates: any): number {
+    let price = 0;
+    const pairUSD = tradePairs.TFT_USD;
+    const pairBTC = tradePairs.TFT_BTC;
+    const pairVolumes = tradePairs.TFT_USD.volume + tradePairs.TFT_BTC.volume;
+
+    price = (pairUSD.price * pairUSD.volume + (pairBTC.price * exchangeRates.btcUsd) * pairBTC.volume) / pairVolumes;
+
+    return price;
   }
   public setCurrency(currency: string) {
     this.currentCurrencyPair = currency;
@@ -119,27 +129,18 @@ export class AppComponent {
     let result;
     const tokens = this.tokens(value);
     const pair = this.currentCurrencyPair;
-    const tokensInUsd = this.currentTokenPriceUSD * tokens;
+
+    let tokenPriceUSD = this.weightedTokenPriceUSD;
+    if (exchangeRates) {
+      tokenPriceUSD = this.calculateTokenPrice(exchangeRates.tftPrice.pairs, exchangeRates);
+    }
+
+    const tokensInUsd = tokenPriceUSD * tokens;
+
     if (pair === 'usd') {
       result = tokensInUsd;
     } else {
       result = this.converter(tokensInUsd, exchangeRates);
-    }
-    return result;
-  }
-  public symbol(position: string) {
-    let result = '';
-    if (position === 'l') {
-      if (this.currentCurrencyPair === 'usd') {
-        result = '$';
-      } else if (this.currentCurrencyPair === 'usdEur') {
-        result = '€';
-      }
-    }
-    if (position === 'r') {
-      if (this.currentCurrencyPair === 'btcUsd') {
-        result = 'Ƀ';
-      }
     }
     return result;
   }
