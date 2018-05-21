@@ -53,10 +53,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     const oneToken = 1000000000;
     return this.appComponent.tokenConverter(oneToken);
   }
-  public symbol(position: string) {
-    return this.appComponent.symbol(position);
-  }
-  public currentCurrencyPair() {
-    return this.appComponent.currentCurrencyPair;
+  public tradeVolume() {
+    let tradeVolume = 0;
+    const pairs = this.appComponent.tradePairs;
+    if (pairs) {
+      const tradeVolumeTFT = pairs.TFT_BTC.volume + pairs.TFT_USD.volume;
+      tradeVolume = this.appComponent.converter(tradeVolumeTFT);
+    }
+    return tradeVolume;
   }
 }

@@ -37,6 +37,10 @@ header .price-line{
   justify-content: center;
   min-width: 250px;
 }
+header .volume-line{
+  font-weight: bold;
+  font-size: 17.5px;
+}
 header .tips{
   display: flex;
   justify-content: center;

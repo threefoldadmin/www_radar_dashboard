@@ -4,15 +4,13 @@
   </a>
   <div class="price-line blue-text">
     <span>
-      1 TFT = {{symbol('l')}}
+      1 TFT =&nbsp;
     </span>
-    <span *ngIf="currentCurrencyPair() !== 'btcUsd'">
-    {{tokenPrice() | number: '1.2-2'}}
-    </span>
-    <span *ngIf="currentCurrencyPair() === 'btcUsd'">
-    &nbsp;{{tokenPrice() | number: '1.2-8'}}
-    </span>
-    {{symbol('r')}}
+    <app-amount [amount]="tokenPrice()"></app-amount>
+  </div>
+  <div class="volume-line blue-text">
+    Trade Volume(24h): 
+    <app-amount [amount]="tradeVolume()" decimalMin="0" decimalMax="0"></app-amount>
   </div>
     
   <div class="tips">

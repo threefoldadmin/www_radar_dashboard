@@ -29,7 +29,7 @@ import { ExplorerComponent } from './explorer/explorer.component';
 import { AddressExplorerComponent } from './explorer/address-explorer/address-explorer.component';
 import { BlockExplorerComponent } from './explorer/block-explorer/block-explorer.component';
 import { TransactionExplorerComponent } from './explorer/transaction-explorer/transaction-explorer.component';
-
+import { AmountComponent } from './amount/amount.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +45,8 @@ import { TransactionExplorerComponent } from './explorer/transaction-explorer/tr
     AddressExplorerComponent,
     LoaderComponent,
     BlockExplorerComponent,
-    TransactionExplorerComponent
+    TransactionExplorerComponent,
+    AmountComponent
   ],
   imports: [
     BrowserModule,

@@ -39,6 +39,8 @@ export class AppComponent {
   public totalSupply;
 
   public currentTokenPriceUSD;
+  public tradePairs;
+
   public exchangeRates;
   public currentCurrencyPair = 'usd';
 
@@ -84,6 +86,7 @@ export class AppComponent {
   public setData(data: any) {
     this.totalSupply = this.tokens(data.totalSupply);
     this.currentTokenPriceUSD = data.currency.tftPrice.pairs.TFT_USD.price;
+    this.tradePairs = data.currency.tftPrice.pairs;
     this.exchangeRates = data.currency;
 
     this.dataService.exchangeRates$.next(data.currency);
