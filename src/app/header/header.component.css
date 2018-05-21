@@ -54,24 +54,35 @@ header .tips{
     min-width: 100%;
     margin-bottom: 5px;
   }
-  header .price-line{
+  header .search-line{
+    position: absolute;
+    top: 13px;
+    right: 13px;
+  }
+  header .volume-line{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  } 
+}
+/*1099px*/
+
+@media only screen and (max-width : 767px) {
+   header .price-line,
+   header .volume-line{
     width: 100%;
     min-width: 100%;
-  }
-  header .chart-currencies{
+  } 
+  header .tips{
     width: 100%;
     text-align: center;
   }
-  header .chart-currencies{
+  header .tips{
     padding-top: 7px;
   }  
-  header .search-line{
-    position: absolute;
-    top: 1vw;
-    right: 1vw;
-  }
 }
-/*1099px*/
+/*767*/
 
 @media only screen and (max-width : 580px) {
   header .logo{
@@ -86,10 +97,11 @@ header .tips{
   header .search-line input{
     width: 100%;
   } 
-  header .price-line{
+  header .price-line,
+  header .volume-line{
     font-size: 19px;
   }
-  header .chart-currencies{
+  header .tips{
     padding-top: 3px;
   }  
 }
