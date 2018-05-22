@@ -4,18 +4,18 @@
   </a>
   <div class="price-line blue-text">
     <span>
-      1 TFT = {{symbol('l')}}
+      1 TFT =&nbsp;
     </span>
-    <span *ngIf="currentCurrencyPair() !== 'btcUsd'">
-    {{tokenPrice() | number: '1.2-2'}}
-    </span>
-    <span *ngIf="currentCurrencyPair() === 'btcUsd'">
-    &nbsp;{{tokenPrice() | number: '1.2-8'}}
-    </span>
-    {{symbol('r')}}
+    <app-amount [amount]="tokenPrice()"></app-amount>
+  </div>
+  <div class="volume-line blue-text">
+    <div class="volume-line-title">
+      Trade Volume(24h):&nbsp;
+    </div>
+    <app-amount [amount]="tradeVolume()" decimalMin="0" decimalMax="0"></app-amount>
   </div>
     
-  <div class="chart-currencies">
+  <div class="tips">
     <div class="tip" *ngFor="let currency of currencies.pairs" [class.active]="currencies.current === currency" (click)="setCurrency(currency)">
       {{currencies.names[currency]}}
     </div>

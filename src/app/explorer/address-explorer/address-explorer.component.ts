@@ -1,13 +1,15 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+
 import { AppComponent } from '../../app.component';
+import { ExplorerComponent } from '../explorer.component';
 
 @Component({
   selector: 'app-address-explorer',
   templateUrl: './address-explorer.component.html',
   styleUrls: ['../explorer.component.css', './address-explorer.component.css']
 })
-export class AddressExplorerComponent implements OnInit {
+export class AddressExplorerComponent extends ExplorerComponent implements OnInit {
   @Input() public item;
   @Input() public id;
 
@@ -21,26 +23,17 @@ export class AddressExplorerComponent implements OnInit {
   };
 
   constructor(
-    private router: Router,
-    private appComponent: AppComponent,
-  ) { }
+    public router: Router,
+    public activatedRoute: ActivatedRoute,
+    public appComponent: AppComponent,
+  ) {
+    super(router, activatedRoute, appComponent);
+  }
 
   ngOnInit() {
   }
-  public newSearch(id) {
-    this.router.navigate([`/search/${id}`]);
-  }
-  public tokens(value) {
-    return this.appComponent.tokens(value);
-  }
   public tokenConverter(value: number, exchangeRates?: any) {
     return this.appComponent.tokenConverter(value, exchangeRates);
-  }
-  public symbol(position: string) {
-    return this.appComponent.symbol(position);
-  }
-  public currentCurrencyPair() {
-    return this.appComponent.currentCurrencyPair;
   }
   public pageChanged(page: number, name: string) {
     this.paginator.current[name] = page;

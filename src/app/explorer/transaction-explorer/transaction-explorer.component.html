@@ -102,16 +102,7 @@
           </div>
           <div class="row-data">
             {{tokens(input.value) | number : '1.0-6'}} TFT&nbsp;
-            <span class="flex">
-              ({{symbol('l')}}
-              <span *ngIf="currentCurrencyPair() !== 'btcUsd'">
-                {{tokenConverter(input.value) | number: '1.2-2'}}
-              </span>
-              <span *ngIf="currentCurrencyPair() === 'btcUsd'">
-                {{tokenConverter(input.value) | number: '1.2-8'}}
-              </span>
-              {{symbol('r')}})
-            </span>
+            (<app-amount [amount]="tokenConverter(input.value)"></app-amount>)
           </div>
         </div>
         <div class="card-title">
@@ -185,16 +176,7 @@
           </div>
           <div class="row-data">
             {{tokens(output.value) | number : '1.0-6'}} TFT&nbsp;
-            <span class="flex">
-              ({{symbol('l')}}
-              <span *ngIf="currentCurrencyPair() !== 'btcUsd'">
-                {{tokenConverter(output.value) | number: '1.2-2'}}
-              </span>
-              <span *ngIf="currentCurrencyPair() === 'btcUsd'">
-                {{tokenConverter(output.value) | number: '1.2-8'}}
-              </span>
-              {{symbol('r')}})
-            </span>
+            (<app-amount [amount]="tokenConverter(output.value)"></app-amount>)
           </div>
         </div>
       </div>

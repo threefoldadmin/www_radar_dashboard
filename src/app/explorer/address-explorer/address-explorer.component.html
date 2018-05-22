@@ -29,17 +29,8 @@
       Final Balance
     </div>
     <div class="row-data">
-    {{tokens(item.balance) | number : '1.0-6'}} TFT&nbsp;
-      <span class="flex">
-        ({{symbol('l')}}
-        <span *ngIf="currentCurrencyPair() !== 'btcUsd'">
-          {{tokenConverter(item.balance) | number: '1.2-3'}}
-        </span>
-        <span *ngIf="currentCurrencyPair() === 'btcUsd'">
-          {{tokenConverter(item.balance) | number: '1.2-8'}}
-        </span>
-        {{symbol('r')}})
-      </span>
+      {{tokens(item.balance) | number : '1.0-6'}} TFT&nbsp;
+      (<app-amount [amount]="tokenConverter(item.balance)"></app-amount>)
     </div>
   </div>
 </ng-container>
@@ -115,27 +106,13 @@
                   {{ !transaction.isLoading ? '-' : ''}}{{tokens(transaction.coinsSumm) | number : '1.0-6' }} TFT
                 </div>
                 <span class="flex-center small">
-                  ({{symbol('l')}}
-                  <span *ngIf="currentCurrencyPair() !== 'btcUsd'">
-                    {{tokenConverter(transaction.coinsSumm, transaction.rates) | number: '1.2-3'}}
-                  </span>
-                  <span *ngIf="currentCurrencyPair() === 'btcUsd'">
-                    {{tokenConverter(transaction.coinsSumm, transaction.rates) | number: '1.2-8'}}
-                  </span>
-                  {{symbol('r')}})
+                  <app-amount [amount]="tokenConverter(transaction.coinsSumm, transaction.rates)"></app-amount>
                 </span>
               </div>
               <div class="balance small" *ngIf="!transaction.isLoading">
                 Balance: {{tokens(transaction.balanceAfter) | number : '1.0-6'}} TFT&nbsp;
                 <span class="flex-center">
-                  ({{symbol('l')}}
-                  <span *ngIf="currentCurrencyPair() !== 'btcUsd'">
-                    {{tokenConverter(transaction.balanceAfter, transaction.rates) | number: '1.2-3'}}
-                  </span>
-                  <span *ngIf="currentCurrencyPair() === 'btcUsd'">
-                    {{tokenConverter(transaction.balanceAfter, transaction.rates) | number: '1.2-8'}}
-                  </span>
-                  {{symbol('r')}})
+                  <app-amount [amount]="tokenConverter(transaction.balanceAfter, transaction.rates)" ></app-amount>
                 </span>
               </div>
               <div class="small-layer"></div>
@@ -168,7 +145,7 @@
           <div class="row-title">
             Block Height
           </div>
-          <a class="row-data bold" (click)="newSearch('')">
+          <a class="row-data bold" (click)="newSearch(payout.blockHeigth)">
             {{payout.blockHeigth}}
           </a>
         </div>
@@ -194,16 +171,7 @@
           </div>
           <div class="row-data">
             {{tokens(payout.value) | number : '1.0-6'}} TFT&nbsp;
-            <span class="flex">
-              ({{symbol('l')}}
-              <span *ngIf="currentCurrencyPair() !== 'btcUsd'">
-                {{tokenConverter(payout.value, payout.rates) | number: '1.2-3'}}
-              </span>
-              <span *ngIf="currentCurrencyPair() === 'btcUsd'">
-                {{tokenConverter(payout.value, payout.rates) | number: '1.2-8'}}
-              </span>
-              {{symbol('r')}})
-            </span>
+            (<app-amount [amount]="tokenConverter(payout.value, payout.rates)"></app-amount>)
           </div>
         </div>
       </div>

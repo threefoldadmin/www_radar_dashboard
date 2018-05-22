@@ -1,13 +1,15 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+
 import { AppComponent } from '../../app.component';
+import { ExplorerComponent } from '../explorer.component';
 
 @Component({
   selector: 'app-transaction-explorer',
   templateUrl: './transaction-explorer.component.html',
   styleUrls: ['../explorer.component.css', './transaction-explorer.component.css']
 })
-export class TransactionExplorerComponent implements OnInit {
+export class TransactionExplorerComponent extends ExplorerComponent implements OnInit {
   @Input() public item;
   @Input() public id;
 
@@ -18,28 +20,18 @@ export class TransactionExplorerComponent implements OnInit {
       blockStakeOutputs: 1
     }
   };
-
   constructor(
-    private router: Router,
-    private appComponent: AppComponent,
-  ) { }
+    public router: Router,
+    public activatedRoute: ActivatedRoute,
+    public appComponent: AppComponent,
+  ) {
+    super(router, activatedRoute, appComponent);
+  }
 
   ngOnInit() {
   }
-  public newSearch(id) {
-    this.router.navigate([`/search/${id}`]);
-  }
-  public tokens(value) {
-    return this.appComponent.tokens(value);
-  }
   public tokenConverter(value: number) {
     return this.appComponent.tokenConverter(value, this.item.rates);
-  }
-  public symbol(position: string) {
-    return this.appComponent.symbol(position);
-  }
-  public currentCurrencyPair() {
-    return this.appComponent.currentCurrencyPair;
   }
   public pageChanged(page: number, name: string) {
     this.paginator.current[name] = page;

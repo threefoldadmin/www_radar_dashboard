@@ -14,8 +14,9 @@ export class UnitPriceChartComponent implements OnInit, OnDestroy {
   public computeUnitPrice;
   public storageUnitPrice;
 
-  public unitsChartData;
   public monthsToShow = 6;
+
+  public chartData;
   public chartOptions = {
     colorScheme : {
       domain: ['#f993ab', '#ffc8a7']
@@ -56,7 +57,7 @@ export class UnitPriceChartComponent implements OnInit, OnDestroy {
       .forEach(s => s.unsubscribe());
   }
   public initChart() {
-    this.unitsChartData = [
+    this.chartData = [
       {
         'name': 'Compute Unit price',
         'series': []
@@ -68,9 +69,9 @@ export class UnitPriceChartComponent implements OnInit, OnDestroy {
     ];
     this.computeUnitPrice = this.appComponent.converter(this.appComponent.computeUnitPriceUSD);
     this.storageUnitPrice = this.appComponent.converter(this.appComponent.storageUnitPriceUSD);
-    this.calculateUnitsChartData();
+    this.calculateChartData();
   }
-  public calculateUnitsChartData() {
+  public calculateChartData() {
     this.setData(0, this.computeUnitPrice, this.monthsToShow);
     this.setData(1, this.storageUnitPrice, this.monthsToShow);
   }
@@ -82,7 +83,7 @@ export class UnitPriceChartComponent implements OnInit, OnDestroy {
         name: '01/' + monthNumberString,
         value: price
       };
-      this.unitsChartData[index].series.push(object);
+      this.chartData[index].series.push(object);
       months--;
     }
   }
