@@ -120,10 +120,12 @@
     align-items: inherit;
   }
   .left-col .stats-line .card,
-  .left-col .stats-line .card > .flex{
+  .left-col .stats-line .card > .flex,
+  .left-col .stats-line .card >>> span.flex{
     text-align: center;
     justify-content: center;
   }
+  
   .right-col .row {
     max-width: 400px;
     border-bottom: none;
