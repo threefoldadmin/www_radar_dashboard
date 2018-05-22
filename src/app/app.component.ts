@@ -85,9 +85,9 @@ export class AppComponent {
   }
   public setData(data: any) {
     this.totalSupply = this.tokens(data.totalSupply);
+    this.weightedTokenPriceUSD = data.currency.tftPrice.weightedAveragePrice;
     this.tradePairs = data.currency.tftPrice.pairs;
     this.exchangeRates = data.currency;
-    this.weightedTokenPriceUSD = this.calculateTokenPrice(this.tradePairs, this.exchangeRates);
 
     this.dataService.exchangeRates$.next(data.currency);
     this.dataService.lastBlock$.next(data.lastBlock);
