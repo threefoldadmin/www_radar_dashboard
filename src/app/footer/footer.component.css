@@ -12,6 +12,10 @@ section .buy-line{
 section .socials-line a{
   margin: 5px;
 }
+section .details-text{
+  text-align: center;
+  font-weight: normal;
+}
 footer {
   font-weight: 300;
   background: #17181e;
