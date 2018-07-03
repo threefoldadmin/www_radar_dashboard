@@ -12,7 +12,8 @@
   width: 35%;
 }
 .right-col .blocks-wrapper{
-  max-height: 741px;
+  /* max-height: 741px; */
+  max-height: 1185px;
   overflow: hidden;
 }
 .row{

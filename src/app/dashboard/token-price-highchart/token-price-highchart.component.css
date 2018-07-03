@@ -1,0 +1,57 @@
+.chart-wrapper >>> .highcharts-background{
+  fill: transparent;
+}
+.chart-wrapper >>> .highcharts-label-box {
+  fill: black;
+	fill-opacity: 0.45;
+  stroke-width: 0;
+}
+.chart-wrapper >>> .highcharts-axis-labels text{
+  fill: white !important;
+}
+.chart-wrapper >>> .highcharts-grid-line {
+  fill: white;
+  opacity: 0.25;
+}
+.chart-wrapper >>> .highcharts-input-group text{
+  fill: white !important;
+}
+.chart-wrapper >>>input{
+  background-color: #141313;
+  color: white;
+  border: none !important;
+}
+.chart-wrapper >>> .highcharts-button rect{
+  /* fill:  */
+}
+.chart-wrapper >>> .highcharts-range-selector-buttons text{
+  fill: white !important;
+}
+.chart-wrapper >>> .highcharts-scrollbar-track{
+  opacity: 0.3;
+}
+.chart-wrapper >>> .highcharts-scrollbar-button,
+.chart-wrapper >>> .highcharts-scrollbar-thumb{
+  opacity: 0.4;
+}
+.chart-wrapper >>> .highcharts-credits{
+  display: none;
+}
+.chart-wrapper >>> .highcharts-range-selector-buttons rect{
+  fill: transparent;
+}
+.chart-wrapper >>> .highcharts-range-selector-buttons .highcharts-button text{
+  fill: white !important;
+}
+
+.chart-wrapper >>> .highcharts-button-normal rect{
+  fill: #9656ce;
+  fill-opacity: 0.17;
+}
+.chart-wrapper >>> .highcharts-button-pressed rect{
+  fill: #a749fa;
+  fill-opacity: 0.35;
+}
+.chart-wrapper >>> .highcharts-button-pressed.highcharts-button text{
+  fill: white !important;
+}
