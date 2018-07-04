@@ -7,28 +7,27 @@ import { StockChart } from 'angular-highcharts';
   styleUrls: ['./token-price-highchart.component.css']
 })
 export class TokenPriceHighchartComponent implements OnInit {
-  stock: StockChart;
+  public stock: StockChart;
+  public isFullScreenMode = false;
+  public chartWrapperWidth;
+
   constructor() { }
 
   ngOnInit() {
+
+    // tooltip: {
+    //   //   valueDecimals: 2
+    // },
+
     this.stock = new StockChart({
-      colors: ['#17f9be'],
+      colors: ['#00ffff'],
       rangeSelector: {
-        selected: 1,
+        selected: 0,
         allButtonsEnabled: true,
         buttons: [{
-          type: 'hour',
-          count: 1,
-          text: 'Hour',
-        }, {
           type: 'day',
           count: 10,
           text: 'Day',
-          // events: {
-          //   click: function () {
-          //     alert(‘Clicked button’);
-          //   }
-          // }
         }, {
           type: 'week',
           count: 1,
@@ -113,12 +112,13 @@ export class TokenPriceHighchartComponent implements OnInit {
           [1493287600000, 183.65],
           [1493297600000, 143.65],
           [1493337600000, 143.65]
-
         ]
       }]
     });
   }
+  public fullScreen() {
+    this.isFullScreenMode = !this.isFullScreenMode;
+    // reflow doesn't work without timeout
+    setTimeout(() => { this.stock.ref.reflow(); }, 100);
+  }
 }
-// tooltip: {
-//   //   valueDecimals: 2
-// },

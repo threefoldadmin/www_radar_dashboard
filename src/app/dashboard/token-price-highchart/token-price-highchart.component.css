@@ -1,9 +1,43 @@
+.chart-wrapper a{
+  position: absolute;
+  top: 11.5px;
+  right: 0;
+  color: #fafafa;
+  text-align: right;
+  margin-right: 10px;
+  display: block;
+  font-size: 15px;
+  background: rgba(250, 250, 250, 0.14);
+  padding: 2px 12px;
+  border-radius: 3px;
+}
+.chart-wrapper.full-screen{
+  position: fixed;
+  z-index: 2999;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  height: 100vh;
+  background: #16304e;
+  padding: 40px 20px;
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: center; */
+  box-sizing: border-box;
+}
+/* .chart-wrapper.full-screen >>> .highcharts-container {
+  height: 50% !important;
+  width: 90% !important; 
+  max-width: none;
+  min-width: 90vw;
+} */
 .chart-wrapper >>> .highcharts-background{
   fill: transparent;
 }
 .chart-wrapper >>> .highcharts-label-box {
   fill: black;
-	fill-opacity: 0.45;
+  fill-opacity: 0.45;
   stroke-width: 0;
 }
 .chart-wrapper >>> .highcharts-axis-labels text{
@@ -20,9 +54,6 @@
   background-color: #141313;
   color: white;
   border: none !important;
-}
-.chart-wrapper >>> .highcharts-button rect{
-  /* fill:  */
 }
 .chart-wrapper >>> .highcharts-range-selector-buttons text{
   fill: white !important;
@@ -46,11 +77,11 @@
 
 .chart-wrapper >>> .highcharts-button-normal rect{
   fill: #9656ce;
-  fill-opacity: 0.17;
+  fill-opacity: 0.2;
 }
 .chart-wrapper >>> .highcharts-button-pressed rect{
-  fill: #a749fa;
-  fill-opacity: 0.35;
+  fill: #c552f8;
+  fill-opacity: 0.44;
 }
 .chart-wrapper >>> .highcharts-button-pressed.highcharts-button text{
   fill: white !important;

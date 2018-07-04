@@ -1,1 +1,6 @@
-<div [chart]="stock" class="chart-wrapper"></div>
+<div class="chart-wrapper" [class.full-screen]="isFullScreenMode">
+  <a (click)="fullScreen()">
+    <i class="fas fa-arrows-alt"></i>
+  </a>
+  <div [chart]="stock"></div>
+</div>
