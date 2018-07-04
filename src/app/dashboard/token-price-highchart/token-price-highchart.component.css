@@ -18,7 +18,7 @@
   top: 0;
   left: 0;
   min-width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   background: #16304e;
   padding: 40px 20px;
   /* display: flex; */
@@ -85,4 +85,10 @@
 }
 .chart-wrapper >>> .highcharts-button-pressed.highcharts-button text{
   fill: white !important;
+}
+
+@media only screen and (max-width : 680px) {
+  .chart-wrapper a{
+    display: none;
+  }
 }
