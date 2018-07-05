@@ -52,6 +52,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
       data => {
         if (data) {
           if (data.length > this.tokenPriceBTCAlphaHistory.length) {
+            for (const el of data) {
+              const timestamp = el[0] * 1000;
+              el[0] = timestamp;
+            }
             this.tokenPriceBTCAlphaHistory = data;
             console.log(data, 'here11111');
           }
