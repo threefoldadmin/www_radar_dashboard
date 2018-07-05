@@ -45,7 +45,6 @@ export class TokenPriceHighchartComponent implements OnInit {
         },
       },
       tooltip: {
-        // valueDecimals: 8,
         pointFormat: 'TFT price: {point.y:.8f} BTC',
         style: {
           color: '#fff'

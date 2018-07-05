@@ -48,21 +48,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
         }
       }
     );
-    const tokenPriceBTCAlphaHistorySub = this.appComponent.dataService.tokenPriceBTCAlphaHistory$.subscribe(
-      data => {
-        if (data) {
-          if (data.length > this.tokenPriceBTCAlphaHistory.length) {
-            for (const el of data) {
-              const timestamp = el[0] * 1000;
-              el[0] = timestamp;
-            }
-            this.tokenPriceBTCAlphaHistory = data;
-            console.log(data, 'tokenPriceBTCAlphaHistory');
-          }
-        }
-      }
-    );
-    this.subscriptions.push(lastBlockSub, lastBlocksSub, tokenPriceBTCAlphaHistorySub);
+    // const tokenPriceBTCAlphaHistorySub = this.appComponent.dataService.tokenPriceBTCAlphaHistory$.subscribe(
+    //   data => {
+    //     if (data) {
+    //       if (data.length > this.tokenPriceBTCAlphaHistory.length) {
+    //         this.tokenPriceBTCAlphaHistory = data;
+    //         console.log(data, 'tokenPriceBTCAlphaHistory');
+    //       }
+    //     }
+    //   }
+    // );
+    this.subscriptions.push(lastBlockSub, lastBlocksSub);
   }
   ngOnDestroy() {
     this.subscriptions
@@ -98,10 +94,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.appComponent.API('get', `chart/currency/${frame}`).subscribe(
       data => {
         if (data) {
-          for (const el of data) {
-            const timestamp = el[0] * 1000;
-            el[0] = timestamp;
-          }
           this.tokenPriceBTCAlphaHistory = data;
         }
       },
