@@ -57,7 +57,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
               el[0] = timestamp;
             }
             this.tokenPriceBTCAlphaHistory = data;
-            console.log(data, 'here11111');
+            console.log(data, 'tokenPriceBTCAlphaHistory');
           }
         }
       }
@@ -95,7 +95,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
   public getTokenPriceBTCAlphaHistory() {
     const frame = 15;
-    this.appComponent.API('get', `chart/currency/${15}`).subscribe(
+    this.appComponent.API('get', `chart/currency/${frame}`).subscribe(
       data => {
         if (data) {
           for (const el of data) {
