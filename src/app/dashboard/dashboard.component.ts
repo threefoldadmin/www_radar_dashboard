@@ -15,6 +15,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   public lastBlocks = [];
   public peers = [];
   public tokenPriceHistory = [];
+  public tokenPriceBTCAlphaHistory = [];
 
   constructor(
     private appComponent: AppComponent,
@@ -30,7 +31,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
           this.lastBlock = block;
 
           // Check&&Replace the last block
-
           if (this.lastBlocks.length > 0 && this.lastBlock.height > this.lastBlocks[0].height) {
             this.appComponent.notify.success('New block', `#${block.height}`);
             this.lastBlocks.unshift(this.lastBlock);
@@ -48,7 +48,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
         }
       }
     );
-    this.subscriptions.push(lastBlockSub, lastBlocksSub);
+    const tokenPriceBTCAlphaHistorySub = this.appComponent.dataService.tokenPriceBTCAlphaHistory$.subscribe(
+      data => {
+        if (data) {
+          if (data.length > this.tokenPriceBTCAlphaHistory.length) {
+            this.tokenPriceBTCAlphaHistory = data;
+            console.log(data, 'here11111');
+          }
+        }
+      }
+    );
+    this.subscriptions.push(lastBlockSub, lastBlocksSub, tokenPriceBTCAlphaHistorySub);
   }
   ngOnDestroy() {
     this.subscriptions
@@ -58,6 +68,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.appComponent.getData();
     this.getPeers();
     this.getTokenPriceHistory();
+    this.getTokenPriceBTCAlphaHistory();
+
   }
   public getPeers() {
     this.appComponent.API('get', 'peers').subscribe(
@@ -73,6 +85,20 @@ export class DashboardComponent implements OnInit, OnDestroy {
       data => {
         if (data) {
           this.tokenPriceHistory = data;
+        }
+      },
+    );
+  }
+  public getTokenPriceBTCAlphaHistory() {
+    const frame = 15;
+    this.appComponent.API('get', `chart/currency/${15}`).subscribe(
+      data => {
+        if (data) {
+          for (const el of data) {
+            const timestamp = el[0] * 1000;
+            el[0] = timestamp;
+          }
+          this.tokenPriceBTCAlphaHistory = data;
         }
       },
     );

@@ -166,12 +166,12 @@
           <div class="card-title">
             BTC-Alpha, TFT/BTC
           </div>
-           <app-token-price-highchart></app-token-price-highchart>
+           <app-token-price-highchart [data]="this.tokenPriceBTCAlphaHistory" *ngIf="tokenPriceBTCAlphaHistory.length" ></app-token-price-highchart>
         </div>
         <div class="small-layer"></div>
         <div class="flex charts-line">
           <div class="card chart">
-            <app-token-price-chart [tokenPriceHistory]="tokenPriceHistory" *ngIf="tokenPriceHistory.length > 0"></app-token-price-chart>
+            <app-token-price-chart [data]="tokenPriceHistory" *ngIf="tokenPriceHistory.length > 0"></app-token-price-chart>
           </div>
           <div class="small-layer"></div>
           <div class="card chart">

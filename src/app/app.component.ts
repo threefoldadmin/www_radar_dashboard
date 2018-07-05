@@ -94,6 +94,9 @@ export class AppComponent {
     if (data.lastBlocks) {
       this.dataService.lastBlocks$.next(data.lastBlocks);
     }
+    if (data.TFT_BTC) {
+      this.dataService.tokenPriceBTCAlphaHistory$.next(data.TFT_BTC);
+    }
   }
   public calculateTokenPrice(tradePairs: any, exchangeRates: any): number {
     let price = 0;
