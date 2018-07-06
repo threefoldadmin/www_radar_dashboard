@@ -16,19 +16,17 @@ export class TokenPriceHighchartComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-
     this.stock = new StockChart({
       colors: ['#00ffff'],
       rangeSelector: {
         selected: 0,
         // allButtonsEnabled: true,
-        buttons: [
-        {
+        buttons: [{
           type: 'day',
-          count: 10,
-          text: 'Day',
+          count: 1,
+          text: 'Day'
         },
-         {
+        {
           type: 'week',
           count: 1,
           text: 'Week',
@@ -53,7 +51,24 @@ export class TokenPriceHighchartComponent implements OnInit {
       series: [{
         name: 'Token price',
         data: this.data
-      }]
+      }],
+      xAxis: {
+        events: {
+          afterSetExtremes: (event) => {
+            // const type = event['rangeSelectorButton'].type;
+            // if (type === 'day') {
+            //   const last24hData = [];
+            //   const seconds24h = event.max - 86400000;
+            //   for (const el of this.data) {
+            //     if (el[0] >= seconds24h) {
+            //       last24hData.push(el);
+            //     }
+            //   }
+            //   this.stock.ref.series[0].setData(last24hData);
+            // }
+          }
+        }
+      }
     });
   }
   public fullScreen() {
