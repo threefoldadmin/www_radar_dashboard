@@ -9,6 +9,9 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ChartModule, HIGHCHARTS_MODULES } from 'angular-highcharts';
+import stock from 'highcharts/modules/stock.src';
+import more from 'highcharts/highcharts-more.src';
 
 import { SocketService } from '../services/socket.service';
 import { DataService } from '../services/data.service';
@@ -24,12 +27,18 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { TokenPriceChartComponent } from './dashboard/token-price-chart/token-price-chart.component';
 import { UnitPriceChartComponent } from './dashboard/unit-price-chart/unit-price-chart.component';
 import { NodesMapsComponent } from './dashboard/nodes-maps/nodes-maps.component';
+import { TokenPriceHighchartComponent } from './dashboard/token-price-highchart/token-price-highchart.component';
 
 import { ExplorerComponent } from './explorer/explorer.component';
 import { AddressExplorerComponent } from './explorer/address-explorer/address-explorer.component';
 import { BlockExplorerComponent } from './explorer/block-explorer/block-explorer.component';
 import { TransactionExplorerComponent } from './explorer/transaction-explorer/transaction-explorer.component';
 import { AmountComponent } from './amount/amount.component';
+
+export function highchartsModules() {
+  // apply Highcharts Modules to this array
+  return [stock, more];
+}
 
 @NgModule({
   declarations: [
@@ -46,7 +55,8 @@ import { AmountComponent } from './amount/amount.component';
     LoaderComponent,
     BlockExplorerComponent,
     TransactionExplorerComponent,
-    AmountComponent
+    AmountComponent,
+    TokenPriceHighchartComponent
   ],
   imports: [
     BrowserModule,
@@ -57,12 +67,14 @@ import { AmountComponent } from './amount/amount.component';
     LeafletModule.forRoot(),
     SimpleNotificationsModule.forRoot(),
     HttpClientModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    ChartModule
   ],
   providers: [
     SocketService,
     DataService,
-    ApiService
+    ApiService,
+    { provide: HIGHCHARTS_MODULES, useFactory: highchartsModules } // add as factory to your providers
   ],
   bootstrap: [AppComponent]
 })

@@ -10,7 +10,7 @@ import { AppComponent } from '../../app.component';
   styleUrls: ['./token-price-chart.component.css', '../dashboard.component.css']
 })
 export class TokenPriceChartComponent implements OnInit, OnDestroy {
-  @Input() public tokenPriceHistory = [];
+  @Input() public data = [];
 
   private subscriptions: Subscription[] = [];
   public chartData;
@@ -49,7 +49,7 @@ export class TokenPriceChartComponent implements OnInit, OnDestroy {
       .forEach(s => s.unsubscribe());
   }
   private initChart() {
-    const series = this.tokenPriceHistory.map(el => {
+    const series = this.data.map(el => {
       const price = {
         name: el.name,
         value: this.appComponent.converter(el.value)
