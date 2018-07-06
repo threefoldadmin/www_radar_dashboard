@@ -23,11 +23,11 @@ export class TokenPriceHighchartComponent implements OnInit {
         selected: 0,
         // allButtonsEnabled: true,
         buttons: [
-        // {
-        //   type: 'day',
-        //   count: 10,
-        //   text: 'Day',
-        // },
+        {
+          type: 'day',
+          count: 10,
+          text: 'Day',
+        },
          {
           type: 'week',
           count: 1,
