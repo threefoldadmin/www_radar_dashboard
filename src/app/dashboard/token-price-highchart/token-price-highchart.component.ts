@@ -1,26 +1,57 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { StockChart } from 'angular-highcharts';
+import { Subscription } from 'rxjs';
+import { AppComponent } from '../../app.component';
 
 @Component({
   selector: 'app-token-price-highchart',
   templateUrl: './token-price-highchart.component.html',
   styleUrls: ['./token-price-highchart.component.css']
 })
-export class TokenPriceHighchartComponent implements OnInit {
+export class TokenPriceHighchartComponent implements OnInit, OnDestroy {
   @Input() public data;
+
+  private subscriptions: Subscription[] = [];
+  private btcUsdRate = 0;
 
   public stock: StockChart;
   public isFullScreenMode = false;
-  public chartWrapperWidth;
 
-  constructor() { }
+  constructor(
+    private appComponent: AppComponent
+  ) { }
 
   ngOnInit() {
+    this.initChart();
+    const exchangeRatesSub = this.appComponent.dataService.exchangeRates$.subscribe(
+      rates => {
+        if (rates) {
+          const btcUsdRate = rates.btcUsd;
+          if (!this.btcUsdRate) {
+            this.btcUsdRate = btcUsdRate;
+            this.initChart();
+          }
+        }
+      }
+    );
+    this.subscriptions.push(exchangeRatesSub);
+  }
+  ngOnDestroy() {
+    this.subscriptions
+      .forEach(s => s.unsubscribe());
+  }
+  private initChart() {
+    const dataUSD = this.data.map(el => {
+      const timestamp = el[0];
+      const priceBTC = el[1];
+      const priceUSD = this.btcUsdRate * priceBTC;
+      const formattedPrice = Number(priceUSD.toFixed(6));
+      return [timestamp, formattedPrice];
+    });
+
     this.stock = new StockChart({
-      colors: ['#00ffff'],
       rangeSelector: {
         selected: 0,
-        // allButtonsEnabled: true,
         buttons: [{
           type: 'day',
           count: 1,
@@ -43,32 +74,47 @@ export class TokenPriceHighchartComponent implements OnInit {
         },
       },
       tooltip: {
-        pointFormat: 'TFT price: {point.y:.8f} BTC',
+        shared: true,
+        // pointFormat: 'TFT price: {point.y:.8f}',
         style: {
           color: '#fff'
         }
       },
-      series: [{
-        name: 'Token price',
-        data: this.data
-      }],
-      xAxis: {
-        events: {
-          afterSetExtremes: (event) => {
-            // const type = event['rangeSelectorButton'].type;
-            // if (type === 'day') {
-            //   const last24hData = [];
-            //   const seconds24h = event.max - 86400000;
-            //   for (const el of this.data) {
-            //     if (el[0] >= seconds24h) {
-            //       last24hData.push(el);
-            //     }
-            //   }
-            //   this.stock.ref.series[0].setData(last24hData);
-            // }
+      yAxis: [{
+        offset: 40,
+        labels: {
+          format: '${value}',
+        },
+        title: {
+          // text: 'TFT price (USD)',
+          style: {
+            color: '#fff'
+          }
+        },
+        opposite: true
+      }, {
+        gridLineWidth: 0,
+        labels: {
+          format: '{value} BTC',
+        },
+        title: {
+          // text: 'TFT price (BTC)',
+          style: {
+            color: '#fff'
           }
         }
-      }
+      }],
+      series: [{
+        name: 'TFT/USD',
+        yAxis: 0,
+        data: dataUSD,
+        color: '#e797f5'
+      }, {
+        name: 'TFT/BTC',
+        yAxis: 1,
+        data: this.data,
+        color: '#00ffff'
+      }]
     });
   }
   public fullScreen() {

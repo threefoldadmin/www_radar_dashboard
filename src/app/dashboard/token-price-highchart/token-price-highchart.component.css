@@ -86,6 +86,10 @@
 .chart-wrapper >>> .highcharts-button-pressed.highcharts-button text{
   fill: white !important;
 }
+.chart-wrapper >>> .highcharts-axis-labels text{
+  font-size: 9.2px !important;
+  font-weight: bold;
+}
 
 @media only screen and (max-width : 680px) {
   .chart-wrapper a{
