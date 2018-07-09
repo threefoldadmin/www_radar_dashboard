@@ -45,7 +45,7 @@ export class TokenPriceHighchartComponent implements OnInit, OnDestroy {
       const timestamp = el[0];
       const priceBTC = el[1];
       const priceUSD = this.btcUsdRate * priceBTC;
-      const formattedPrice = Number(priceUSD.toFixed(4));
+      const formattedPrice = Number(priceUSD.toFixed(6));
       return [timestamp, formattedPrice];
     });
 
