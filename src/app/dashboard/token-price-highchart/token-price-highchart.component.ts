@@ -108,13 +108,12 @@ export class TokenPriceHighchartComponent implements OnInit, OnDestroy {
         name: 'TFT/USD',
         yAxis: 0,
         data: dataUSD,
-        color: '#17f9be'
+        color: '#e797f5'
       }, {
         name: 'TFT/BTC',
         yAxis: 1,
         data: this.data,
-        color: '#00ffff',
-        stack: 'effectif'
+        color: '#00ffff'
       }]
     });
   }
