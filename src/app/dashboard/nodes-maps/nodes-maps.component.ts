@@ -22,7 +22,7 @@ export class NodesMapsComponent implements OnInit {
       L.tileLayer(OSM_TILE_LAYER_URL,
         {
           subdomains: 'abcd',
-          maxZoom: 10
+          maxZoom: 14
         })
     ],
     zoom: 1,
@@ -42,7 +42,7 @@ export class NodesMapsComponent implements OnInit {
       L.tileLayer(OSM_TILE_LAYER_URL,
         {
           subdomains: 'abcd',
-          maxZoom: 10
+          maxZoom: 14
         })
     ],
     zoom: 1,
@@ -54,15 +54,15 @@ export class NodesMapsComponent implements OnInit {
     center: BOUNDS.getCenter()
   };
   public heatMapLayerConfigs = {
-    'radius': 14,
-    'maxOpacity': 1,
-    'minOpacity': 0,
+    'radius': 12,
+    'maxOpacity': 0.92,
+    'minOpacity': 0.12,
     'scaleRadius': false,
     'useLocalExtrema': true,
     latField: 'lat',
     lngField: 'lng',
     valueField: 'count',
-    blur: 0.95,
+    blur: 0.9,
     'gradient': {
       '0.25': '#5614B0',
       '0.8': '#FF8C00',
