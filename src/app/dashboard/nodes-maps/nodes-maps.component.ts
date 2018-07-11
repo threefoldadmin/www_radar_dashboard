@@ -54,24 +54,23 @@ export class NodesMapsComponent implements OnInit {
     center: BOUNDS.getCenter()
   };
   public heatMapLayerConfigs = {
-    'radius': 10,
-    'maxOpacity': 0.66,
-    'minOpacity': 0.5,
+    'radius': 14,
+    'maxOpacity': 1,
+    'minOpacity': 0,
     'scaleRadius': false,
     'useLocalExtrema': true,
     latField: 'lat',
     lngField: 'lng',
     valueField: 'count',
-    blur: 0.68,
+    blur: 0.95,
     'gradient': {
-      '0.25': '#3c4dcc',
-      '0.55': '#d93c39',
-      '0.85': '#e86035',
-      '1.0': '#ffed50'
+      '0.25': '#5614B0',
+      '0.8': '#FF8C00',
+      '0.95': '#DBD65C'
     },
   };
   public heatMapLayers = {
-    max: 999999,
+    max: 9999,
     min: 1,
     data: []
   };
@@ -84,7 +83,7 @@ export class NodesMapsComponent implements OnInit {
   }
   public setGeoMapData() {
     for (const peer of this.peers) {
-      const coordinate = L.circle([peer.geo.coordinates[0], peer.geo.coordinates[1]], { color: '#00ffff' });
+      const coordinate = L.circle([peer.geo.coordinates[0], peer.geo.coordinates[1]], { color: '#FF8C00' });
       this.geoMapLayers.push(coordinate);
     }
   }
