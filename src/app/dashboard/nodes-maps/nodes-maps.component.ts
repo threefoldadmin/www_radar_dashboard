@@ -2,7 +2,10 @@ import { Component, OnInit, Input } from '@angular/core';
 import * as HeatmapOverlay from 'leaflet-heatmap/leaflet-heatmap';
 import * as L from 'leaflet';
 
-const OSM_TILE_LAYER_URL = 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_nolabels/{z}/{x}/{y}.png';
+const OSM_TILE_LAYER_URL = 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png';
+const BOUNDS = new L.LatLngBounds(new L.LatLng(40.712, -74.227), new L.LatLng(40.774, -74.125));
+// 'https://cartocdn_{s}.global.ssl.fastly.net/base-midnight/{z}/{x}/{y}.png'
+
 
 @Component({
   selector: 'app-nodes-maps',
@@ -12,18 +15,25 @@ const OSM_TILE_LAYER_URL = 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/d
 
 export class NodesMapsComponent implements OnInit {
   @Input() public peers = [];
+
   // GeoMap
   public geoMapOptions = {
     layers: [
       L.tileLayer(OSM_TILE_LAYER_URL,
         {
           subdomains: 'abcd',
-          maxZoom: 4
+          maxZoom: 10
         })
     ],
-    zoom: 0.7,
-    center: L.latLng(50, 4)
+    zoom: 1,
+    minZoom: 1,
+    maxBounds: [
+      [90, -180],
+      [-90, 180]
+    ],
+    center: BOUNDS.getCenter(),
   };
+
   public geoMapLayers = [];
 
   // HeatMap
@@ -32,23 +42,36 @@ export class NodesMapsComponent implements OnInit {
       L.tileLayer(OSM_TILE_LAYER_URL,
         {
           subdomains: 'abcd',
-          maxZoom: 4
+          maxZoom: 10
         })
     ],
     zoom: 1,
-    center: L.latLng(50, 4)
+    minZoom: 1,
+    maxBounds: [
+      [90, -180],
+      [-90, 180]
+    ],
+    center: BOUNDS.getCenter()
   };
   public heatMapLayerConfigs = {
-    'radius': 7,
-    'maxOpacity': 0.6,
-    'scaleRadius': true,
+    'radius': 10,
+    'maxOpacity': 0.66,
+    'minOpacity': 0.5,
+    'scaleRadius': false,
     'useLocalExtrema': true,
     latField: 'lat',
     lngField: 'lng',
-    valueField: 'count'
+    valueField: 'count',
+    blur: 0.68,
+    'gradient': {
+      '0.25': '#3c4dcc',
+      '0.55': '#d93c39',
+      '0.85': '#e86035',
+      '1.0': '#ffed50'
+    },
   };
   public heatMapLayers = {
-    max: 1,
+    max: 999999,
     min: 1,
     data: []
   };
@@ -60,23 +83,19 @@ export class NodesMapsComponent implements OnInit {
     this.setHeatMapData();
   }
   public setGeoMapData() {
-    this.peers.forEach(peer => {
-      const coordinate = L.circle([peer.geo.coordinates[0], peer.geo.coordinates[1]], { radius: 150000, color: '#25dfec' });
+    for (const peer of this.peers) {
+      const coordinate = L.circle([peer.geo.coordinates[0], peer.geo.coordinates[1]], { color: '#00ffff' });
       this.geoMapLayers.push(coordinate);
-    });
+    }
   }
   public setHeatMapData() {
-    this.peers.map((peer, index) => {
-      const coordinate = { lat: peer.geo.coordinates[0], lng: peer.geo.coordinates[1], count: 1 };
-      if (index === 0) {
-        coordinate.count = 2;
-      }
+    for (const peer of this.peers) {
+      const coordinate = { lat: peer.geo.coordinates[0], lng: peer.geo.coordinates[1], count: peer.geo.count };
       this.heatMapLayers.data.push(coordinate);
-    });
+    }
     this.heatMapLayer.setData(this.heatMapLayers);
   }
   public onHeatMapReady(map: L.Map) {
     this.heatMapLayer.onAdd(map);
   }
-
 }
