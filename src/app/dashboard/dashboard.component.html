@@ -162,11 +162,11 @@
           </div>
         </div>
         <div class="small-layer"></div>
-        <div class="card">
+        <div class="card" *ngIf="tokenPriceBTCAlphaHistory.length">
           <div class="card-title">
             TFT token price chart
           </div>
-           <app-token-price-highchart [data]="this.tokenPriceBTCAlphaHistory" *ngIf="tokenPriceBTCAlphaHistory.length" ></app-token-price-highchart>
+           <app-token-price-highchart [data]="this.tokenPriceBTCAlphaHistory"></app-token-price-highchart>
         </div>
         <!-- <div class="small-layer"></div>
         <div class="flex charts-line">
