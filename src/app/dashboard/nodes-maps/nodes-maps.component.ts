@@ -40,6 +40,7 @@ export class NodesMapsComponent implements OnInit {
   // HeatMap
   public heatMap = {
     map: null,
+    fullScreen: false,
     options: {
       layers: [
         L.tileLayer(OSM_TILE_LAYER_URL,
