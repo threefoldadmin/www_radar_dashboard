@@ -24,7 +24,7 @@ export class NodesMapsComponent implements OnInit {
         L.tileLayer(OSM_TILE_LAYER_URL,
           {
             subdomains: 'abcd',
-            maxZoom: 10
+            maxZoom: 11
           })
       ],
       zoom: 1,
@@ -46,7 +46,7 @@ export class NodesMapsComponent implements OnInit {
         L.tileLayer(OSM_TILE_LAYER_URL,
           {
             subdomains: 'abcd',
-            maxZoom: 10
+            maxZoom: 11
           })
       ],
       zoom: 1,
@@ -107,7 +107,7 @@ export class NodesMapsComponent implements OnInit {
     this[name].fullScreen = !this[name].fullScreen;
     setTimeout(() => { this[name].map.invalidateSize(true); }, 100);
 
-    const currentZoom = this.geoMap.map.getZoom();
+    const currentZoom = this[name].map.getZoom();
 
     if (this[name].fullScreen && currentZoom === 1) {
       const center = BOUNDS.getCenter();
