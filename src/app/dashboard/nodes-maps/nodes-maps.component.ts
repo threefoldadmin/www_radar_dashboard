@@ -4,8 +4,6 @@ import * as L from 'leaflet';
 
 const OSM_TILE_LAYER_URL = 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png';
 const BOUNDS = new L.LatLngBounds(new L.LatLng(40.712, -74.227), new L.LatLng(40.774, -74.125));
-// 'https://cartocdn_{s}.global.ssl.fastly.net/base-midnight/{z}/{x}/{y}.png'
-
 
 @Component({
   selector: 'app-nodes-maps',
@@ -17,64 +15,67 @@ export class NodesMapsComponent implements OnInit {
   @Input() public peers = [];
 
   // GeoMap
-  public geoMapOptions = {
-    layers: [
-      L.tileLayer(OSM_TILE_LAYER_URL,
-        {
-          subdomains: 'abcd',
-          maxZoom: 14
-        })
-    ],
-    zoom: 1,
-    minZoom: 1,
-    maxBounds: [
-      [90, -180],
-      [-90, 180]
-    ],
-    center: BOUNDS.getCenter(),
+  public geoMap = {
+    map: null,
+    layers: [],
+    fullScreen: false,
+    options: {
+      layers: [
+        L.tileLayer(OSM_TILE_LAYER_URL,
+          {
+            subdomains: 'abcd',
+            maxZoom: 10
+          })
+      ],
+      zoom: 1,
+      minZoom: 1,
+      maxBounds: [
+        [90, -180],
+        [-90, 180]
+      ],
+      center: BOUNDS.getCenter()
+    }
   };
-
-  public geoMapLayers = [];
 
   // HeatMap
-  public heatMapOptions = {
-    layers: [
-      L.tileLayer(OSM_TILE_LAYER_URL,
-        {
-          subdomains: 'abcd',
-          maxZoom: 14
-        })
-    ],
-    zoom: 1,
-    minZoom: 1,
-    maxBounds: [
-      [90, -180],
-      [-90, 180]
-    ],
-    center: BOUNDS.getCenter()
-  };
-  public heatMapLayerConfigs = {
-    'radius': 12,
-    'maxOpacity': 0.92,
-    'minOpacity': 0.12,
-    'scaleRadius': false,
-    'useLocalExtrema': true,
-    latField: 'lat',
-    lngField: 'lng',
-    valueField: 'count',
-    blur: 0.9,
-    'gradient': {
-      '0.25': '#5614B0',
-      '0.8': '#FF8C00',
-      '0.95': '#DBD65C'
+  public heatMap = {
+    map: null,
+    options: {
+      layers: [
+        L.tileLayer(OSM_TILE_LAYER_URL,
+          {
+            subdomains: 'abcd',
+            maxZoom: 10
+          })
+      ],
+      zoom: 1,
+      minZoom: 1,
+      maxBounds: [
+        [90, -180],
+        [-90, 180]
+      ],
+      center: BOUNDS.getCenter()
     },
+    layerConfigs: {
+      'radius': 12,
+      // 'maxOpacity': 0.92,
+      'minOpacity': 0.4,
+      'scaleRadius': false,
+      'useLocalExtrema': true,
+      latField: 'lat',
+      lngField: 'lng',
+      valueField: 'count',
+      blur: 0.7,
+    },
+    layers: {
+      max: 9999,
+      min: 1,
+      data: []
+    }
   };
-  public heatMapLayers = {
-    max: 9999,
-    min: 1,
-    data: []
-  };
-  public heatMapLayer = new HeatmapOverlay(this.heatMapLayerConfigs);
+
+  public heatMapLayer = new HeatmapOverlay(this.heatMap.layerConfigs);
+
   constructor() { }
 
   ngOnInit() {
@@ -83,18 +84,33 @@ export class NodesMapsComponent implements OnInit {
   }
   public setGeoMapData() {
     for (const peer of this.peers) {
-      const coordinate = L.circle([peer.geo.coordinates[0], peer.geo.coordinates[1]], { color: '#FF8C00' });
-      this.geoMapLayers.push(coordinate);
+      const coordinate = L.circle([peer.geo.coordinates[0], peer.geo.coordinates[1]], { color: '#17f9be' });
+      this.geoMap.layers.push(coordinate);
     }
+  }
+  public onGeoMapReady(map: L.Map) {
+    this.geoMap.map = map;
   }
   public setHeatMapData() {
     for (const peer of this.peers) {
       const coordinate = { lat: peer.geo.coordinates[0], lng: peer.geo.coordinates[1], count: peer.geo.count };
-      this.heatMapLayers.data.push(coordinate);
+      this.heatMap.layers.data.push(coordinate);
     }
-    this.heatMapLayer.setData(this.heatMapLayers);
+    this.heatMapLayer.setData(this.heatMap.layers);
   }
   public onHeatMapReady(map: L.Map) {
+    this.heatMap.map = map;
     this.heatMapLayer.onAdd(map);
+  }
+  public fullScreen(name: string) {
+    this[name].fullScreen = !this[name].fullScreen;
+    setTimeout(() => { this[name].map.invalidateSize(true); }, 100);
+
+    const currentZoom = this.geoMap.map.getZoom();
+
+    if (this[name].fullScreen && currentZoom === 1) {
+      const center = BOUNDS.getCenter();
+      this[name].map.setView(center, currentZoom + 1);
+    }
   }
 }

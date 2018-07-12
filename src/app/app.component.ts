@@ -107,14 +107,14 @@ export class AppComponent {
     );
   }
   public setPeersStatData(data: any) {
-    this.computeUnitsTotal = data.computeUnitsTotal || 6967;
-    this.storageUnitsTotal = data.storageUnitsTotal || 13098.19;
-    this.storageUnitsTB = data.storageUnitsTB || 11832269;
-    this.storageUnitsCores = data.storageUnitsCores || 6967;
-    this.annualNetworkRevenue = data.annualNetworkRevenue || 214585.9;
-    this.maxSupply = data.maxSupply || 100000000000;
-    this.computeUnitPriceUSD = data.computeUnitPriceUSD || 12;
-    this.storageUnitPriceUSD = data.storageUnitPriceUSD || 10;
+    this.computeUnitsTotal = data.computeUnitsTotal || 0;
+    this.storageUnitsTotal = data.storageUnitsTotal || 0;
+    this.storageUnitsTB = data.storageUnitsTB / 1024 || 0; // from Gb to Tb
+    this.storageUnitsCores = data.storageUnitsCores || 0;
+    this.annualNetworkRevenue = data.annualNetworkRevenue || 0;
+    this.maxSupply = data.maxSupply || 0;
+    this.computeUnitPriceUSD = data.computeUnitPriceUSD || 0;
+    this.storageUnitPriceUSD = data.storageUnitPriceUSD || 0;
   }
 
   public calculateTokenPrice(tradePairs: any, exchangeRates: any): number {
