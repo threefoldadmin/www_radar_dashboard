@@ -108,20 +108,20 @@
               </div>
               <div class="flex" *ngIf="currentCurrencyPair() !== 'btcUsd'">
                 <div class="flex-no-shrink">
-                  <div class="big-num pink-text">
-                    <app-amount [amount]="getConvertedData('computeUnitPriceUSD')" ></app-amount>
-                  </div>
-                  <div class="card-subtitle">
-                    Compute Unit
-                  </div>
-                </div>
-                <div class="layer"></div>
-                <div class="flex-no-shrink">
                   <div class="big-num peach-text">
                     <app-amount [amount]="getConvertedData('storageUnitPriceUSD')"></app-amount>
                   </div>
                   <div class="card-subtitle">
                     Storage Unit
+                  </div>
+                </div>
+                <div class="layer"></div>
+                <div class="flex-no-shrink">
+                  <div class="big-num pink-text">
+                    <app-amount [amount]="getConvertedData('computeUnitPriceUSD')"></app-amount>
+                  </div>
+                  <div class="card-subtitle">
+                    Compute Unit
                   </div>
                 </div>
               </div>
@@ -152,7 +152,7 @@
               </div>
               <div class="flex-no-shrink">
                 <div class="big-num">
-                  <app-amount [amount]="getTechData('annualNetworkRevenue')" fixedDecimal="true"></app-amount>
+                  <app-amount [amount]="getConvertedData('annualNetworkRevenue')" fixedDecimal="true"></app-amount>
                 </div>
                 <div class="card-subtitle">
                   With full utilization
