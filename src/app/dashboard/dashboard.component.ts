@@ -48,16 +48,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
         }
       }
     );
-    // const tokenPriceBTCAlphaHistorySub = this.appComponent.dataService.tokenPriceBTCAlphaHistory$.subscribe(
-    //   data => {
-    //     if (data) {
-    //       if (data.length > this.tokenPriceBTCAlphaHistory.length) {
-    //         this.tokenPriceBTCAlphaHistory = data;
-    //         console.log(data, 'tokenPriceBTCAlphaHistory');
-    //       }
-    //     }
-    //   }
-    // );
     this.subscriptions.push(lastBlockSub, lastBlocksSub);
   }
   ngOnDestroy() {
@@ -65,7 +55,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .forEach(s => s.unsubscribe());
   }
   public getData() {
-    this.appComponent.getData();
+    this.appComponent.getMainData();
     this.getPeers();
     this.getTokenPriceHistory();
     this.getTokenPriceBTCAlphaHistory();
@@ -102,17 +92,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
   public search(id) {
     this.router.navigate([`/search/${id}`]);
   }
-  public networkPrice() {
-    const computeUnitsTotal = this.getStaticTechData('computeUnitsTotal');
-    const computeUnitPriceUSD = this.getStaticData('computeUnitPriceUSD');
-    const storageUnitsTotal = this.getStaticTechData('storageUnitsTotal');
-    const storageUnitPriceUSD = this.getStaticData('storageUnitPriceUSD');
-
-    return ( computeUnitsTotal * computeUnitPriceUSD + storageUnitsTotal * storageUnitPriceUSD ) * 12;
-  }
+  // public networkPrice() {
+  //   return ( computeUnitsTotal * computeUnitPriceUSD + storageUnitsTotal * storageUnitPriceUSD ) * 12;
+  // }
   public totalTokenCapitalization() {
-    const totalSupply = this.getStaticTechData('totalSupply');
-    const tokenPrice = this.getStaticData('weightedTokenPriceUSD');
+    const totalSupply = this.getTechData('totalSupply');
+    const tokenPrice = this.getConvertedData('weightedTokenPriceUSD');
     return totalSupply * tokenPrice;
   }
   public setBlocksTimeDiff() {
@@ -148,10 +133,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   public currentCurrencyPair() {
     return this.appComponent.currentCurrencyPair;
   }
-  public getStaticData(name: string) {
+  public getConvertedData(name: string) {
     return this.appComponent.converter(this.appComponent[name]);
   }
-  public getStaticTechData(name: string, divideType?: string) {
+  public getTechData(name: string, divideType?: string) {
     let divisor = 1;
     if (divideType === 'k') {
       divisor = 1000;

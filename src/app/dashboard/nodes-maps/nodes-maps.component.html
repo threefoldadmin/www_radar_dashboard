@@ -1,17 +1,24 @@
+
 <div class="flex maps-line">
-  <div class="card">
+  <div class="card" [class.full-screen]="geoMap.fullScreen">
     <div class="card-title">
       Registered Nodes
     </div>
-    <div style="height: 221px" leaflet [leafletOptions]="geoMapOptions" [leafletLayers]="geoMapLayers">
+    <a (click)="fullScreen('geoMap')">
+      <i class="fas fa-arrows-alt"></i>
+    </a>
+    <div class="map-wrapper" leaflet (leafletMapReady)="onGeoMapReady($event)" [leafletOptions]="geoMap.options" [leafletLayers]="geoMap.layers">
     </div>
   </div>
   <div class="small-layer"></div>
-  <div class="card">
+  <div class="card" [class.full-screen]="heatMap.fullScreen">
     <div class="card-title">
       Heat Map of Nodes and Cloud Units
     </div>
-    <div style="height: 221px" leaflet (leafletMapReady)="onHeatMapReady($event)" [leafletOptions]="heatMapOptions">
+    <a (click)="fullScreen('heatMap')">
+      <i class="fas fa-arrows-alt"></i>
+    </a>
+    <div class="map-wrapper" leaflet (leafletMapReady)="onHeatMapReady($event)" [leafletOptions]="heatMap.options">
     </div>
   </div>
 </div>

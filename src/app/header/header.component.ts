@@ -56,7 +56,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public tradeVolume() {
     let tradeVolume = 0;
     const pairs = this.appComponent.tradePairs;
-    if (pairs) {
+    if (pairs && pairs.TFT_BTC && pairs.TFT_USD) {
       const tradeVolumeTFT = pairs.TFT_BTC.volume + pairs.TFT_USD.volume;
       tradeVolume = this.appComponent.tokenConverter(tradeVolumeTFT * 1000000000);
     }

@@ -21,17 +21,8 @@
   min-height: 100vh;
   background: #16304e;
   padding: 40px 20px;
-  /* display: flex; */
-  /* align-items: center; */
-  /* justify-content: center; */
   box-sizing: border-box;
 }
-/* .chart-wrapper.full-screen >>> .highcharts-container {
-  height: 50% !important;
-  width: 90% !important; 
-  max-width: none;
-  min-width: 90vw;
-} */
 .chart-wrapper >>> .highcharts-background{
   fill: transparent;
 }

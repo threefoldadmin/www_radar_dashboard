@@ -23,7 +23,7 @@
                   Total Supply:
                 </div>
                 <div class="big-num">
-                  {{getStaticTechData('totalSupply') | number: '1.0-0'}}
+                  {{getTechData('totalSupply') | number: '1.0-0'}}
                 </div>
               </div>
               <div class="big-layer"></div>
@@ -41,7 +41,7 @@
                   Max Supply:
                 </div>
                 <div class="big-num">
-                  {{getStaticTechData('maxSupply') | number: '1.0-1'}}
+                  {{getTechData('maxSupply') | number: '1.0-1'}}
                 </div>
               </div>
             </div>
@@ -57,7 +57,7 @@
               <div class="flex">
                 <div class="flex-no-shrink">
                   <div class="big-num">
-                    {{getStaticTechData('computeUnitsTotal', 'k') | number: '1.1-1'}}K
+                    {{getTechData('computeUnitsTotal', 'k') | number: '1.1-1'}}K
                   </div>
                   <div class="card-subtitle">
                     Compute Units
@@ -66,7 +66,7 @@
                 <div class="layer"></div>
                 <div class="flex-no-shrink">
                   <div class="big-num">
-                    {{getStaticTechData('storageUnitsTotal', 'k') | number: '1.1-1'}}K
+                    {{getTechData('storageUnitsTotal', 'k') | number: '1.1-1'}}K
                   </div>
                   <div class="card-subtitle">
                     Storage Units
@@ -82,7 +82,7 @@
               <div class="flex">
                 <div class="flex-no-shrink">
                   <div class="big-num">
-                    {{getStaticTechData('storageUnitsTB', 'k') | number: '1.0-0'}}K TB
+                    {{getTechData('storageUnitsTB', 'k') | number: '1.0-0'}}K TB
                   </div>
                   <div class="card-subtitle">
                     Storage
@@ -91,7 +91,7 @@
                 <div class="layer"></div>
                 <div class="flex-no-shrink">
                   <div class="big-num">
-                    {{getStaticTechData('storageUnitsCores', 'k') | number: '1.0-0'}}K
+                    {{getTechData('storageUnitsCores', 'k') | number: '1.1-1'}}K
                   </div>
                   <div class="card-subtitle">
                     Cores
@@ -109,7 +109,7 @@
               <div class="flex" *ngIf="currentCurrencyPair() !== 'btcUsd'">
                 <div class="flex-no-shrink">
                   <div class="big-num pink-text">
-                    <app-amount [amount]="getStaticData('computeUnitPriceUSD')" ></app-amount>
+                    <app-amount [amount]="getConvertedData('computeUnitPriceUSD')" ></app-amount>
                   </div>
                   <div class="card-subtitle">
                     Compute Unit
@@ -118,7 +118,7 @@
                 <div class="layer"></div>
                 <div class="flex-no-shrink">
                   <div class="big-num peach-text">
-                    <app-amount [amount]="getStaticData('storageUnitPriceUSD')"></app-amount>
+                    <app-amount [amount]="getConvertedData('storageUnitPriceUSD')"></app-amount>
                   </div>
                   <div class="card-subtitle">
                     Storage Unit
@@ -128,7 +128,7 @@
               <div class="flex-column" *ngIf="currentCurrencyPair() === 'btcUsd'">
                 <div class="flex-no-shrink">
                   <div class="middle-num pink-text">
-                    <app-amount [amount]="getStaticData('computeUnitPriceUSD')"></app-amount>
+                    <app-amount [amount]="getConvertedData('computeUnitPriceUSD')"></app-amount>
                   </div>
                   <div class="card-subtitle">
                     Compute Unit
@@ -137,7 +137,7 @@
                 <div class="small-layer"></div>
                 <div class="flex-no-shrink">
                   <div class="middle-num peach-text">
-                    <app-amount [amount]="getStaticData('storageUnitPriceUSD')"></app-amount>
+                    <app-amount [amount]="getConvertedData('storageUnitPriceUSD')"></app-amount>
                   </div>
                   <div class="card-subtitle">
                     Storage Unit
@@ -152,7 +152,7 @@
               </div>
               <div class="flex-no-shrink">
                 <div class="big-num">
-                  <app-amount [amount]="networkPrice()" fixedDecimal="true"></app-amount>
+                  <app-amount [amount]="getTechData('annualNetworkRevenue')" fixedDecimal="true"></app-amount>
                 </div>
                 <div class="card-subtitle">
                   With full utilization
@@ -162,11 +162,11 @@
           </div>
         </div>
         <div class="small-layer"></div>
-        <div class="card">
+        <div class="card" *ngIf="tokenPriceBTCAlphaHistory.length">
           <div class="card-title">
             TFT token price chart
           </div>
-           <app-token-price-highchart [data]="this.tokenPriceBTCAlphaHistory" *ngIf="tokenPriceBTCAlphaHistory.length" ></app-token-price-highchart>
+           <app-token-price-highchart [data]="this.tokenPriceBTCAlphaHistory"></app-token-price-highchart>
         </div>
         <!-- <div class="small-layer"></div>
         <div class="flex charts-line">

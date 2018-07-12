@@ -2,7 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import * as HeatmapOverlay from 'leaflet-heatmap/leaflet-heatmap';
 import * as L from 'leaflet';
 
-const OSM_TILE_LAYER_URL = 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_nolabels/{z}/{x}/{y}.png';
+const OSM_TILE_LAYER_URL = 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png';
+const BOUNDS = new L.LatLngBounds(new L.LatLng(40.712, -74.227), new L.LatLng(40.774, -74.125));
 
 @Component({
   selector: 'app-nodes-maps',
@@ -12,47 +13,70 @@ const OSM_TILE_LAYER_URL = 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/d
 
 export class NodesMapsComponent implements OnInit {
   @Input() public peers = [];
+
   // GeoMap
-  public geoMapOptions = {
-    layers: [
-      L.tileLayer(OSM_TILE_LAYER_URL,
-        {
-          subdomains: 'abcd',
-          maxZoom: 4
-        })
-    ],
-    zoom: 0.7,
-    center: L.latLng(50, 4)
+  public geoMap = {
+    map: null,
+    layers: [],
+    fullScreen: false,
+    options: {
+      layers: [
+        L.tileLayer(OSM_TILE_LAYER_URL,
+          {
+            subdomains: 'abcd',
+            maxZoom: 11
+          })
+      ],
+      zoom: 1,
+      minZoom: 1,
+      maxBounds: [
+        [90, -180],
+        [-90, 180]
+      ],
+      center: BOUNDS.getCenter()
+    }
   };
-  public geoMapLayers = [];
 
   // HeatMap
-  public heatMapOptions = {
-    layers: [
-      L.tileLayer(OSM_TILE_LAYER_URL,
-        {
-          subdomains: 'abcd',
-          maxZoom: 4
-        })
-    ],
-    zoom: 1,
-    center: L.latLng(50, 4)
+  public heatMap = {
+    map: null,
+    fullScreen: false,
+    options: {
+      layers: [
+        L.tileLayer(OSM_TILE_LAYER_URL,
+          {
+            subdomains: 'abcd',
+            maxZoom: 11
+          })
+      ],
+      zoom: 1,
+      minZoom: 1,
+      maxBounds: [
+        [90, -180],
+        [-90, 180]
+      ],
+      center: BOUNDS.getCenter()
+    },
+    layerConfigs: {
+      'radius': 12,
+      // 'maxOpacity': 0.92,
+      'minOpacity': 0.4,
+      'scaleRadius': false,
+      'useLocalExtrema': true,
+      latField: 'lat',
+      lngField: 'lng',
+      valueField: 'count',
+      blur: 0.7,
+    },
+    layers: {
+      max: 9999,
+      min: 1,
+      data: []
+    }
   };
-  public heatMapLayerConfigs = {
-    'radius': 7,
-    'maxOpacity': 0.6,
-    'scaleRadius': true,
-    'useLocalExtrema': true,
-    latField: 'lat',
-    lngField: 'lng',
-    valueField: 'count'
-  };
-  public heatMapLayers = {
-    max: 1,
-    min: 1,
-    data: []
-  };
-  public heatMapLayer = new HeatmapOverlay(this.heatMapLayerConfigs);
+
+  public heatMapLayer = new HeatmapOverlay(this.heatMap.layerConfigs);
+
   constructor() { }
 
   ngOnInit() {
@@ -60,23 +84,34 @@ export class NodesMapsComponent implements OnInit {
     this.setHeatMapData();
   }
   public setGeoMapData() {
-    this.peers.forEach(peer => {
-      const coordinate = L.circle([peer.geo.coordinates[0], peer.geo.coordinates[1]], { radius: 150000, color: '#25dfec' });
-      this.geoMapLayers.push(coordinate);
-    });
+    for (const peer of this.peers) {
+      const coordinate = L.circle([peer.geo.coordinates[0], peer.geo.coordinates[1]], { color: '#17f9be' });
+      this.geoMap.layers.push(coordinate);
+    }
+  }
+  public onGeoMapReady(map: L.Map) {
+    this.geoMap.map = map;
   }
   public setHeatMapData() {
-    this.peers.map((peer, index) => {
-      const coordinate = { lat: peer.geo.coordinates[0], lng: peer.geo.coordinates[1], count: 1 };
-      if (index === 0) {
-        coordinate.count = 2;
-      }
-      this.heatMapLayers.data.push(coordinate);
-    });
-    this.heatMapLayer.setData(this.heatMapLayers);
+    for (const peer of this.peers) {
+      const coordinate = { lat: peer.geo.coordinates[0], lng: peer.geo.coordinates[1], count: peer.geo.count };
+      this.heatMap.layers.data.push(coordinate);
+    }
+    this.heatMapLayer.setData(this.heatMap.layers);
   }
   public onHeatMapReady(map: L.Map) {
+    this.heatMap.map = map;
     this.heatMapLayer.onAdd(map);
   }
+  public fullScreen(name: string) {
+    this[name].fullScreen = !this[name].fullScreen;
+    setTimeout(() => { this[name].map.invalidateSize(true); }, 100);
 
+    const currentZoom = this[name].map.getZoom();
+
+    if (this[name].fullScreen && currentZoom === 1) {
+      const center = BOUNDS.getCenter();
+      this[name].map.setView(center, currentZoom + 1);
+    }
+  }
 }

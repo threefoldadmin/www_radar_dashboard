@@ -26,17 +26,18 @@ export class AppComponent {
     animate: 'scale',
     position: ['right', 'top']
   };
-  // Static Stats
-  public computeUnitsTotal = 25200;
-  public storageUnitsTotal = 91578;
-  public storageUnitsTB = 73000;
-  public storageUnitsCores = 28000;
-  public computeUnitPriceUSD = 12;
-  public storageUnitPriceUSD = 10;
-  public maxSupply = 100000000000;
 
   // Dynamic Stats
-  public totalSupply;
+  public totalSupply = 0;
+  public computeUnitsTotal = 0;
+  public storageUnitsTotal = 0;
+  public storageUnitsTB = 0; // 73000
+  public storageUnitsCores = 0;
+  public annualNetworkRevenue = 0;
+  public maxSupply = 0;
+
+  public computeUnitPriceUSD = 0;
+  public storageUnitPriceUSD = 0;
 
   public weightedTokenPriceUSD = 0;
   public tradePairs;
@@ -53,9 +54,10 @@ export class AppComponent {
     this.socketService.initSocket();
     this.socketService.onTick().subscribe(
       (data) => {
-        this.setData(data);
+        this.setMainData(data);
       });
-    this.getData();
+    this.getMainData();
+    this.getPeersStatData();
     this.setCurrency('usd');
   }
   public API(...args): Observable<any> {
@@ -74,16 +76,16 @@ export class AppComponent {
       );
     });
   }
-  public getData() {
+  public getMainData() {
     this.API('get', '').subscribe(
       data => {
         if (data) {
-         this.setData(data);
+         this.setMainData(data);
         }
       },
     );
   }
-  public setData(data: any) {
+  public setMainData(data: any) {
     this.totalSupply = this.tokens(data.totalSupply);
     this.weightedTokenPriceUSD = data.currency.tftPrice.weightedAveragePrice;
     this.tradePairs = data.currency.tftPrice.pairs;
@@ -94,10 +96,27 @@ export class AppComponent {
     if (data.lastBlocks) {
       this.dataService.lastBlocks$.next(data.lastBlocks);
     }
-    // if (data.TFT_BTC) {
-    //   this.dataService.tokenPriceBTCAlphaHistory$.next(data.TFT_BTC);
-    // }
   }
+  public getPeersStatData() {
+    this.API('get', 'peers/stat').subscribe(
+      data => {
+        if (data) {
+          this.setPeersStatData(data);
+        }
+      },
+    );
+  }
+  public setPeersStatData(data: any) {
+    this.computeUnitsTotal = data.computeUnitsTotal || 0;
+    this.storageUnitsTotal = data.storageUnitsTotal || 0;
+    this.storageUnitsTB = data.storageUnitsTB / 1024 || 0; // from Gb to Tb
+    this.storageUnitsCores = data.storageUnitsCores || 0;
+    this.annualNetworkRevenue = data.annualNetworkRevenue || 0;
+    this.maxSupply = data.maxSupply || 0;
+    this.computeUnitPriceUSD = data.computeUnitPriceUSD || 0;
+    this.storageUnitPriceUSD = data.storageUnitPriceUSD || 0;
+  }
+
   public calculateTokenPrice(tradePairs: any, exchangeRates: any): number {
     let price = 0;
     const pairUSD = tradePairs.TFT_USD;
