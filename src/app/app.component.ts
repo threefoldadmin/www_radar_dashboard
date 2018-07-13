@@ -33,7 +33,7 @@ export class AppComponent {
   public storageUnitsTotal = 0;
   public storageUnitsTB = 0; // 73000
   public storageUnitsCores = 0;
-  public annualNetworkRevenue = 0;
+  public fiveYearsNetworkRevenue = 0;
   public maxSupply = 0;
 
   public computeUnitPriceUSD = 0;
@@ -109,9 +109,9 @@ export class AppComponent {
   public setPeersStatData(data: any) {
     this.computeUnitsTotal = data.computeUnitsTotal || 0;
     this.storageUnitsTotal = data.storageUnitsTotal || 0;
-    this.storageUnitsTB = data.storageUnitsTB / 1024 || 0; // from Gb to Tb
+    this.storageUnitsTB = data.storageUnitsTB || 0;
     this.storageUnitsCores = data.storageUnitsCores || 0;
-    this.annualNetworkRevenue = data.annualNetworkRevenue || 0;
+    this.fiveYearsNetworkRevenue = data.fiveYearsNetworkRevenue || 0;
     this.maxSupply = data.maxSupply || 0;
     this.computeUnitPriceUSD = data.computeUnitPriceUSD || 0;
     this.storageUnitPriceUSD = data.storageUnitPriceUSD || 0;
