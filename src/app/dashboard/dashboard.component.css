@@ -66,6 +66,11 @@
   color: #cfdef8;
   flex-shrink: 0;
 }
+.card-note-text{
+  color: #cfdef8;
+  font-size: 11px;
+  text-align: center;
+}
 .left-col .supply-line .card-title{
   padding-bottom: 0;
 }

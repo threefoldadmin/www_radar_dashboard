@@ -20,7 +20,7 @@
             <div class="full-width flex-center flex-wrap">
               <div>
                 <div class="card-title">
-                  Total Supply:
+                  Total Supply*
                 </div>
                 <div class="big-num">
                   {{getTechData('totalSupply') | number: '1.0-0'}}
@@ -29,7 +29,7 @@
               <div class="big-layer"></div>
               <div>
                 <div class="card-title">
-                  Total Token Capitalization:
+                  Total Token Capitalization
                 </div>
                 <div class="big-num">
                   <app-amount [amount]="totalTokenCapitalization()" fixedDecimal="true"></app-amount>
@@ -38,13 +38,14 @@
               <div class="big-layer"></div>
               <div>
                 <div class="card-title">
-                  Max Supply:
+                  Max Supply
                 </div>
                 <div class="big-num">
                   {{getTechData('maxSupply') | number: '1.0-1'}}
                 </div>
               </div>
             </div>
+            <div class="card-note-text">* Most of the tokens are locked and not liquid. More info will come soon</div>
           </div>
         </div>
         <div class="small-layer"></div>
@@ -148,11 +149,11 @@
             <div class="small-layer"></div>
             <div class="card auto flex-grow">
               <div class="card-title">
-                Annual Network Revenue
+                5 Years Network Revenue
               </div>
               <div class="flex-no-shrink">
                 <div class="big-num">
-                  <app-amount [amount]="getConvertedData('annualNetworkRevenue')" fixedDecimal="true"></app-amount>
+                  <app-amount [amount]="getConvertedData('fiveYearsNetworkRevenue')" fixedDecimal="true"></app-amount>
                 </div>
                 <div class="card-subtitle">
                   With full utilization
