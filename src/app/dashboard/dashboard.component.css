@@ -71,6 +71,12 @@
   font-size: 11px;
   text-align: center;
 }
+.card-note-text.left{
+  text-align: left;
+}
+.card-note-text.padding{
+  padding-top: 5px;
+}
 .left-col .supply-line .card-title{
   padding-bottom: 0;
 }
@@ -144,6 +150,9 @@
     padding-left: 0;
   }  
   .left-col .supply-line .card{
+    text-align: center;
+  }
+  .card-note-text.left{
     text-align: center;
   }
   
