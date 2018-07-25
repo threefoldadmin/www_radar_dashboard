@@ -78,12 +78,12 @@ export class TokenPriceHighchartComponent implements OnInit {
       series: [{
         name: 'TFT/USD',
         yAxis: 0,
-        data: this.TFT_USD,
+        data: this.TFT_USD.sort(),
         color: '#e797f5'
       }, {
         name: 'TFT/BTC',
         yAxis: 1,
-        data: this.TFT_BTC,
+        data: this.TFT_BTC.sort(),
         color: '#00ffff'
       }]
     });
