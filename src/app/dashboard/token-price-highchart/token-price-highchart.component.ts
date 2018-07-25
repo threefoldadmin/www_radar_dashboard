@@ -1,54 +1,25 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { StockChart } from 'angular-highcharts';
-import { Subscription } from 'rxjs';
-import { AppComponent } from '../../app.component';
 
 @Component({
   selector: 'app-token-price-highchart',
   templateUrl: './token-price-highchart.component.html',
   styleUrls: ['./token-price-highchart.component.css']
 })
-export class TokenPriceHighchartComponent implements OnInit, OnDestroy {
-  @Input() public data;
-
-  private subscriptions: Subscription[] = [];
-  private btcUsdRate = 0;
+export class TokenPriceHighchartComponent implements OnInit {
+  @Input() public TFT_BTC;
+  @Input() public TFT_USD;
 
   public stock: StockChart;
   public isFullScreenMode = false;
 
   constructor(
-    private appComponent: AppComponent
   ) { }
 
   ngOnInit() {
     this.initChart();
-    const exchangeRatesSub = this.appComponent.dataService.exchangeRates$.subscribe(
-      rates => {
-        if (rates) {
-          const btcUsdRate = rates.btcUsd;
-          if (!this.btcUsdRate) {
-            this.btcUsdRate = btcUsdRate;
-            this.initChart();
-          }
-        }
-      }
-    );
-    this.subscriptions.push(exchangeRatesSub);
-  }
-  ngOnDestroy() {
-    this.subscriptions
-      .forEach(s => s.unsubscribe());
   }
   private initChart() {
-    const dataUSD = this.data.map(el => {
-      const timestamp = el[0];
-      const priceBTC = el[1];
-      const priceUSD = this.btcUsdRate * priceBTC;
-      const formattedPrice = Number(priceUSD.toFixed(6));
-      return [timestamp, formattedPrice];
-    });
-
     this.stock = new StockChart({
       rangeSelector: {
         selected: 0,
@@ -107,12 +78,12 @@ export class TokenPriceHighchartComponent implements OnInit, OnDestroy {
       series: [{
         name: 'TFT/USD',
         yAxis: 0,
-        data: dataUSD,
+        data: this.TFT_USD,
         color: '#e797f5'
       }, {
         name: 'TFT/BTC',
         yAxis: 1,
-        data: this.data,
+        data: this.TFT_BTC,
         color: '#00ffff'
       }]
     });

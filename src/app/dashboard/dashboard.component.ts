@@ -15,8 +15,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   public lastBlocks = [];
   public peers = [];
   public tokenPriceHistory = [];
-  public tokenPriceBTCAlphaHistory = [];
-
+  public tftPriceBTCAlpha = {
+    tft_btc: [],
+    tft_usd: []
+  };
   constructor(
     private appComponent: AppComponent,
     private router: Router
@@ -57,8 +59,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   public getData() {
     this.appComponent.getMainData();
     this.getPeers();
-    this.getTokenPriceHistory();
-    this.getTokenPriceBTCAlphaHistory();
+    this.getTFTPriceBTCAlpha();
 
   }
   public getPeers() {
@@ -70,21 +71,21 @@ export class DashboardComponent implements OnInit, OnDestroy {
       },
     );
   }
-  public getTokenPriceHistory() {
-    this.appComponent.API('get', 'exchanges/month').subscribe(
+  // public getTokenPriceHistory() {
+  //   this.appComponent.API('get', 'exchanges/month').subscribe(
+  //     data => {
+  //       if (data) {
+  //         this.tokenPriceHistory = data;
+  //       }
+  //     },
+  //   );
+  // }
+  public getTFTPriceBTCAlpha() {
+    this.appComponent.API('get', `chart/rates`).subscribe(
       data => {
         if (data) {
-          this.tokenPriceHistory = data;
-        }
-      },
-    );
-  }
-  public getTokenPriceBTCAlphaHistory() {
-    const frame = 15;
-    this.appComponent.API('get', `chart/currency/${frame}`).subscribe(
-      data => {
-        if (data) {
-          this.tokenPriceBTCAlphaHistory = data;
+          this.tftPriceBTCAlpha.tft_btc = data.TFT_BTC;
+          this.tftPriceBTCAlpha.tft_usd = data.TFT_USD;
         }
       },
     );
