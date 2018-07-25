@@ -46,7 +46,7 @@ export class TokenPriceHighchartComponent implements OnInit {
       },
       tooltip: {
         shared: true,
-        // pointFormat: 'TFT price: {point.y:.8f}',
+        pointFormat: '{series.name}: <b>{point.y:,.8f}</b>',
         style: {
           color: '#fff'
         }
