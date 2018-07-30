@@ -15,6 +15,7 @@
     <app-amount [amount]="tradeVolume()" decimalMin="0" decimalMax="0"></app-amount>
   </div>
     
+  
   <div class="tips">
     <div class="tip" *ngFor="let currency of currencies.pairs" [class.active]="currencies.current === currency" (click)="setCurrency(currency)">
       {{currencies.names[currency]}}
