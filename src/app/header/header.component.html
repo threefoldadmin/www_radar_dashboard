@@ -2,24 +2,29 @@
   <a class="logo" routerLink="/">
     <img src="/assets/images/tff-logo-white.svg" alt="">
   </a>
-  <div class="price-line blue-text">
+  <div class="price-line blue-text tooltip">
     <div class="price-line-content">
       <span>
         1 TFT =&nbsp;
       </span>
-      <app-amount [amount]="tokenPrice()" decimalMin="0" decimalMax="4"></app-amount>
+      <app-amount [amount]="tokenPrice()" decimalMin="4" decimalMax="4"></app-amount>
     </div>
     <div class="price-line-note">
       * Average Monthly Price
     </div>
+    <a class="tooltip-body" routerLink="/markets">
+      Go to Markets
+    </a>
   </div>
     
-  
-  <div class="volume-line blue-text">
+  <div class="volume-line blue-text tooltip">
     <div class="volume-line-title">
       Monthly Trading Volume:&nbsp;
     </div>
     <app-amount [amount]="tradeVolume()" decimalMin="0" decimalMax="0"></app-amount>
+    <a class="tooltip-body" routerLink="/markets">
+      Go to Markets
+    </a>
   </div>
     
   

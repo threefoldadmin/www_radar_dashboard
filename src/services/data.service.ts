@@ -8,5 +8,7 @@ export class DataService {
   public exchangeRates$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   public currency$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   public tokenPriceBTCAlphaHistory$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  public markets$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+
   constructor() { }
 }

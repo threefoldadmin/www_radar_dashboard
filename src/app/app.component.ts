@@ -100,6 +100,11 @@ export class AppComponent {
 
     this.dataService.exchangeRates$.next(data.currency);
     this.dataService.lastBlock$.next(data.lastBlock);
+
+    if (data.markets) {
+      this.dataService.markets$.next(data.markets);
+    }
+
     if (data.lastBlocks) {
       this.dataService.lastBlocks$.next(data.lastBlocks);
     }
