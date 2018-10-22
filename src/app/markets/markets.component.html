@@ -5,15 +5,12 @@
     <div class="page-title">
       Markets
     </div>
-    <div class="tbl-header">
+    <div class="table-header">
       <table cellpadding="0" cellspacing="0" border="0">
         <thead>
           <tr>
-            <th>
-              Name of the exchange
-            <th>
-              Pair of the market
-            </th>
+            <th>Name of the exchange</th>
+            <th>Pair of the market</th>
             <th>Volume 30 days</th>
             <th>Average weighted price</th>
             <th>% of the total volume</th>
@@ -21,15 +18,38 @@
         </thead>
       </table>
     </div>
-    <div class="tbl-content">
+    <div class="table-content">
       <table cellpadding="0" cellspacing="0" border="0">
         <tbody>
-          <tr>
-            <td>AAC</td>
-            <td>AUSTRALIAN COMPANY </td>
-            <td>$1.38</td>
-            <td>+2.01</td>
-            <td>-0.36%</td>
+          <tr *ngFor="let market of markets">
+            <td>
+              <a [href]="market.resourceUrl" target="_blank">{{market.resource}}</a>
+            </td>
+            <td>
+              <a [href]="market.resourceUrl" target="_blank">{{market.pairName}}</a>
+            </td>
+            <td>
+              <span *ngIf="!market?.monthlyVolume">-</span>
+              <app-amount
+              *ngIf="market?.monthlyVolume"
+              [amount]="monthlyVolume(market.monthlyVolume)"
+              decimalMin="0"
+              decimalMax="0"></app-amount>
+            </td>
+            <td>
+              <span *ngIf="!market?.monthlyAverageWeightedPrice">-</span>
+              <app-amount
+              *ngIf="market?.monthlyAverageWeightedPrice"
+              [amount]="monthlyAverageWeightedPrice(market.monthlyAverageWeightedPrice)" 
+              decimalMin="4"
+              decimalMax="4"></app-amount>
+            </td>
+            <td>
+              <span *ngIf="!market?.percentPartOfTotal">-</span>
+              <span *ngIf="market?.percentPartOfTotal">
+                {{market.percentPartOfTotal | number: '1.2-2'}}%
+              </span>
+            </td>
           </tr>
         </tbody>
       </table>
