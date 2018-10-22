@@ -32,10 +32,14 @@ header .search-line input{
 }
 header .price-line{
   font-weight: bold;
-  display: flex;
   font-size: 25px;
-  justify-content: center;
   min-width: 250px;
+}
+header .price-line .price-line-content{
+  display: flex;
+}
+header .price-line .price-line-note{
+  font-size: 10px;
 }
 header .volume-line{
   font-weight: bold;
@@ -64,7 +68,13 @@ header .tips{
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-  } 
+  }
+  header .price-line{
+    text-align: center;
+  }
+  header .price-line .price-line-content {
+    justify-content: center;
+  }
 }
 /*1099px*/
 
@@ -74,6 +84,13 @@ header .tips{
     width: 100%;
     min-width: 100%;
   } 
+  header .price-line{
+    margin-top: 7px;
+    margin-bottom: 7px;
+  }
+  header .volume-line {
+    margin-bottom: 5px;
+  }
   header .tips{
     width: 100%;
     text-align: center;

@@ -39,6 +39,8 @@ export class AppComponent {
   public computeUnitPriceUSD = 0;
   public storageUnitPriceUSD = 0;
 
+  public circulatingSupply = 186046470;
+  public monthlyTradingVolume = 0;
   public weightedTokenPriceUSD = 0;
   public tradePairs;
 
@@ -87,7 +89,12 @@ export class AppComponent {
   }
   public setMainData(data: any) {
     this.totalSupply = this.tokens(data.totalSupply);
-    this.weightedTokenPriceUSD = data.currency.tftPrice.weightedAveragePrice;
+    // HARDCORE
+    // this.weightedTokenPriceUSD = data.currency.tftPrice.monthlyAverageWeightedPrice;
+    // this.monthlyTradingVolume = data.currency.tftPrice.monthlyTradingVolume;
+    this.monthlyTradingVolume = 1290029.063050;
+    this.weightedTokenPriceUSD = 0.0958;
+
     this.tradePairs = data.currency.tftPrice.pairs;
     this.exchangeRates = data.currency;
 
@@ -151,7 +158,6 @@ export class AppComponent {
     let result;
     const tokens = this.tokens(value);
     const pair = this.currentCurrencyPair;
-
     let tokenPriceUSD = this.weightedTokenPriceUSD;
     if (exchangeRates) {
       tokenPriceUSD = this.calculateTokenPrice(exchangeRates.tftPrice.pairs, exchangeRates);

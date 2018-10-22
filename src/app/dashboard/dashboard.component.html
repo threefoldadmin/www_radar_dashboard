@@ -48,6 +48,26 @@
             <div class="card-note-text">
               * Most of the tokens are locked and not liquid. More info will come soon
             </div>
+            <div class="line"></div>
+            <div class="full-width flex-center flex-wrap">
+              <div>
+                <div class="card-title">
+                  Circulating Supply
+                </div>
+                <div class="big-num">
+                  {{getTechData('circulatingSupply') | number: '1.0-0'}}
+                </div>
+              </div>
+              <div class="huge-layer"></div>
+              <div>
+                <div class="card-title">
+                  Revenue Per Circulating Token
+                </div>
+                <div class="big-num">
+                  <app-amount [amount]="revenuePerCirculatingToken()" decimalMin="2" decimalMax="2"></app-amount>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="small-layer"></div>

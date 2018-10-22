@@ -55,11 +55,23 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
   public tradeVolume() {
     let tradeVolume = 0;
-    const pairs = this.appComponent.tradePairs;
-    if (pairs && pairs.TFT_BTC && pairs.TFT_USD) {
-      const tradeVolumeTFT = pairs.TFT_BTC.volume + pairs.TFT_USD.volume;
-      tradeVolume = this.appComponent.tokenConverter(tradeVolumeTFT * 1000000000);
+    const rates = {
+      btcUsd: 6469.10944957,
+      usdEur: 1.147
+    };
+    const tradeVolumeUSD = 123600.30;
+    const pair = this.appComponent.currentCurrencyPair;
+    if (pair === 'usd') {
+      tradeVolume = tradeVolumeUSD;
+    } else if (pair === 'btcUsd') {
+      tradeVolume = tradeVolumeUSD / rates.btcUsd;
+    } else {
+      tradeVolume = tradeVolumeUSD / rates.usdEur;
     }
+    //  if (monthlyTradingVolume) {
+    //   console.log(monthlyTradingVolume);
+    //   tradeVolume = this.appComponent.tokenConverter(monthlyTradingVolume * 1000000000);
+    // }
     return tradeVolume;
   }
 }
