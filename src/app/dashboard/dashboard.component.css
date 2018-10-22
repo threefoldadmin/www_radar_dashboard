@@ -80,6 +80,12 @@
 .left-col .supply-line .card-title{
   padding-bottom: 0;
 }
+.line{
+  height: 1px;
+  background: rgba(250, 250, 250, 0.3);
+  margin-top: 0.5vw;
+  margin-bottom: 0.5vw;
+}
 @media only screen and (max-width : 1400px) {
   .left-col{
     min-width: 55%;
@@ -151,6 +157,9 @@
   }  
   .left-col .supply-line .card{
     text-align: center;
+  }
+  .left-col .supply-line .card>>>app-amount span.flex {
+    justify-content: center;
   }
   .card-note-text.left{
     text-align: center;

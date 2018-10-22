@@ -146,4 +146,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
     return this.appComponent[name] / divisor;
   }
+  public revenuePerCirculatingToken() {
+    const fiveYearsNetworkRevenue = this.getConvertedData('fiveYearsNetworkRevenue');
+    const circulatingSupply = this.getTechData('circulatingSupply');
+    return fiveYearsNetworkRevenue / circulatingSupply;
+  }
 }

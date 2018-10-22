@@ -3,14 +3,21 @@
     <img src="/assets/images/tff-logo-white.svg" alt="">
   </a>
   <div class="price-line blue-text">
-    <span>
-      1 TFT =&nbsp;
-    </span>
-    <app-amount [amount]="tokenPrice()"></app-amount>
+    <div class="price-line-content">
+      <span>
+        1 TFT =&nbsp;
+      </span>
+      <app-amount [amount]="tokenPrice()" decimalMin="0" decimalMax="4"></app-amount>
+    </div>
+    <div class="price-line-note">
+      * Average Monthly Price
+    </div>
   </div>
+    
+  
   <div class="volume-line blue-text">
     <div class="volume-line-title">
-      Daily Trading Volume:&nbsp;
+      Monthly Trading Volume:&nbsp;
     </div>
     <app-amount [amount]="tradeVolume()" decimalMin="0" decimalMax="0"></app-amount>
   </div>
