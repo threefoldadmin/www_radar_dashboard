@@ -34,6 +34,7 @@ import { AddressExplorerComponent } from './explorer/address-explorer/address-ex
 import { BlockExplorerComponent } from './explorer/block-explorer/block-explorer.component';
 import { TransactionExplorerComponent } from './explorer/transaction-explorer/transaction-explorer.component';
 import { AmountComponent } from './amount/amount.component';
+import { MarketsComponent } from './markets/markets.component';
 
 export function highchartsModules() {
   // apply Highcharts Modules to this array
@@ -56,7 +57,8 @@ export function highchartsModules() {
     BlockExplorerComponent,
     TransactionExplorerComponent,
     AmountComponent,
-    TokenPriceHighchartComponent
+    TokenPriceHighchartComponent,
+    MarketsComponent
   ],
   imports: [
     BrowserModule,
