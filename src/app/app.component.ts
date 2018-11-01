@@ -89,11 +89,9 @@ export class AppComponent {
   }
   public setMainData(data: any) {
     this.totalSupply = this.tokens(data.totalSupply);
-    // HARDCORE
-    // this.weightedTokenPriceUSD = data.currency.tftPrice.monthlyAverageWeightedPrice;
-    // this.monthlyTradingVolume = data.currency.tftPrice.monthlyTradingVolume;
-    this.monthlyTradingVolume = 1290029.063050;
-    this.weightedTokenPriceUSD = 0.0958;
+
+    this.weightedTokenPriceUSD = data.currency.tftPrice.monthlyAverageWeightedPrice;
+    this.monthlyTradingVolume = data.currency.tftPrice.monthlyTradingVolume;
 
     this.tradePairs = data.currency.tftPrice.pairs;
     this.exchangeRates = data.currency;

@@ -54,24 +54,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     return this.appComponent.tokenConverter(oneToken);
   }
   public tradeVolume() {
-    let tradeVolume = 0;
-    const rates = {
-      btcUsd: 6469.10944957,
-      usdEur: 1.147
-    };
-    const tradeVolumeUSD = 123600.30;
-    const pair = this.appComponent.currentCurrencyPair;
-    if (pair === 'usd') {
-      tradeVolume = tradeVolumeUSD;
-    } else if (pair === 'btcUsd') {
-      tradeVolume = tradeVolumeUSD / rates.btcUsd;
-    } else {
-      tradeVolume = tradeVolumeUSD / rates.usdEur;
-    }
-    //  if (monthlyTradingVolume) {
-    //   console.log(monthlyTradingVolume);
-    //   tradeVolume = this.appComponent.tokenConverter(monthlyTradingVolume * 1000000000);
-    // }
-    return tradeVolume;
+    const oneToken = 1000000000;
+    const tradingVolumeTokens = this.appComponent.monthlyTradingVolume;
+    const tradeVolumeCurrency = this.appComponent.tokenConverter(tradingVolumeTokens * oneToken);
+
+    return tradeVolumeCurrency;
   }
 }
