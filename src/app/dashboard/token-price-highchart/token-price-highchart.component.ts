@@ -53,6 +53,7 @@ export class TokenPriceHighchartComponent implements OnInit {
       },
       yAxis: [{
         offset: 40,
+        showLastLabel: true,
         labels: {
           format: '${value}',
         },
@@ -65,6 +66,8 @@ export class TokenPriceHighchartComponent implements OnInit {
         opposite: true
       }, {
         gridLineWidth: 0,
+        min: 0,
+        showLastLabel: true,
         labels: {
           format: '{value} BTC',
         },
