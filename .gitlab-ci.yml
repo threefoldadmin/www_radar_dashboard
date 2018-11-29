@@ -10,7 +10,7 @@ deploy_dev:
 deploy_prod_distributors_dashboard:
   script:
     - pwd
-    - call npm production
+    # - call npm production
     - rsync -a ./dist --exclude '.git' root@207.154.221.32:/var/www/html/tft
   only:
     - master
