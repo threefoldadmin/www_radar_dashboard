@@ -19,54 +19,66 @@
           <div class="card">
             <div class="full-width flex-center flex-wrap">
               <div>
-                <div class="card-title">
-                  Total Supply*
+                <div class="bordered">
+                  <div class="card-title">
+                    Total Supply*
+                  </div>
+                  <div class="big-num">
+                    {{getTechData('totalSupply') | number: '1.0-0'}}
+                  </div>
+                  <div class="small-layer"></div>
                 </div>
-                <div class="big-num">
-                  {{getTechData('totalSupply') | number: '1.0-0'}}
+                <div class="small-layer"></div>
+                <div>
+                  <div class="card-title">
+                    Circulating Supply
+                  </div>
+                  <div class="big-num">
+                    {{getTechData('circulatingSupply') | number: '1.0-0'}}
+                  </div>
                 </div>
               </div>
+              
               <div class="big-layer"></div>
               <div>
-                <div class="card-title">
-                  Total Token Capitalization
+                <div class="bordered">
+                  <div class="flex-center flex-wrap">
+                    <div>
+                      <div class="card-title">
+                        Total Token Capitalization
+                      </div>
+                      <div class="big-num">
+                        <app-amount [amount]="totalTokenCapitalization()" fixedDecimal="true"></app-amount>
+                      </div>
+                    </div>
+                    <div class="big-layer"></div>
+                    <div>
+                      <div class="card-title">
+                        Max Supply
+                      </div>
+                      <div class="big-num">
+                        {{getTechData('maxSupply') | number: '1.0-1'}}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="small-layer"></div>
                 </div>
-                <div class="big-num">
-                  <app-amount [amount]="totalTokenCapitalization()" fixedDecimal="true"></app-amount>
-                </div>
-              </div>
-              <div class="big-layer"></div>
-              <div>
-                <div class="card-title">
-                  Max Supply
-                </div>
-                <div class="big-num">
-                  {{getTechData('maxSupply') | number: '1.0-1'}}
+                <div class="small-layer"></div>
+                <div class="tooltip">
+                  <div class="card-title">
+                    Revenue Per Circulating Token, 5 Year Potential
+                  </div>
+                  <div class="big-num">
+                    <app-amount [amount]="revenuePerCirculatingToken()" decimalMin="2" decimalMax="2"></app-amount>
+                  </div>
+                  <a class="tooltip-body middle" href="https://github.com/threefoldfoundation/info_grid/blob/development/docs/concepts/commercial_token_value_calculation.md" target="_blank">
+                    Go to Token value calculation
+                  </a>
                 </div>
               </div>
             </div>
-            <div class="card-note-text">
+            <div class="card-note-text padding">
               * Most of the tokens are locked and not liquid. More info will come soon
-            </div>
-            <div class="line"></div>
-            <div class="full-width flex-center flex-wrap">
-              <div>
-                <div class="card-title">
-                  Circulating Supply
-                </div>
-                <div class="big-num">
-                  {{getTechData('circulatingSupply') | number: '1.0-0'}}
-                </div>
-              </div>
-              <div class="huge-layer"></div>
-              <div>
-                <div class="card-title">
-                  Revenue Per Circulating Token
-                </div>
-                <div class="big-num">
-                  <app-amount [amount]="revenuePerCirculatingToken()" decimalMin="2" decimalMax="2"></app-amount>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -197,16 +209,6 @@
           </div>
            <app-token-price-highchart [TFT_BTC]="tftPriceBTCAlpha.tft_btc" [TFT_USD]="tftPriceBTCAlpha.tft_usd"></app-token-price-highchart>
         </div>
-        <!-- <div class="small-layer"></div>
-        <div class="flex charts-line">
-          <div class="card chart">
-            <app-token-price-chart [data]="tokenPriceHistory" *ngIf="tokenPriceHistory.length > 0"></app-token-price-chart>
-          </div>
-          <div class="small-layer"></div>
-          <div class="card chart">
-            <app-unit-price-chart></app-unit-price-chart>
-          </div>
-        </div> -->
         <div class="small-layer"></div>
         <app-nodes-maps [peers]="peers" *ngIf="peers.length > 0"></app-nodes-maps>
       </div>
