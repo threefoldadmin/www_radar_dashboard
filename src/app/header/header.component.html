@@ -7,7 +7,7 @@
       <span>
         1 TFT =&nbsp;
       </span>
-      <app-amount [amount]="tokenPrice()" decimalMin="4" decimalMax="4"></app-amount>
+      <app-amount [amount]="tokenPrice()" decimalMin="4" decimalMax="4" tooltip="true"></app-amount>
     </div>
     <div class="price-line-note">
       * Average Monthly Price
@@ -21,7 +21,7 @@
     <div class="volume-line-title">
       Monthly Trading Volume:&nbsp;
     </div>
-    <app-amount [amount]="tradeVolume()" decimalMin="0" decimalMax="0"></app-amount>
+    <app-amount [amount]="tradeVolume()" decimalMin="0" decimalMax="0" tooltip="true"></app-amount>
     <a class="tooltip-body" routerLink="/markets">
       Go to Markets
     </a>
