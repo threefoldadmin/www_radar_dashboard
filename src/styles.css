@@ -221,14 +221,14 @@ pagination-controls .ngx-pagination button:hover{
 }
 
 .tooltip .tooltip-body{
-  --primary-neon: #62debd;
+  /* --primary-neon: #62debd; */
   cursor: pointer;
   opacity: 0;
   visibility: hidden;
   position: absolute;
   content: attr(data-tooltip);
   padding: 6px 10px;
-  width: 102px;
+  min-width: 102px;
   bottom: -27px;
   left: 50%;
   -webkit-transform: translateX(-50%) translateY(-2px);
@@ -250,12 +250,19 @@ pagination-controls .ngx-pagination button:hover{
   -webkit-transform 0.2s cubic-bezier(0.64, 0.09, 0.08, 1);
   text-decoration: underline;
 }
+.tooltip .tooltip-body.middle {
+  bottom: 7px;
+}
+
 .tooltip:hover .tooltip-body {
   display: block;
   opacity: 1;
   visibility: visible;
   -webkit-transform: translateX(-50%) translateY(0);
   transform: translateX(-50%) translateY(0);
+}
+.tooltip .tooltip-body:hover {
+  color: rgba(32, 61, 93, 0.89);
 }
 
 /*  */

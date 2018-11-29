@@ -69,6 +69,10 @@
   font-size: 11px;
   text-align: center;
 }
+.card-note-text a{
+  color: #cfdef8;
+  text-decoration: underline;
+}
 .card-note-text.left{
   text-align: left;
 }
@@ -77,6 +81,9 @@
 }
 .left-col .supply-line .card-title{
   padding-bottom: 0;
+}
+.left-col .supply-line .bordered {
+  padding-top: 2px;
 }
 .line{
   height: 1px;
@@ -104,6 +111,9 @@
   }
   .right-col .blocks-wrapper{
     max-height: 100%
+  }
+  .supply-line .bordered{
+    /* border: none; */
   }
 }
 /*1400*/
@@ -162,7 +172,6 @@
   .card-note-text.left{
     text-align: center;
   }
-  
 }
 /*991*/
 
