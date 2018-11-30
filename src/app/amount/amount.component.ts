@@ -11,6 +11,7 @@ export class AmountComponent implements OnInit {
   @Input() public decimalMax = 2;
   @Input() public decimalMin = 2;
   @Input() public fixedDecimal = false;
+  @Input() public tooltip = false;
 
   constructor(
     private appComponent: AppComponent,

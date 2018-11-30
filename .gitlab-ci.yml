@@ -10,9 +10,7 @@ deploy_dev:
 deploy_prod_distributors_dashboard:
   script:
     - pwd
-    - npm i
-    - npm run build
-    - npm run comporess
+    - npm run production
     - rsync -a ./dist --exclude '.git' root@207.154.221.32:/var/www/html/tft
   only:
     - master
